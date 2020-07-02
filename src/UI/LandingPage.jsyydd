@@ -1,0 +1,128 @@
+import React from "react";
+import Lottie from "react-lottie";
+import { makeStyles } from "@material-ui/core/styles";
+import animationData from "../../animation/Onlinework.json";
+import Grid from "@material-ui/core/Grid";
+import Button from "@material-ui/core/Button";
+import Typography from "@material-ui/core/Typography";
+// import CustomButton from "./Button/CustomButton";
+import connect from "../../assets/student-teacher.svg"
+
+const useStyles = makeStyles((theme) => ({
+  animation: {
+    maxWidth: "50em",
+    minWidth: "21em",
+    marginTop: "2em",
+    marginLeft: "10%",
+    [theme.breakpoints.down("xs")]: {
+      maxWidth: "30em",
+    },
+  },
+  joinus: {
+    ...theme.typography.genericFont,
+    borderRadius: 50,
+    width: 145,
+    height: 45,
+    marginRight: 40,
+    fontSize: "1rem",
+    fontWeight: "bold",
+    "&:hover": {
+      backgroundColor: theme.palette.primary.light,
+    },
+  },
+  mainContainer: {
+    marginTop: "4em",
+    [theme.breakpoints.down("md")]: {
+      marginBottom: "3em",
+    },
+    [theme.breakpoints.down("xs")]: {
+      marginBottom: "2em",
+    },
+  },
+  textContainer: {
+    minWidth: "21.5em",
+    marginLeft: "1em",
+    [theme.breakpoints.down("xs")]: {
+      marginLeft: 0,
+    },
+  },
+  successText:{
+    color: theme.palette.common.darkGold,
+    fontFamily: "Philosopher",
+    fontWeight: "bold",
+    fontStyle: "italic",
+  },
+  support: {
+    height: "10em",
+    width: "10em",
+    marginLeft: "2em",
+    [theme.breakpoints.down("xs")]: {
+      marginLeft: 0,
+    },
+ 
+  },
+  sub: {
+    marginBottom: "1em"
+  },
+  connect: {
+    marginTop: "10em"
+  }
+
+}));
+
+export default function LandingPage() {
+  const classes = useStyles();
+
+  const defaultOptions = {
+    loop: true,
+    autoplay: true,
+    animationData: animationData,
+    rendererSettings: {
+      preserveAspectRatio: "xMidYMid slice",
+    },
+  };
+  return (
+    <Grid container direction='column' className={classes.mainContainer}>
+      <Grid item>
+        {/*----Main Header----*/}
+        <Grid container justify='flex-end' alignItems='center' direction='row'>
+          <Grid sm item className='textContainer'>
+            <Typography variant='h2' align='center'>
+              “Don’t wait. The time will never be just right.”
+            </Typography>
+            <Typography variant='h6' align='center'>
+              – Napoleon Hill
+            </Typography>
+            <Grid container justify='center'>
+              <Grid item>
+                <CustomButton className={classes.joinus}>Join Us</CustomButton>
+              </Grid>
+              <Grid item></Grid>
+            </Grid>
+          </Grid>
+          <Grid sm item className={classes.animation}>
+            <Lottie options={defaultOptions} height={"100%"} width={"100%"} />
+          </Grid>
+        </Grid>
+      </Grid>
+      <Grid item className={classes.connect}> {/*----We Offer----*/}
+      <Grid container style={{marginLeft: "5em"}} direction="raw">
+        <Grid item>
+          <Typography variant="h4">
+            We connect you with the appropriate Mentor
+          </Typography>
+          <Typography variant="subtitle1" className={classes.sub}>
+            How do we help you?
+          </Typography>
+          <Typography variant="subtitle1">
+            Our access ensures your <span className={classes.successText}>success</span>
+          </Typography>
+          <Button variant="outlined">Learn More</Button>
+        </Grid>
+        <Grid item>
+          <img alt="connect" style={{ color: "#ff3422" }} src={connect} className={classes.support} />
+        </Grid>
+        </Grid></Grid>
+    </Grid>
+  );
+}

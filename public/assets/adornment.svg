@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="480" height="170" viewBox="0 0 480 170">
+  <defs>
+    <clipPath id="clip-adornment">
+      <rect width="480" height="170"/>
+    </clipPath>
+  </defs>
+  <g id="adornment" clip-path="url(#clip-adornment)">
+    <path id="Path_13" data-name="Path 13" d="M1395,433h267.25l-94.332,170H1395Z" transform="translate(-1395 -433)" fill="#835a00"/>
+  </g>
+</svg>
