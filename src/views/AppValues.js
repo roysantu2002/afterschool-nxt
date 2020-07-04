@@ -13,7 +13,7 @@ const styles = (theme) => ({
     // overflow: 'hidden',
     marginTop: theme.spacing(8),
     marginBottom: theme.spacing(4),
-    backgroundImage: "url('/assets/bubble.png')",
+    backgroundImage: "url('/assets/bg-patt.svg')",
   },
   // container: {
   //   marginTop: theme.spacing(15),
@@ -54,12 +54,16 @@ function ProductValues(props) {
     // <section className={classes.root}>
     // <Container className={classes.root} component="section">
     <Container className={classes.root} component='section'>
+       <Typography variant="h4" marked="center" align="center" marginBottom='5rem'>
+        Use your imagination, plan your success
+      </Typography>
       {/* <img
           src="/static/assets/bubble.png"
           className={classes.curvyLines}
           alt="curvy lines"
         /> */}
       <Grid container spacing={5}>
+    
         <Grid item xs={12} md={4}>
           <div className={classes.item}>
             <FontAwesomeIcon icon={["fa", "thumbtack"]} size='3x' className={classes.ico}/>
@@ -106,7 +110,7 @@ function ProductValues(props) {
               Achieve goals
             </Typography>
             <Typography variant='h5'>
-              {"You'll no stranger feel stuck in life."}
+              {"You'll no more feel stuck in life."}
               {"as you learn, you achieve what you want."}
             </Typography>
           </div>

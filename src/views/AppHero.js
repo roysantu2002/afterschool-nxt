@@ -26,7 +26,7 @@ const styles = (theme) => ({
     },
   },
   more: {
-    marginTop: theme.spacing(2),
+    marginTop: theme.spacing(3),
   },
 });
 
@@ -38,7 +38,7 @@ function ProductHero(props) {
       {/* Increase the network loading priority of the background image. */}
       <img style={{ display: 'none' }} src={backgroundImage} alt="increase priority" />
       <Typography color="inherit" align="center" variant="h1" marked="center">
-        Learn and Upgrade Your Knowledge | AfterSchool
+        Upgrade Your Knowledge <br/> AfterSchool
       </Typography>
       <Typography color="inherit" align="center" variant="h5" className={classes.h5}>
         Learning is Life
@@ -53,7 +53,7 @@ function ProductHero(props) {
       >
         Register
       </Button>
-      <Typography variant="body2" color="inherit" className={classes.more}>
+      <Typography variant="subtitle1" color="inherit" className={classes.more}>
         Discover your true talent
       </Typography>
     </AppHeroLayout>

@@ -79,10 +79,9 @@ export default createMuiTheme({
       minwidth: 10,
       marginLeft: "25px"
     },
-    h2:{
-      fontFamily: 'Muli',
-      fontSize: "2.5rem",
-      color: `${red}`,
+    h1:{
+      fontFamily: "'Philosopher', 'sans-serif'",
+      fontSize: "3rem",
       fontWeight: 700,
     },
     h4:{
@@ -105,6 +104,7 @@ export default createMuiTheme({
     },
     subtitle1:{
       fontSize: "1.25rem",
+      fontFamily: "'Philosopher', 'sans-serif'",
       fontWeight: 300,
       color: `${lightBlue}`,
     }

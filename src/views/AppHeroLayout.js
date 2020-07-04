@@ -8,6 +8,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const styles = (theme) => ({
   root: {
+    marginTop: 0,
     color: theme.palette.common.white,
     position: 'relative',
     display: 'flex',
@@ -19,7 +20,7 @@ const styles = (theme) => ({
     },
   },
   container: {
-    marginTop: theme.spacing(3),
+    // marginTop: 24,
     marginBottom: theme.spacing(14),
     display: 'flex',
     flexDirection: 'column',
@@ -43,7 +44,7 @@ const styles = (theme) => ({
     bottom: 0,
     backgroundSize: 'cover',
     backgroundRepeat: 'no-repeat',
-    zIndex: -2,
+    zIndex: -3,
   },
   arrowDown: {
     position: 'absolute',
