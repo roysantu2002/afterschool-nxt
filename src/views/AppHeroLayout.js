@@ -4,6 +4,8 @@ import clsx from 'clsx';
 import { withStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+
 const styles = (theme) => ({
   root: {
     color: theme.palette.common.white,
@@ -45,7 +47,12 @@ const styles = (theme) => ({
   },
   arrowDown: {
     position: 'absolute',
+    height:"16",
+    width:"12",
     bottom: theme.spacing(4),
+    [theme.breakpoints.down("xs")]: {
+      height: "1em",
+    },
   },
 });
 
@@ -64,13 +71,13 @@ function ProductHeroLayout(props) {
         {children}
         <div className={classes.backdrop} />
         <div className={clsx(classes.background, backgroundClassName)} />
-        <img
-          className={classes.arrowDown}
-          src="/assets/ArrowDown.svg"
-          height="16"
-          width="12"
-          alt="arrow down"
-        />
+    
+        <div className={classes.arrowDown}>
+        <FontAwesomeIcon icon={['fa', 'long-arrow-alt-down']} size="3x" color="#835A00"/>
+        {/* <i className="fas fa-arrow-down" size="4x"></i> */}
+        </div>
+
+        
       </Container>
      
     </section>

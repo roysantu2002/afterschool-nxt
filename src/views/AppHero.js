@@ -37,11 +37,11 @@ function ProductHero(props) {
     <AppHeroLayout backgroundClassName={classes.background}>
       {/* Increase the network loading priority of the background image. */}
       <img style={{ display: 'none' }} src={backgroundImage} alt="increase priority" />
-      <Typography color="inherit" align="center" variant="h2" marked="center">
+      <Typography color="inherit" align="center" variant="h1" marked="center">
         Learn and Upgrade Your Knowledge | AfterSchool
       </Typography>
       <Typography color="inherit" align="center" variant="h5" className={classes.h5}>
-        We help you connect with the most knowledgeable mentor.
+        Learning is Life
       </Typography>
       <Button
         color="secondary"

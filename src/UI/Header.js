@@ -256,15 +256,16 @@ export default function Header(props) {
     <React.Fragment>
       <Tabs
         className={classes.tabContainer}
-        color="secondary"
+        //color="secondary"
         value={props.value}
         onChange={handleChange}
         variant="scrollable"
         scrollButtons="on"
-        indicatorColor="primary"
+        // indicatorColor="primary"
         //textColor='darkBlue'
         aria-label="scrollable force tabs example"
       >
+        
         {routes.map((route, index) => (
           <Tab
             className={classes.tab}

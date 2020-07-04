@@ -10,14 +10,14 @@ import { Container } from "@material-ui/core";
 function Home() {
   return (
     <React.Fragment>
-      <Container component='section'>
+  
         <AppHero />
         <AppValues />
         <Courses />
         <Process />
         <AppCTA />
         <GetHelp />
-      </Container>
+  
     </React.Fragment>
   );
 }

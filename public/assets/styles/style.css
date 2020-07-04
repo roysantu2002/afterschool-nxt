@@ -1,0 +1,159 @@
+
+/*================================================
+Top Panel Area CSS
+=================================================*/
+.top-panel {
+    background-color: #222222;
+    text-align: center;
+    position: relative;
+    -webkit-transition: 0.5s;
+    transition: 0.5s;
+    height: auto;
+    padding-top: 13px;
+    padding-bottom: 13px;
+  }
+  
+  .top-panel .panel-content {
+    -webkit-transition: 0.5s;
+    transition: 0.5s;
+  }
+  
+  .top-panel .panel-content p {
+    margin-bottom: 0;
+    line-height: initial;
+    color: #ffffff;
+    font-size: 17px;
+    font-style: italic;
+  }
+  
+  .top-panel .panel-content p b {
+    font-size: 20px;
+  }
+  
+  .top-panel .panel-content p a {
+    display: inline-block;
+    line-height: initial;
+    color: #ffffff;
+    position: relative;
+    font-weight: 700;
+    font-style: normal;
+  }
+  
+  .top-panel .panel-content p a::before {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    width: 0;
+    height: 2px;
+    left: 0;
+    -webkit-transition: 0.5s;
+    transition: 0.5s;
+    background: #ffffff;
+  }
+  
+  .top-panel .panel-content p a:hover::before, .top-panel .panel-content p a:focus::before {
+    width: 100%;
+  }
+  
+  .top-panel .container {
+    position: relative;
+  }
+  
+  .top-panel .panel-close-btn {
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    z-index: 2;
+    -webkit-transform: translateY(-50%);
+            transform: translateY(-50%);
+    color: #ffffff;
+    border-radius: 50%;
+    cursor: pointer;
+    -webkit-transition: 0.5s;
+    transition: 0.5s;
+    opacity: 0.9;
+  }
+  
+  .top-panel .panel-close-btn:hover, .top-panel .panel-close-btn:focus {
+    color: #ffffff;
+    opacity: 1;
+  }
+  
+  .top-panel.hide {
+    opacity: 0;
+    visibility: hidden;
+    height: 0;
+    -webkit-transition: 0.5s;
+    transition: 0.5s;
+    padding: 0;
+  }
+  
+  .top-panel.hide .panel-content {
+    height: 0;
+    opacity: 0;
+    visibility: hidden;
+    -webkit-transition: 0.5s;
+    transition: 0.5s;
+  }
+  
+  /*================================================
+  Top Header Area CSS
+  =================================================*/
+
+
+/*================================================
+Page Title Area CSS
+=================================================*/
+.page-title-area {
+    background-color:#999999;
+    padding-top: 12px;
+    padding-bottom: 12px;
+  }
+  
+  .page-title-area ul {
+    padding-left: 0;
+    list-style-type: none;
+    margin-bottom: 0;
+  }
+  
+  .page-title-area ul li {
+    display: inline-block;
+    margin-right: 15px;
+    position: relative;
+    color: #000000;
+    font-size: 13px;
+  }
+  
+  .page-title-area ul li a {
+    color: #000000;
+    font-size: 13px;
+  }
+  
+  .page-title-area ul li a:hover, .page-title-area ul li a:focus {
+    color: #222222;
+  }
+  
+  .page-title-area ul li::before {
+    content: '/';
+    position: absolute;
+    display: inline-block;
+    left: -10px;
+    top: 0;
+  }
+  
+  .page-title-area ul li:first-child::before {
+    display: none;
+  }
+  
+  .page-title-area ul li:last-child {
+    margin-right: 0;
+  }
+  
+  /*================================================
+  Products Collections Area CSS
+  =================================================*/
+
+  .container {
+    position: relative;
+    padding-left: 10;
+}
