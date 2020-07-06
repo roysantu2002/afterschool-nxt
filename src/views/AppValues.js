@@ -14,6 +14,7 @@ const styles = (theme) => ({
     marginTop: theme.spacing(8),
     marginBottom: theme.spacing(4),
     backgroundImage: "url('/assets/bg-patt.svg')",
+    
   },
   // container: {
   //   marginTop: theme.spacing(15),
@@ -52,9 +53,9 @@ function ProductValues(props) {
   const { classes } = props;
 
   return (
-    // <section className={classes.root}>
-    // <Container className={classes.root} component="section">
-    <Container className={classes.root} component='section'>
+    <section className={classes.root}>
+    <Container  component="section">
+      {/* </Container><Container className={classes.root} component='section'> */}
        <Typography variant="h2" marked="center" align="center">
         Use your imagination, plan your success
       </Typography>
@@ -118,7 +119,7 @@ function ProductValues(props) {
         </Grid>
       </Grid>
     </Container>
-    // </section>
+    </section>
   );
 }
 

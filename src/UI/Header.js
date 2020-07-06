@@ -192,8 +192,15 @@ export default function Header(props) {
 
   const menuOptions = [
     { name: "Learn", link: "/Learn", activeIndex: 2, selectedIndex: 0 },
-    { name: "Writing", link: "/Writing", activeIndex: 2, selectedIndex: 1 },
-    { name: "Robotics", link: "/Robotics", activeIndex: 2, selectedIndex: 2 },
+    { name: "Computer", link: "/Computer", activeIndex: 2, selectedIndex: 1 },
+    { name: "Coding", link: "/Coding", activeIndex: 2, selectedIndex: 2 },
+    { name: "Robotics", link: "/Robotics", activeIndex: 2, selectedIndex: 3 },
+    { name: "Baking", link: "/Baking", activeIndex: 2, selectedIndex: 4 },
+    { name: "Cooking", link: "/Cooking", activeIndex: 2, selectedIndex: 5 },
+    { name: "Dancing", link: "/Dancing", activeIndex: 2, selectedIndex: 6 },
+    { name: "Writing", link: "/Writing", activeIndex: 2, selectedIndex: 7 },
+    { name: "Videography", link: "/Videography", activeIndex: 2, selectedIndex: 8 },
+    { name: "Filmmaking", link: "/Filmmaking", activeIndex: 2, selectedIndex: 9 },
   ];
 
   const routes = [
@@ -289,7 +296,7 @@ export default function Header(props) {
         variant="contained"
         className={classes.cusmButton}
       >
-        SIGN UP
+        Login
       </Button>
 
       <Menu
@@ -410,6 +417,7 @@ export default function Header(props) {
               About
             </ListItemText>
           </ListItem>
+
           <ListItem
             onClick={() => {
               setOpenDrawer(false);
@@ -432,6 +440,30 @@ export default function Header(props) {
               Contact
             </ListItemText>
           </ListItem>
+
+          <ListItem
+            onClick={() => {
+              setOpenDrawer(false);
+              props.setValue(4);
+            }}
+            divider
+            button
+            component={Link}
+            href="/Login"
+            selected={props.value === 4}
+          >
+            <ListItemText
+              className={
+                props.value === 4
+                  ? [classes.drawerItem, classes.drawerItemSelected]
+                  : classes.drawerItemSelected
+              }
+              disableTypography
+            >
+             Login
+            </ListItemText>
+          </ListItem>
+
         </List>
       </SwipeableDrawer>
 

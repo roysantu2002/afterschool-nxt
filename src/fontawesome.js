@@ -8,7 +8,8 @@ import {
   faListOl,
   faCheckCircle,
   faBullseye,
-  faHandsHelping
+  faHandsHelping,
+  faLifeRing
 
 } from "@fortawesome/free-solid-svg-icons";
 
@@ -28,6 +29,7 @@ library.add(
   faCheckCircle,
   faBullseye,
   faHandsHelping,
+  faLifeRing,
   faGithubAlt,
   faGoogle,
   faFacebook,

@@ -85,37 +85,24 @@ export default function Footer(props) {
                 item
                 className={classes.footerLink}
                 component={Link}
-                onClick={() => {
-                  props.setValue(1);
-                  props.setSelectedIndex(1);
-                }}
+                onClick={() => props.setValue(1)}
                 href="/Who"
               >
                 Who
               </Grid>
+            </Grid>
+          </Grid>
+
+          <Grid item className={classes.gridItem}>
+            <Grid container direction="column" spacing={2}>
               <Grid
                 item
                 className={classes.footerLink}
                 component={Link}
-                onClick={() => {
-                  props.setValue(1);
-                  props.setSelectedIndex(1);
-                }}
-                href="/Writing"
+                onClick={() => props.setValue(2)}
+                href="/Learn"
               >
-                Writing
-              </Grid>
-              <Grid
-                item
-                className={classes.footerLink}
-                component={Link}
-                onClick={() => {
-                  props.setValue(1);
-                  props.setSelectedIndex(2);
-                }}
-                href="/Robotics"
-              >
-                Robotics
+                Learn
               </Grid>
             </Grid>
           </Grid>
@@ -125,7 +112,7 @@ export default function Footer(props) {
                 item
                 className={classes.footerLink}
                 component={Link}
-                onClick={() => props.setValue(2)}
+                onClick={() => props.setValue(3)}
                 href="/About"
               >
                 About Us
@@ -138,7 +125,7 @@ export default function Footer(props) {
                 item
                 className={classes.footerLink}
                 component={Link}
-                onClick={() => props.setValue(3)}
+                onClick={() => props.setValue(4)}
                 href="/Contact"
               >
                 Contact Us

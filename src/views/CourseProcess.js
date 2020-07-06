@@ -19,6 +19,7 @@ const styles = (theme) => ({
     marginTop: theme.spacing(8),
     marginBottom: theme.spacing(4),
     backgroundImage: "url('/assets/bg-patt.svg')",
+
   },
   container: {
     marginTop: theme.spacing(10),
@@ -78,16 +79,15 @@ function ProductHowItWorks(props) {
   const { classes } = props;
 
   return (
-    // <section className={classes.root}>
-    //   <Container className={classes.container}>
-
-    <Container className={classes.root} component='section'>
+    <section className={classes.root}>
+    <Container  component="section">
+    {/* <Container className={classes.root} component='section'> */}
       {/* <img
           src="/static/themes/onepirate/productCurvyLines.png"
           className={classes.curvyLines}
           alt="curvy lines"
         /> */}
-      <Container className={classes.root} component='section'></Container>
+      {/* <Container className={classes.root} component='section'></Container> */}
       <Typography variant='h2' marked='center' align='center' >
         How to succeed after school?
       </Typography>
@@ -153,7 +153,7 @@ function ProductHowItWorks(props) {
         </Button>
       </Grid>
     </Container>
-    // </section>
+    </section>
   );
 }
 

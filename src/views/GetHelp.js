@@ -4,6 +4,7 @@ import Button from '@material-ui/core/Button';
 import Container from '@material-ui/core/Container';
 import { withStyles } from '@material-ui/core/styles';
 import Typography from '../UI/Typography';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const styles = (theme) => ({
   root: {
@@ -41,7 +42,11 @@ function ProductSmokingHero(props) {
       <Typography variant="subtitle1" className={classes.link}>
         We are here to help. Get in touch!
       </Typography>
-      <img src="/assets/CTA.jpg" className={classes.buoy} alt="buoy" />
+      <FontAwesomeIcon
+              icon={["fa", "life-ring"]}
+              size='3x'
+              className={classes.ico}
+            />
     </Container>
   );
 }
