@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import Link from '../../src/Link'
+import Link from "../../src/Link";
 import PropTypes from "prop-types";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
@@ -28,8 +28,7 @@ import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
-import Button from '@material-ui/core/Button';
-
+import Button from "@material-ui/core/Button";
 
 function ElevationScroll(props) {
   const { children } = props;
@@ -42,14 +41,14 @@ function ElevationScroll(props) {
   return React.cloneElement(children, {
     elevation: trigger ? 4 : 0,
   });
-} 
+}
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
 
   return (
     <div
-      role="tabpanel"
+      role='tabpanel'
       hidden={value !== index}
       id={`scrollable-force-tabpanel-${index}`}
       aria-labelledby={`scrollable-force-tab-${index}`}
@@ -133,11 +132,11 @@ const useStyles = makeStyles((theme) => ({
     width: "30px",
   },
   drawer: {
-    backgroundColor: theme.palette.common.blue,
+    backgroundColor: theme.palette.common.darkRed,
   },
   drawerItem: {
     ...theme.typography.tab,
-    color: theme.palette.common.grey,
+    color: "white",
     opacity: 0.7,
   },
   drawerItemSelected: {
@@ -156,7 +155,9 @@ const useStyles = makeStyles((theme) => ({
     width: 110,
     textTransform: "none",
     fontSize: ".8rem",
-
+  },
+  drawerItemLogin: {
+    backgroundColor: theme.palette.common.darkGold,
   },
 }));
 
@@ -199,8 +200,18 @@ export default function Header(props) {
     { name: "Cooking", link: "/Cooking", activeIndex: 2, selectedIndex: 5 },
     { name: "Dancing", link: "/Dancing", activeIndex: 2, selectedIndex: 6 },
     { name: "Writing", link: "/Writing", activeIndex: 2, selectedIndex: 7 },
-    { name: "Videography", link: "/Videography", activeIndex: 2, selectedIndex: 8 },
-    { name: "Filmmaking", link: "/Filmmaking", activeIndex: 2, selectedIndex: 9 },
+    {
+      name: "Videography",
+      link: "/Videography",
+      activeIndex: 2,
+      selectedIndex: 8,
+    },
+    {
+      name: "Filmmaking",
+      link: "/Filmmaking",
+      activeIndex: 2,
+      selectedIndex: 9,
+    },
   ];
 
   const routes = [
@@ -266,13 +277,12 @@ export default function Header(props) {
         //color="secondary"
         value={props.value}
         onChange={handleChange}
-        variant="scrollable"
-        scrollButtons="on"
+        variant='scrollable'
+        scrollButtons='on'
         // indicatorColor="primary"
         //textColor='darkBlue'
-        aria-label="scrollable force tabs example"
+        aria-label='scrollable force tabs example'
       >
-        
         {routes.map((route, index) => (
           <Tab
             className={classes.tab}
@@ -292,15 +302,15 @@ export default function Header(props) {
       <Button
         component={Link}
         color='secondary'
-        href="/login"
-        variant="contained"
+        href='/login'
+        variant='contained'
         className={classes.cusmButton}
       >
         Login
       </Button>
 
       <Menu
-        id="learn-menu"
+        id='learn-menu'
         anchorEl={anchorEl}
         open={openMenu}
         onClose={handleClose}
@@ -350,7 +360,7 @@ export default function Header(props) {
             divider
             button
             component={Link}
-            href="/"
+            href='/'
             selected={props.value === 0}
             classes={{ selecte: classes.drawerItemSelected }}
           >
@@ -366,7 +376,7 @@ export default function Header(props) {
             divider
             button
             component={Link}
-            href="/Who"
+            href='/Who'
             selected={props.value === 1}
           >
             <ListItemText className={classes.drawerItem} disableTypography>
@@ -381,7 +391,7 @@ export default function Header(props) {
             divider
             button
             component={Link}
-            href="/Learn"
+            href='/Learn'
             selected={props.value === 2}
           >
             <ListItemText
@@ -390,6 +400,7 @@ export default function Header(props) {
                   ? [classes.drawerItem, classes.drawerItemSelected]
                   : classes.drawerItemSelected
               }
+              className={classes.drawerItem}
               disableTypography
             >
               Learn
@@ -403,7 +414,7 @@ export default function Header(props) {
             divider
             button
             component={Link}
-            href="/About"
+            href='/About'
             selected={props.value === 3}
           >
             <ListItemText
@@ -412,6 +423,7 @@ export default function Header(props) {
                   ? [classes.drawerItem, classes.drawerItemSelected]
                   : classes.drawerItemSelected
               }
+              className={classes.drawerItem}
               disableTypography
             >
               About
@@ -426,7 +438,7 @@ export default function Header(props) {
             divider
             button
             component={Link}
-            href="/Contact"
+            href='/Contact'
             selected={props.value === 4}
           >
             <ListItemText
@@ -435,6 +447,7 @@ export default function Header(props) {
                   ? [classes.drawerItem, classes.drawerItemSelected]
                   : classes.drawerItemSelected
               }
+              className={classes.drawerItem}
               disableTypography
             >
               Contact
@@ -449,7 +462,11 @@ export default function Header(props) {
             divider
             button
             component={Link}
-            href="/Login"
+            classes={{
+              root: classes.drawerItemLogin,
+              selected: classes.drawerItemSelected,
+            }}
+            href='/Login'
             selected={props.value === 4}
           >
             <ListItemText
@@ -458,18 +475,18 @@ export default function Header(props) {
                   ? [classes.drawerItem, classes.drawerItemSelected]
                   : classes.drawerItemSelected
               }
+              className={classes.drawerItem}
               disableTypography
             >
-             Login
+              Login
             </ListItemText>
           </ListItem>
-
         </List>
       </SwipeableDrawer>
 
       <IconButton
         className={classes.drawerIconContainer}
-        color="secondary"
+        color='secondary'
         onClick={() => setOpenDrawer(!openDrawer)}
         disableRipple
       >
@@ -481,16 +498,20 @@ export default function Header(props) {
   return (
     <React.Fragment>
       <ElevationScroll>
-        <AppBar position="fixed" className={classes.appbar}>
+        <AppBar position='fixed' className={classes.appbar}>
           <Toolbar disableGutters={false}>
             <Button
               disableRipple
               className={classes.logoContainer}
               component={Link}
-              href="/"
+              href='/'
               onClick={() => props.setValue(0)}
             >
-              <img src="/assets/asap.svg" alt="logo" className={classes.logo}></img>
+              <img
+                src='/assets/asap.svg'
+                alt='logo'
+                className={classes.logo}
+              ></img>
             </Button>
             {matches ? drawer : tabs}
           </Toolbar>
