@@ -54,7 +54,7 @@ function ProductValues(props) {
     // <section className={classes.root}>
     // <Container className={classes.root} component="section">
     <Container className={classes.root} component='section'>
-       <Typography variant="h4" marked="center" align="center" marginBottom='5rem'>
+       <Typography variant="h4" marked="center" align="center">
         Use your imagination, plan your success
       </Typography>
       {/* <img

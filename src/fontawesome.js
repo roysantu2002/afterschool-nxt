@@ -5,6 +5,7 @@ import {
   faThumbtack,
   faLink,
   faCrosshairs,
+  faListOl
 } from "@fortawesome/free-solid-svg-icons";
 
 import {
@@ -19,6 +20,7 @@ library.add(
   faLongArrowAltDown,
   faThumbtack,
   faCrosshairs,
+  faListOl,
   faGithubAlt,
   faGoogle,
   faFacebook,

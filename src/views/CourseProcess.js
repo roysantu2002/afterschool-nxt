@@ -5,12 +5,20 @@ import Grid from '@material-ui/core/Grid';
 import Container from '@material-ui/core/Container';
 import Button from '../UI/Button/Button';
 import Typography from '../UI/Typography';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const styles = (theme) => ({
+  // root: {
+  //   display: 'flex',
+  //   backgroundImage: "url('/assets/bg-patt.svg')",
+  //   overflow: 'hidden',
+  // },
   root: {
-    display: 'flex',
-    backgroundImage: "url('/assets/bubble.png')",
-    overflow: 'hidden',
+    // display: 'flex',
+    // overflow: 'hidden',
+    marginTop: theme.spacing(8),
+    marginBottom: theme.spacing(4),
+    backgroundImage: "url('/assets/bg-patt.svg')",
   },
   container: {
     marginTop: theme.spacing(10),
@@ -48,33 +56,40 @@ const styles = (theme) => ({
   },
   button: {
     marginTop: theme.spacing(8),
+    minWidth: 200,
   },
+  gridControl: {
+    padding: 20,
+    marginTop: 15,
+  }
+
 });
 
 function ProductHowItWorks(props) {
   const { classes } = props;
 
   return (
-    <section className={classes.root}>
-      <Container className={classes.container}>
+
+    
+    // <section className={classes.root}>
+    //   <Container className={classes.container}>
+
+      <Container className={classes.root} component='section'>
         {/* <img
           src="/static/themes/onepirate/productCurvyLines.png"
           className={classes.curvyLines}
           alt="curvy lines"
         /> */}
-        <Typography variant="h4" marked="center" className={classes.title} component="h2">
+         <Container className={classes.root} component='section'></Container>
+         <Typography variant="h4" marked="center" align="center">
           How it works
         </Typography>
-        <div>
-          <Grid container spacing={5}>
+          <Grid container spacing={5} className={classes.gridControl}>
             <Grid item xs={12} md={4}>
               <div className={classes.item}>
                 <div className={classes.number}>1.</div>
-                <img
-                  src="/static/themes/onepirate/productHowItWorks1.svg"
-                  alt="suitcase"
-                  className={classes.image}
-                />
+
+              <FontAwesomeIcon icon={["fa", "list-ol"]} size='3x' className={classes.ico}/>
                 <Typography variant="h5" align="center">
                   Appointment every Wednesday 9am.
                 </Typography>
@@ -108,7 +123,7 @@ function ProductHowItWorks(props) {
               </div>
             </Grid>
           </Grid>
-        </div>
+          <Grid container justify = "center">
         <Button
           color="primary"
           size="large"
@@ -119,8 +134,9 @@ function ProductHowItWorks(props) {
         >
           Get started
         </Button>
+        </Grid>
       </Container>
-    </section>
+    // </section>
   );
 }
 
