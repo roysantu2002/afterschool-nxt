@@ -10,10 +10,12 @@ const backgroundImage =
 
 const styles = (theme) => ({
   background: {
-    backgroundImage: `url(${backgroundImage})`,
-    backgroundColor: '#7fc7d9', // Average color of the background image.
+   backgroundImage: `url(${backgroundImage})`,
+    //backgroundColor: '#7fc7d9', // Average color of the background image.
     backgroundPosition: 'center',
     maxwidth: "80%",
+    
+ 
   },
   button: {
     minWidth: 200,
@@ -22,7 +24,7 @@ const styles = (theme) => ({
     marginBottom: theme.spacing(4),
     marginTop: theme.spacing(4),
     [theme.breakpoints.up('sm')]: {
-      marginTop: theme.spacing(10),
+      marginTop: theme.spacing(8),
     },
   },
   more: {
@@ -42,7 +44,7 @@ function ProductHero(props) {
   return (
     <AppHeroLayout backgroundClassName={classes.background}>
       {/* Increase the network loading priority of the background image. */}
-      <img style={{ display: 'none' }} src={backgroundImage} alt="increase priority" />
+      <img style={{ display: 'none' }} src={backgroundImage} alt="Learning afterschool" />
       <Typography color="inherit" align="center" variant="h1" className={classes.head}>
         Learning After School
       </Typography>

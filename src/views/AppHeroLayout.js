@@ -13,11 +13,14 @@ const styles = (theme) => ({
     position: 'relative',
     display: 'flex',
     alignItems: 'center',
+    marginTop: theme.spacing(0),
     [theme.breakpoints.up('sm')]: {
       height: '80vh',
       minHeight: 500,
       maxHeight: 1300,
+      marginTop: theme.spacing(-8),
     },
+    
   },
   container: {
     // marginTop: 24,
@@ -25,6 +28,7 @@ const styles = (theme) => ({
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
+    marginTop: -8
   },
   backdrop: {
     position: 'absolute',
