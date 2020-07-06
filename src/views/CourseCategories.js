@@ -145,7 +145,7 @@ function ProductCategories(props) {
 
   return (
     <Container className={classes.root} component="section">
-      <Typography variant="h4" marked="center" align="center">
+      <Typography variant="h2" marked="center" align="center">
         For all your dreams and all desires
       </Typography>
       <div className={classes.images}>

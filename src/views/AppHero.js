@@ -28,6 +28,12 @@ const styles = (theme) => ({
   more: {
     marginTop: theme.spacing(3),
   },
+  head:{
+    marginTop: theme.spacing(5),
+    [theme.breakpoints.up('sm')]: {
+      marginTop: theme.spacing(10),
+    },
+  }
 });
 
 function ProductHero(props) {
@@ -37,11 +43,13 @@ function ProductHero(props) {
     <AppHeroLayout backgroundClassName={classes.background}>
       {/* Increase the network loading priority of the background image. */}
       <img style={{ display: 'none' }} src={backgroundImage} alt="increase priority" />
-      <Typography color="inherit" align="center" variant="h1" marked="center">
-        Upgrade Your Knowledge <br/> AfterSchool
+      <Typography color="inherit" align="center" variant="h1" className={classes.head}>
+        Learning After School
       </Typography>
       <Typography color="inherit" align="center" variant="h5" className={classes.h5}>
-        Learning is Life
+        How do you? <br/>
+        Keep Learning for Life
+
       </Typography>
       <Button
         color="secondary"

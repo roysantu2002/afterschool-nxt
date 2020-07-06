@@ -81,13 +81,12 @@ export default createMuiTheme({
     },
     h1:{
       fontFamily: "'Philosopher', 'sans-serif'",
-      fontSize: "3rem",
+      fontSize: "4rem",
       fontWeight: 700,
     },
-    h4:{
-      fontFamily: 'Muli',
-      fontSize: "1.75rem",
-      color: `${red}`,
+    h2:{
+      fontFamily: "'Philosopher', 'sans-serif'",
+      fontSize: "2rem",
       fontWeight: 700,
     },
     h5:{

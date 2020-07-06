@@ -81,7 +81,7 @@ function ProductCTA(props) {
                 Can we help you?
               </Typography>
               <Typography variant="h5">
-                We always try to find a best mentor 
+                We'll try to find a best mentor 
               </Typography>
               <TextField noBorder className={classes.textField} placeholder="Your email" />
               <Button type="submit" color="primary" variant="contained" className={classes.button}>

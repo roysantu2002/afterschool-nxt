@@ -33,6 +33,7 @@ const styles = (theme) => ({
     height: 55,
   },
   title: {
+    color:  theme.palette.common.darkBlue,
     marginTop: theme.spacing(5),
     marginBottom: theme.spacing(5),
   },
@@ -54,7 +55,7 @@ function ProductValues(props) {
     // <section className={classes.root}>
     // <Container className={classes.root} component="section">
     <Container className={classes.root} component='section'>
-       <Typography variant="h4" marked="center" align="center">
+       <Typography variant="h2" marked="center" align="center">
         Use your imagination, plan your success
       </Typography>
       {/* <img
@@ -72,8 +73,8 @@ function ProductValues(props) {
                 src="/assets/push.svg"
                 alt="suitcase"
               /> */}
-            <Typography variant='h6' className={classes.title}>
-              Chanllenge yourself
+            <Typography variant='h5' className={classes.title}>
+             CHALLENGE YOURSELF
             </Typography>
             <Typography variant='h5'>
               {"Why Challenge Yourself?"} <br />
@@ -90,8 +91,8 @@ function ProductValues(props) {
                 src="/assets/connect.svg"
                 alt="graph"
               /> */}
-            <Typography variant='h6' className={classes.title}>
-              Connect us
+            <Typography variant='h5' className={classes.title}>
+              CONNECT
             </Typography>
             <Typography variant='h5'>
               {"Why Connect Afterschool?"} <br />
@@ -106,8 +107,8 @@ function ProductValues(props) {
               size='3x'
               color='#835A00'
             />
-            <Typography variant='h6' className={classes.title}>
-              Achieve goals
+            <Typography variant='h5' className={classes.title}>
+              ACHIEVE
             </Typography>
             <Typography variant='h5'>
               {"You'll no more feel stuck in life."}
