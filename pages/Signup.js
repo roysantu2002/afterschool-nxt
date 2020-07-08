@@ -361,11 +361,13 @@ class SignUp extends Component {
                       this.state.password
                     )
                   }
+                  
                   // onClick={this.handleSubmit}
                 >
                   Sign Up with OTP
                 </Button>) : null
             }
+            {console.log("ERRROR" +this.props.authState.error)}
             <h3>{this.state.infoMessage}  </h3>
             {
               this.state.isOtpVisible ? (

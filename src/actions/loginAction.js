@@ -20,8 +20,8 @@ const loginAction = (email, password) => async dispatch => {
 
     .catch(function(error) {
       // if we have any erros, we'll throw an allert with that error
-
-      alert(error);
+      const errorCode = error.code
+      dispatch({ type: "register", payload: false, error: errorCode});
     });
 };
 export default loginAction;

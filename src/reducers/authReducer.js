@@ -9,7 +9,8 @@ export default (state = {}, action) => {
         // keep old state
         ...state,
         // add true/false if the user is or not logged in
-        loggedIn: action.payload
+        loggedIn: action.payload,
+        error: action.error
       };
     case "login":
       console.log("login is ", action.payload);
@@ -17,7 +18,8 @@ export default (state = {}, action) => {
         // keep old state
         ...state,
         // add true/false if the user is or not logged in
-        loggedIn: action.payload
+        loggedIn: action.payload,
+        error: action.error
       };
     default:
       return state;
