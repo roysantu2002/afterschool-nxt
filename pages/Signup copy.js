@@ -6,11 +6,12 @@ import TextField from '@material-ui/core/TextField';
 import Link from '@material-ui/core/Link';
 import Grid from '@material-ui/core/Grid';
 import { withStyles } from '@material-ui/core/styles';
+
 import Container from '@material-ui/core/Container';
 import firebase from '../src/utils/config/firebase';
 import Axios from '../src/utils/config/axiosConfig';
 import OtpInput from 'react-otp-input';
-import { connect } from "react-redux";
+
 import registerAction from '../src/actions/registerAction'
 
 const useStyles = (theme) => ({
@@ -138,125 +139,125 @@ class SignUp extends Component {
     }
   }
 
-  /* Generate and solve invisible recaptcha and send OTP to phone number*/
-  handleSignUp = async () => {
-    this.setState({ infoMessage: "Please wait..." })
-    window.recaptchaVerifier = new firebase.auth.RecaptchaVerifier('sign-up-button', {
-      'size': 'invisible',
-      'callback': function (response) {
-        // Invisible recaptcha solved
-      }
-    });
+  // /* Generate and solve invisible recaptcha and send OTP to phone number*/
+  // handleSignUp = async () => {
+  //   this.setState({ infoMessage: "Please wait..." })
+  //   window.recaptchaVerifier = new firebase.auth.RecaptchaVerifier('sign-up-button', {
+  //     'size': 'invisible',
+  //     'callback': function (response) {
+  //       // Invisible recaptcha solved
+  //     }
+  //   });
 
-    var appVerifier = window.recaptchaVerifier;
+    // var appVerifier = window.recaptchaVerifier;
 
-    let number = '+91' + this.state.phone;
+    // let number = '+91' + this.state.phone;
 
-    firebase.auth().signInWithPhoneNumber(number, appVerifier).then((e) => {
-      this.setState({ isOtpVisible: true, otpConfirmation: e })
-      this.setState({ infoMessage: "Enter the OTP..." })
-      let code = this.state.otpValue;
-      if (code == null) { window.location.href = "/" };
-    }).catch((error) => {
-      alert(error.message);
-      window.location.href = "/"
-    })
-  }
+  //   firebase.auth().signInWithPhoneNumber(number, appVerifier).then((e) => {
+  //     this.setState({ isOtpVisible: true, otpConfirmation: e })
+  //     this.setState({ infoMessage: "Enter the OTP..." })
+  //     let code = this.state.otpValue;
+  //     if (code == null) { window.location.href = "/" };
+  //   }).catch((error) => {
+  //     alert(error.message);
+  //     window.location.href = "/"
+  //   })
+  // }
 
   /* Verify OTP. If verification successful, do the following: 
   1. Create user in firebase authentication system
   2. Save user details to firebase realtime DB
   3. Save Avatar to firebase storage
   4. Provide confirmation message and redirect to result page */
-  verifyOTP = () => {
-    var e = this.state.otpConfirmation;
-    var code = this.state.otpValue;
-    var firstName = this.state.firstName;
-    var lastName = this.state.lastName;
-    var email = this.state.email;
-    var password = this.state.password;
-    var phone = this.state.phone;
-    var image = this.state.image;
+  // verifyOTP = () => {
+  //   var e = this.state.otpConfirmation;
+  //   var code = this.state.otpValue;
+  //   var firstName = this.state.firstName;
+  //   var lastName = this.state.lastName;
+  //   var email = this.state.email;
+  //   var password = this.state.password;
+  //   var phone = this.state.phone;
+  //   var image = this.state.image;
 
-    this.setState({ infoMessage: "Please wait..." })
+  //   this.setState({ infoMessage: "Please wait..." })
 
-    e.confirm(code).then(async (result) => {
-      await this.createUserInFirebase(email, password);
-      await this.saveDetailsToDB(firstName, lastName, email, password, phone, image);
-      /* OTP verification successful. Can be redirected to next page */
-      this.setState({ infoMessage: "OTP verification successful. Redirecting..." })
-      await sleep(2000);
-      window.location.href = "/result";
-    }).catch((error) => {
-      alert(error.message);
-      window.location.href = "/";
-    })
-  }
+  //   e.confirm(code).then(async (result) => {
+  //     await this.createUserInFirebase(email, password);
+  //     await this.saveDetailsToDB(firstName, lastName, email, password, phone, image);
+  //     /* OTP verification successful. Can be redirected to next page */
+  //     this.setState({ infoMessage: "OTP verification successful. Redirecting..." })
+  //     await sleep(2000);
+  //     window.location.href = "/result";
+  //   }).catch((error) => {
+  //     alert(error.message);
+  //     window.location.href = "/";
+  //   })
+  // }
 
-  /* Create user in firebase authentication system using email and password */
-  createUserInFirebase = async (email, password) => {
-    await firebase.auth().createUserWithEmailAndPassword(email, password).then(response => {
-      return true;
-    }).catch(function (error) {
-      alert(error.message);
-      window.location.href = "/";
-      return false;
-    });
-  }
+  // /* Create user in firebase authentication system using email and password */
+  // createUserInFirebase = async (email, password) => {
+  //   await firebase.auth().createUserWithEmailAndPassword(email, password).then(response => {
+  //     return true;
+  //   }).catch(function (error) {
+  //     alert(error.message);
+  //     window.location.href = "/";
+  //     return false;
+  //   });
+  // }
 
   /* Save user details to firebase realtime DB using Axios POST
   and Avatar image to firebase storage */
-  saveDetailsToDB = async (firstName, lastName, email, password, phone, image) => {
-    const Data = {
-      firstName: firstName,
-      lastName: lastName,
-      email: email,
-      password: password,
-      phone: phone
-    }
-    await Axios.post('/users.json', Data).then(response => {
-    }).catch(error => {
-      alert(error.message);
-      window.location.href = "/";
-    });
+  // saveDetailsToDB = async (firstName, lastName, email, password, phone, image) => {
+  //   const Data = {
+  //     firstName: firstName,
+  //     lastName: lastName,
+  //     email: email,
+  //     password: password,
+  //     phone: phone
+  //   }
+  //   await Axios.post('/users.json', Data).then(response => {
+  //   }).catch(error => {
+  //     alert(error.message);
+  //     window.location.href = "/";
+  //   });
 
-    //Upload image
-    var imageName = email.replace("@", "_");
-    const uploadTask = storage().ref('avatars/' + imageName).put(image);
-    await sleep(4000);
-    uploadTask.on('state_changed',
-      (snapshot) => {
-        // progrss function ....
-        console.log("Image uploading...")
-      },
-      (error) => {
-        // error function ....
-        console.log(error);
-        alert(error.message);
-        window.location.href = "/";
-      },
-      () => {
-        // complete function ....
-      });
-  }
+  //   //Upload image
+  //   var imageName = email.replace("@", "_");
+  //   const uploadTask = storage().ref('avatars/' + imageName).put(image);
+  //   await sleep(4000);
+  //   uploadTask.on('state_changed',
+  //     (snapshot) => {
+  //       // progrss function ....
+  //       console.log("Image uploading...")
+  //     },
+  //     (error) => {
+  //       // error function ....
+  //       console.log(error);
+  //       alert(error.message);
+  //       window.location.href = "/";
+  //     },
+  //     () => {
+  //       // complete function ....
+  //     });
+  // }
 
-  /* Handle image selection for Avatar */
-  handleAvatar = () => {
-    var input = document.createElement('input');
-    input.type = 'file';
-    input.onchange = (event) => {
-      if (event.target.files[0]) {
-        const image = event.target.files[0];
-        this.setState(() => ({ image }));
-        var reader = new FileReader();
-        reader.readAsDataURL(input.files[0]);
-        reader.onload = (e) => {
-          this.setState({ imageURL: e.target.result })
-        }
-      }
-    }
-    input.click();
-  }
+  // /* Handle image selection for Avatar */
+  // handleAvatar = () => {
+  //   var input = document.createElement('input');
+  //   input.type = 'file';
+  //   input.onchange = (event) => {
+  //     if (event.target.files[0]) {
+  //       const image = event.target.files[0];
+  //       this.setState(() => ({ image }));
+  //       var reader = new FileReader();
+  //       reader.readAsDataURL(input.files[0]);
+  //       reader.onload = (e) => {
+  //         this.setState({ imageURL: e.target.result })
+  //       }
+  //     }
+  //   }
+  //   input.click();
+  // }
 
   /* Render sign up form */
   render() {
@@ -265,11 +266,11 @@ class SignUp extends Component {
       <Container component="main" maxWidth="xs">
         <CssBaseline />
         <div className={classes.paper} >
-          <Avatar alt="Avatar"
+          {/* <Avatar alt="Avatar"
             src={this.state.imageURL}
             className={classes.large}
             onClick={this.handleAvatar}
-            style={{ cursor: "pointer" }} />
+            style={{ cursor: "pointer" }} /> */}
           <div style={{ fontSize: 12, color: "red" }}>{this.state.imageError}</div>
           <form className={classes.form} onSubmit={this.handleSubmit} noValidate>
             <Grid container spacing={2}>
@@ -331,7 +332,7 @@ class SignUp extends Component {
                 />
                 <div style={{ fontSize: 12, color: "red" }}>{this.state.passwordError}</div>
               </Grid>
-              <Grid item xs={12}>
+              {/* <Grid item xs={12}>
                 <TextField
                   variant="outlined"
                   required
@@ -344,9 +345,19 @@ class SignUp extends Component {
                   onChange={this.handleChange}
                 />
                 <div style={{ fontSize: 12, color: "red" }}>{this.state.phoneError}</div>
-              </Grid>
+              </Grid> */}
             </Grid>
-            {
+            <Button
+                  id="sign-up-button"
+                  fullWidth
+                  variant="contained"
+                  color="primary"
+                  className={classes.submit}
+                  onClick={this.handleSubmit}
+                >
+                  Sign Up with OTP
+                </Button>) : null
+            {/* {
               !this.state.isOtpVisible ?
                 (<Button
                   id="sign-up-button"
@@ -354,19 +365,12 @@ class SignUp extends Component {
                   variant="contained"
                   color="primary"
                   className={classes.submit}
-                  onClick={() =>
-                    this.props.registerAction(
-                      this.state.firstName,
-                      this.state.email,
-                      this.state.password
-                    )
-                  }
-                  // onClick={this.handleSubmit}
+                  onClick={this.handleSubmit}
                 >
                   Sign Up with OTP
                 </Button>) : null
-            }
-            <h3>{this.state.infoMessage}  </h3>
+            } */}
+            {/* <h3>{this.state.infoMessage}  </h3>
             {
               this.state.isOtpVisible ? (
                 <Grid container justify="center">
@@ -390,7 +394,7 @@ class SignUp extends Component {
                   <Button onClick={this.verifyOTP} variant="contained" color="primary">Verify OTP</Button>
                 </Grid>
               ) : null
-            }
+            } */}
             <div id='recaptcha-container'></div>
             <Grid container justify="flex-end">
               <Grid item>
@@ -422,7 +426,8 @@ const mapDispatchToProps = dispatch => ({
 export default connect(
   mapStateToProps,
   mapDispatchToProps,
-)(withStyles(useStyles, { withTheme: true })(SignUp));
+  withStyles(useStyles, { withTheme: true })
+)(SignUp);
 
-//export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(ComponentName))
+
 // export default withStyles(useStyles, { withTheme: true })(SignUp);

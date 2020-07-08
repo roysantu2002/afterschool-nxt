@@ -1,22 +1,26 @@
 import React, { useState } from "react";
-import PropTypes from 'prop-types';
-import Head from 'next/head';
-import '../public/assets/styles/style.css'
-import '../public/assets/styles/fontawesome.min.css'
-import '../src/fontawesome'
-import { ThemeProvider } from '@material-ui/core/styles';
-import CssBaseline from '@material-ui/core/CssBaseline';
-import theme from '../src/UI/AppTheme'
-import Header from '../src/UI/Header'
-import Footer from '../src/UI/Footer'
-import Snackbar from '../src/UI/Snackbar'
-import GoTop from '../src/UI/Components/Shared/GoTop'
-import TopPanel from '../src/UI/Components/TopPanel'
+import PropTypes from "prop-types";
+import Head from "next/head";
+import "../public/assets/styles/style.css";
+import "../public/assets/styles/fontawesome.min.css";
+import "../src/fontawesome";
+import { ThemeProvider } from "@material-ui/core/styles";
+import CssBaseline from "@material-ui/core/CssBaseline";
+import theme from "../src/UI/AppTheme";
+import Header from "../src/UI/Header";
+import Footer from "../src/UI/Footer";
+import Snackbar from "../src/UI/Snackbar";
+import GoTop from "../src/UI/Components/Shared/GoTop";
+import TopPanel from "../src/UI/Components/TopPanel";
+import { createStore} from "redux";
+import middleware from "../src/middleware";
+import reducer from "../src/reducers";
+import { Provider } from "react-redux";
 
 export default function MyApp(props) {
-
   const [selectedIndex, setSelectedIndex] = useState(0);
   const [value, setValue] = useState(0);
+  const store = createStore(reducer, middleware);
 
   // componentDidMount() {
   //   // Remove the server-side injected CSS.
@@ -26,7 +30,6 @@ export default function MyApp(props) {
   //   }
   // }
   //   this.state = {value: 0, selectedIndex: 0}
-  
 
   // setValue = index => {
   //   this.setState({value: index})
@@ -40,7 +43,7 @@ export default function MyApp(props) {
 
   React.useEffect(() => {
     // Remove the server-side injected CSS.
-    const jssStyles = document.querySelector('#jss-server-side');
+    const jssStyles = document.querySelector("#jss-server-side");
     if (jssStyles) {
       jssStyles.parentElement.removeChild(jssStyles);
     }
@@ -50,7 +53,10 @@ export default function MyApp(props) {
     <React.Fragment>
       <Head>
         <title>My page</title>
-        <meta name="viewport" content="minimum-scale=1, initial-scale=1, width=device-width" />
+        <meta
+          name='viewport'
+          content='minimum-scale=1, initial-scale=1, width=device-width'
+        />
       </Head>
       <ThemeProvider theme={theme}>
         {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
@@ -62,8 +68,14 @@ export default function MyApp(props) {
           selectedIndex={selectedIndex}
           setSelectedIndex={setSelectedIndex}
         />
-        <Component {...pageProps} setValue={setValue} selectedIndex={selectedIndex} />
-        <Footer setValue={setValue} selectedIndex={selectedIndex}/>
+        <Provider store={store}>
+          <Component
+            {...pageProps}
+            setValue={setValue}
+            selectedIndex={selectedIndex}
+          />
+        </Provider>
+        <Footer setValue={setValue} selectedIndex={selectedIndex} />
       </ThemeProvider>
       {/* <GoTop scrollStepInPx="50" delayInMs="10.50" /> */}
     </React.Fragment>
