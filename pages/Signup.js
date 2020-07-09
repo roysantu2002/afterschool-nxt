@@ -3,7 +3,7 @@ import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
-import Link from '@material-ui/core/Link';
+import Link from "../src/Link";
 import Grid from '@material-ui/core/Grid';
 import { withStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
@@ -367,7 +367,8 @@ class SignUp extends Component {
                   Sign Up with OTP
                 </Button>) : null
             }
-            {console.log("ERRROR" +this.props.authState.error)}
+            {/* {console.log("ERRROR" +this.props.authState.error)} */}
+            {console.log("STATE" +this.props.authState.uid)}
             <h3>{this.state.infoMessage}  </h3>
             {
               this.state.isOtpVisible ? (
@@ -396,7 +397,7 @@ class SignUp extends Component {
             <div id='recaptcha-container'></div>
             <Grid container justify="flex-end">
               <Grid item>
-                <Link href="/signin" variant="body2">
+                <Link href="/Login" variant="body2">
                   Already have an account? Sign in
               </Link>
               </Grid>
