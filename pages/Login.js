@@ -11,7 +11,8 @@ import firebase from "../src/utils/config/firebase";
 import Axios from "../src/utils/config/axiosConfig";
 import OtpInput from "react-otp-input";
 import { connect } from "react-redux";
-import registerAction from "../src/actions/registerAction";
+import loginAction from "../src/actions/loginAction";
+import Router from 'next/router'
 
 const useStyles = (theme) => ({
   paper: {
@@ -42,7 +43,7 @@ const initialState = {
   password: "",
 };
 
-class SignUp extends Component {
+class Login extends Component {
   state = initialState;
 
   /* Basic validation on form */
@@ -93,7 +94,11 @@ class SignUp extends Component {
 
   /* Render sign up form */
   render() {
-    const { classes } = this.props;
+    const { classes, uid } = this.props;
+
+    {console.log("Local Storage"+localStorage.getItem('afterSchoolUser'))}
+
+    // if(uid) Router.push('/Learn')
     return (
       <Container component='main' maxWidth='xs'>
         <CssBaseline />
@@ -193,8 +198,8 @@ class SignUp extends Component {
             <div id='recaptcha-container'></div>
             <Grid container justify='flex-end'>
               <Grid item>
-                <Link href='/signin' variant='body2'>
-                  Already have an account? Sign in
+                <Link href='/Signup' variant='body2'>
+                  Dont't have an account? Sign up
                 </Link>
               </Grid>
             </Grid>
@@ -211,14 +216,17 @@ function sleep(ms) {
   return new Promise((resolve) => setTimeout(resolve, ms));
 }
 
-const mapStateToProps = (state) => ({
-  ...state,
-});
+const mapStateToProps = (state) => {
+  const uid = state.authState.uid
+  return {
+    uid: uid
+  }
+}
 const mapDispatchToProps = (dispatch) => ({
   loginAction: (email, password) =>
-    dispatch(registerAction(email, password)),
+    dispatch(loginAction(email, password)),
 });
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(withStyles(useStyles, { withTheme: true })(SignUp));
+)(withStyles(useStyles, { withTheme: true })(Login));
