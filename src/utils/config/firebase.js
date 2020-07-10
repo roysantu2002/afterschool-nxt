@@ -1,4 +1,4 @@
-import * as firebase from 'firebase';
+import * as firebaseApp from 'firebase';
 import "firebase/storage";
 import "firebase/firestore";
 
@@ -14,8 +14,16 @@ var config = {
     measurementId: "G-K7PXT2RFQF"
 }
 
-let firebaseConfig = firebase.initializeApp(config);
-export default firebaseConfig;
+export const firebase = firebaseApp.initializeApp(config);
+// export default firebase;
+
+const firestore = firebase.firestore();
+
+// const loginAction = (email, password) => async dispatch => {
+
+
+
+ 
 
 
 // export default !firebase.apps.length ? firebase.initializeApp(config) : firebase.app();

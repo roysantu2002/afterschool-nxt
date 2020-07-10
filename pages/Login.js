@@ -12,6 +12,7 @@ import Axios from "../src/utils/config/axiosConfig";
 import OtpInput from "react-otp-input";
 import { connect } from "react-redux";
 import loginAction from "../src/actions/loginAction";
+import getCourseAction from "../src/actions/getCourseAction"
 import Router from 'next/router'
 
 const useStyles = (theme) => ({
@@ -94,9 +95,11 @@ class Login extends Component {
 
   /* Render sign up form */
   render() {
+
+    console.log(this.props.getCourseAction())
     const { classes, uid } = this.props;
 
-    {console.log("Local Storage"+localStorage.getItem('afterSchoolUser'))}
+    // {console.log("Local Storage"+localStorage.getItem('afterSchoolUser'))}
 
     // if(uid) Router.push('/Learn')
     return (
@@ -223,8 +226,12 @@ const mapStateToProps = (state) => {
   }
 }
 const mapDispatchToProps = (dispatch) => ({
-  loginAction: (email, password) =>
-    dispatch(loginAction(email, password)),
+
+  getCourseAction: () => 
+    dispatch(getCourseAction()),
+
+  // loginAction: (email, password) =>
+  //   dispatch(loginAction(email, password)),
 });
 export default connect(
   mapStateToProps,

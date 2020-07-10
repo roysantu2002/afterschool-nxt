@@ -4,12 +4,13 @@ export default (state = {}, action) => {
     // if the user is logged in or not
     // if the user registers, he will automatically be logged in
     case "register":
-      console.log("register is ", action.payload);
+      console.log("register is ", state);
       return {
         // keep old state
         ...state,
         // add true/false if the user is or not logged in
         loggedIn: action.payload,
+        uid: action.uid,
         error: action.error
       };
     case "login":
@@ -19,8 +20,17 @@ export default (state = {}, action) => {
         ...state,
         // add true/false if the user is or not logged in
         loggedIn: action.payload,
+        uid: action.uid,
         error: action.error
       };
+
+    case "course":
+      console.log("getCourseAction function body")
+      return {
+        ...state,
+      };
+   
+
     default:
       return state;
   }

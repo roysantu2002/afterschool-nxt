@@ -23,7 +23,7 @@ const registerAction = (name, email, password) => async dispatch => {
       userDetailsRef.push().set({ userId: user.user.uid, userName: name });
       // after that we dispatch to our reducers the fact that
       // register was succesful by sending true
-      dispatch({ type: "register", payload: true });
+      dispatch({ type: "register", payload: true, uid: user.user.uid });
       // if the register was not succesful we can catch the erros here
     })
     .catch(function(error) {

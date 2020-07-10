@@ -1,4 +1,4 @@
-import firebase from "../utils/config/firebase"
+import {firebase} from "../utils/config/firebase"
 
 const loginAction = (email, password) => async dispatch => {
   // firebase offers us this function signInWithEmailAndPassword
@@ -14,14 +14,15 @@ const loginAction = (email, password) => async dispatch => {
       // if the login was succesful, then
       // we dispatch to our reducers the fact that
       // login was succesful by sending true
-      dispatch({ type: "login", payload: "true" });
+      localStorage.setItem('afterSchoolUser', user.user.uid);
+      dispatch({ type: "login", payload: true, uid: user.user.uid});
     })
     // if the login was not succesful we can catch the erros here
 
     .catch(function(error) {
       // if we have any erros, we'll throw an allert with that error
       const errorCode = error.code
-      dispatch({ type: "register", payload: false, error: errorCode});
+      dispatch({ type: "login", payload: false, error: errorCode});
     });
 };
 export default loginAction;
