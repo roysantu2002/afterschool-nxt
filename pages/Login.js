@@ -12,8 +12,8 @@ import Axios from "../src/utils/config/axiosConfig";
 import OtpInput from "react-otp-input";
 import { connect } from "react-redux";
 import loginAction from "../src/actions/loginAction";
-import getCourseAction from "../src/actions/getCourseAction"
-import Router from 'next/router'
+import * as getDataApi from "../src/utils/getDataApi";
+import Router from "next/router";
 
 const useStyles = (theme) => ({
   paper: {
@@ -45,7 +45,41 @@ const initialState = {
 };
 
 class Login extends Component {
-  state = initialState;
+  state = {
+    data: [],
+    initialState,
+  };
+
+  async getAllCourse() {
+    const dataset = await getDataApi.getCourseAction()
+    
+    const data = Object.values(dataset);
+    return data
+    //console.log(data)
+    //this.setState({ dataset });
+  }
+  async componentDidMount() {
+    // const data = this.getAllCourse()
+    // console.log(data)
+
+    // getDataApi.getCourseAction()
+    // .then(querySnapshot => {
+    //   const data = querySnapshot.docs.map(doc => doc.data())
+    //   this.setState(data)
+
+    getDataApi.getCourseAction()
+    .then((querySnapshot) => {
+        this.setState({
+          data: querySnapshot
+        })  
+    })
+  }
+
+  // getData = () => {
+
+  //   getDataApi.getCourseAction().then((data) => this.setState(data));
+  // };
+  // state = initialState;
 
   /* Basic validation on form */
   validateForm = () => {
@@ -95,8 +129,8 @@ class Login extends Component {
 
   /* Render sign up form */
   render() {
-
-    console.log(this.props.getCourseAction())
+    { this.state.data.forEach(el =>  console.log(`test data ${el.url}`))}
+    //console.log("Getcourse Data:" + this.state.data);
     const { classes, uid } = this.props;
 
     // {console.log("Local Storage"+localStorage.getItem('afterSchoolUser'))}
@@ -220,16 +254,16 @@ function sleep(ms) {
 }
 
 const mapStateToProps = (state) => {
-  const uid = state.authState.uid
+  const uid = state.authState.uid;
+  // const data = state.authState.data
   return {
-    uid: uid
-  }
-}
+    uid: uid,
+    // data: data
+  };
+};
 const mapDispatchToProps = (dispatch) => ({
-
-  getCourseAction: () => 
-    dispatch(getCourseAction()),
-
+  // getCourseAction: () =>
+  //   dispatch(getCourseAction()),
   // loginAction: (email, password) =>
   //   dispatch(loginAction(email, password)),
 });

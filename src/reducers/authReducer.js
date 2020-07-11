@@ -24,11 +24,13 @@ export default (state = {}, action) => {
         error: action.error
       };
 
-    case "course":
-      console.log("getCourseAction function body")
-      return {
-        ...state,
-      };
+    // case "course":
+    //   console.log("getCourseAction function body")
+    //   console.log("login is ", action.data);
+    //   return {
+    //     ...state,
+    //     data: action.data
+    //   };
    
 
     default:
