@@ -129,7 +129,7 @@ class Login extends Component {
 
   /* Render sign up form */
   render() {
-    { this.state.data.forEach(el =>  console.log(`test data ${el.url}`))}
+    { this.state.data.map(el =>  console.log(`test data ${el.url}`))}
     //console.log("Getcourse Data:" + this.state.data);
     const { classes, uid } = this.props;
 

@@ -1,9 +1,11 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import { withStyles } from "@material-ui/core/styles";
 import ButtonBase from "@material-ui/core/ButtonBase";
 import Container from "@material-ui/core/Container";
 import Typography from "../UI/Typography";
+
+import * as getDataApi from "../../src/utils/getDataApi";
 
 const styles = (theme) => ({
   root: {
@@ -85,62 +87,74 @@ const styles = (theme) => ({
 
 function ProductCategories(props) {
   const { classes } = props;
+  const [courseCat, setcourseCat] = useState([]);
 
-  const images = [
-    {
-      url: "/assets/Computer.jpg",
-      title: "Computer",
-      width: "40%",
-    },
-    {
-      url: "/assets/Coding.jpg",
-      title: "Coding",
-      width: "20%",
-    },
-    {
-      url: "/assets/Robotics.jpg",
-      title: "Robotics",
-      width: "40%",
-    },
-    {
-      url: "/assets/Baking.jpg",
-      title: "Baking",
-      width: "38%",
-    },
-    {
-      url: "/assets/Cooking.jpg",
-      title: "Cooking",
-      width: "38%",
-    },
-    {
-      url: "/assets/Dancing.jpg",
-      title: "Dancing",
-      width: "24%",
-    },
-    {
-      url: "/assets/Writing.jpg",
-      title: "Writing",
-      width: "40%",
-    },
-    {
-      url: "/assets/Videography.jpg",
-      title: "Videography",
-      width: "20%",
-    },
-    {
-      url: "/assets/Filmmaking.jpg",
-      title: "Filmmaking",
-      width: "40%",
-    },
-  ];
+  // const images = [
+  //   {
+  //     url: "/assets/Computer.jpg",
+  //     title: "Computer",
+  //     width: "40%",
+  //   },
+  //   {
+  //     url: "/assets/Coding.jpg",
+  //     title: "Coding",
+  //     width: "20%",
+  //   },
+  //   {
+  //     url: "/assets/Robotics.jpg",
+  //     title: "Robotics",
+  //     width: "40%",
+  //   },
+  //   {
+  //     url: "/assets/Baking.jpg",
+  //     title: "Baking",
+  //     width: "38%",
+  //   },
+  //   {
+  //     url: "/assets/Cooking.jpg",
+  //     title: "Cooking",
+  //     width: "38%",
+  //   },
+  //   {
+  //     url: "/assets/Dancing.jpg",
+  //     title: "Dancing",
+  //     width: "24%",
+  //   },
+  //   {
+  //     url: "/assets/Writing.jpg",
+  //     title: "Writing",
+  //     width: "40%",
+  //   },
+  //   {
+  //     url: "/assets/Videography.jpg",
+  //     title: "Videography",
+  //     width: "20%",
+  //   },
+  //   {
+  //     url: "/assets/Filmmaking.jpg",
+  //     title: "Filmmaking",
+  //     width: "40%",
+  //   },
+  // ];
 
+
+  useEffect(() => {
+    getDataApi.getCourseAction()
+    .then((querySnapshot) => {
+      console.log(`From ${querySnapshot}`)
+        setcourseCat(querySnapshot)
+    })
+  })
   return (
+  
     <Container className={classes.root} component='section'>
       <Typography variant='h2' marked='center' align='center'>
         For all your dreams and all desires
       </Typography>
       <div className={classes.images}>
-        {images.map((image) => (
+     
+        {courseCat.map((image) => (
+          
           <ButtonBase
             href='/Learn'
             key={image.title}
