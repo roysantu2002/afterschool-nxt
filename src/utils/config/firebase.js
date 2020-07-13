@@ -1,30 +1,30 @@
-import * as firebaseApp from 'firebase';
-import "firebase/storage";
-import "firebase/firestore";
+import firebase from "firebase";
+// import "firebase/storage";
+// import "firebase/firestore";
 
 /* TODO: For integration, update firebase configuration here */
 var config = {
-    apiKey: "AIzaSyAbipgg-cCFdio-GnQ95fAhlko1C7UpiDY",
-    authDomain: "react-19b73.firebaseapp.com",
-    databaseURL: "https://react-19b73.firebaseio.com",
-    projectId: "react-19b73",
-    storageBucket: "react-19b73.appspot.com",
-    messagingSenderId: "915146599372",
-    appId: "1:915146599372:web:bc739d75171174faf24b69",
-    measurementId: "G-K7PXT2RFQF"
+  apiKey: "AIzaSyAbipgg-cCFdio-GnQ95fAhlko1C7UpiDY",
+  authDomain: "react-19b73.firebaseapp.com",
+  databaseURL: "https://react-19b73.firebaseio.com",
+  projectId: "react-19b73",
+  storageBucket: "react-19b73.appspot.com",
+  messagingSenderId: "915146599372",
+  appId: "1:915146599372:web:bc739d75171174faf24b69",
+  measurementId: "G-K7PXT2RFQF",
 }
 
-export const firebase = firebaseApp.initializeApp(config);
-// export default firebase;
+// firebase.initializeApp(config)
 
-const firestore = firebase.firestore();
+if (!firebase.apps.length) {
+  firebase.initializeApp(config)
+}
+export default firebase
+// // export default firebase;
+
+// const firestore = firebase.firestore();
 
 // const loginAction = (email, password) => async dispatch => {
-
-
-
- 
-
 
 // export default !firebase.apps.length ? firebase.initializeApp(config) : firebase.app();
 
@@ -35,7 +35,6 @@ const firestore = firebase.firestore();
 
 // export const storage = firebase.storage();
 // export const provider = new firebase.auth.GoogleAuthProvider();
-
 
 // export const signInWithGoogle = () => {
 //   auth.signInWithPopup(provider);
@@ -74,7 +73,4 @@ const firestore = firebase.firestore();
 //   }
 // };
 
-
-
 // export {storage, provider as default };
-

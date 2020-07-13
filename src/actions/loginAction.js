@@ -1,4 +1,4 @@
-import {firebase} from "../utils/config/firebase"
+import firebase from "../utils/config/firebase"
 
 const loginAction = (email, password) => async dispatch => {
   // firebase offers us this function signInWithEmailAndPassword

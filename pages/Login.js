@@ -1,19 +1,11 @@
-import React, { Component } from "react";
-import Avatar from "@material-ui/core/Avatar";
-import Button from "@material-ui/core/Button";
-import CssBaseline from "@material-ui/core/CssBaseline";
-import TextField from "@material-ui/core/TextField";
-import Link from "@material-ui/core/Link";
-import Grid from "@material-ui/core/Grid";
-import { withStyles } from "@material-ui/core/styles";
-import Container from "@material-ui/core/Container";
-import firebase from "../src/utils/config/firebase";
-import Axios from "../src/utils/config/axiosConfig";
-import OtpInput from "react-otp-input";
-import { connect } from "react-redux";
-import loginAction from "../src/actions/loginAction";
-import * as getDataApi from "../src/utils/getDataApi";
-import Router from "next/router";
+import React, { Component } from "react"
+import Button from "@material-ui/core/Button"
+import CssBaseline from "@material-ui/core/CssBaseline"
+import TextField from "@material-ui/core/TextField"
+import Link from "@material-ui/core/Link"
+import Grid from "@material-ui/core/Grid"
+import { withStyles } from "@material-ui/core/styles"
+import Container from "@material-ui/core/Container"
 
 const useStyles = (theme) => ({
   paper: {
@@ -58,22 +50,14 @@ class Login extends Component {
     //console.log(data)
     //this.setState({ dataset });
   }
-  async componentDidMount() {
-    // const data = this.getAllCourse()
-    // console.log(data)
-
-    // getDataApi.getCourseAction()
-    // .then(querySnapshot => {
-    //   const data = querySnapshot.docs.map(doc => doc.data())
-    //   this.setState(data)
-
-    getDataApi.getCourseAction()
-    .then((querySnapshot) => {
-        this.setState({
-          data: querySnapshot
-        })  
-    })
-  }
+  // async componentDidMount() {
+  //   getDataApi.getCourseAction()
+  //   .then((querySnapshot) => {
+  //       this.setState({
+  //         data: querySnapshot
+  //       })  
+  //   })
+  // }
 
   // getData = () => {
 

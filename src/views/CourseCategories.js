@@ -4,7 +4,6 @@ import { withStyles } from "@material-ui/core/styles";
 import ButtonBase from "@material-ui/core/ButtonBase";
 import Container from "@material-ui/core/Container";
 import Typography from "../UI/Typography";
-
 import * as getDataApi from "../../src/utils/getDataApi";
 
 const styles = (theme) => ({
@@ -86,8 +85,9 @@ const styles = (theme) => ({
 });
 
 function ProductCategories(props) {
+
   const { classes } = props;
-  const [courseCat, setcourseCat] = useState([]);
+  const [courseCat, setcourseCat] = useState(0);
 
   // const images = [
   //   {
@@ -146,7 +146,7 @@ function ProductCategories(props) {
     })
   })
   return (
-  
+
     <Container className={classes.root} component='section'>
       <Typography variant='h2' marked='center' align='center'>
         For all your dreams and all desires
