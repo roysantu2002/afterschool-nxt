@@ -84,30 +84,10 @@ const styles = (theme) => ({
   },
 });
 
-class CourseCategories extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = { courseCat: [] };
-  }
-  componentDidMount() {
-    const courseLocalData = [];
-    const courseRemoteData = []
+function ProductCategories(props) {
 
-    
-    getDataApi.getCourseAction().then((querySnapshot) => {
-      querySnapshot.map((query) => {
-        courseLocalData.push(query)
-      })
-      this.setState(() => ({
-        courseCat: courseLocalData,
-      }));
-    });
-  }
-    // {
-    //   data.map((postData) => {
-    //     influencerLocalData.push(postData);
-    //   });
-    // }
+  const { classes } = props;
+  const [courseCat, setcourseCat] = useState([]);
 
   // const images = [
   //   {
@@ -165,17 +145,15 @@ class CourseCategories extends React.Component {
   //       setcourseCat(querySnapshot)
   //   })
   // })
-  render() {
-    const { classes } = this.props;
-    // console.log(this.state.influencerList);
-    return (
+  return (
+
     <Container className={classes.root} component='section'>
       <Typography variant='h2' marked='center' align='center'>
         For all your dreams and all desires
       </Typography>
       <div className={classes.images}>
      
-        {this.state.courseCat.map((image) => (
+        {courseCat.map((image) => (
           <ButtonBase
             href='/Learn'
             key={image.title}
@@ -206,10 +184,11 @@ class CourseCategories extends React.Component {
         ))}
       </div>
     </Container>
-    );
-  }
+  );
 }
-CourseCategories.propTypes = {
+
+ProductCategories.propTypes = {
   classes: PropTypes.object.isRequired,
-}
-export default withStyles(styles)(CourseCategories)
+};
+
+export default withStyles(styles)(ProductCategories);

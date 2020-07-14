@@ -91,19 +91,22 @@ export default createMuiTheme({
     },
     h5:{
       fontFamily: 'Muli',
+      fontSize: "1rem",
       fontWeight: 700,
       color: `${red}`,
-      lineHeight: 1.5
+      lineHeight: "1.5rem"
     },
     h6:{
       fontFamily: 'Muli',
+      fontSize: ".75rem",
       fontWeight: 700,
       color: `${red}`,
       lineHeight: 1
     },
     subtitle1:{
-      fontSize: "1.25rem",
+      fontSize: ".8rem",
       fontFamily: "'Philosopher', 'sans-serif'",
+      lineHeight: "1rem",
       fontWeight: 300,
       color: `${lightBlue}`,
     }

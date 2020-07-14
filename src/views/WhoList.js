@@ -13,6 +13,7 @@ import GridListTile from "@material-ui/core/GridListTile";
 import GridListTileBar from "@material-ui/core/GridListTileBar";
 import ListSubheader from "@material-ui/core/ListSubheader";
 import Grid from "@material-ui/core/Grid";
+import * as getDataApi from "../../src/utils/getDataApi";
 
 const styles = (theme) => ({
   root: {
@@ -73,22 +74,28 @@ class WhoList extends React.Component {
     this.state = { influencerList: [] };
   }
   componentDidMount() {
-    const influencerData = [];
+    const influencerLocalData = [];
+    const influencerRemoteData = []
     {
       data.map((postData) => {
-        influencerData.push(postData);
+        influencerLocalData.push(postData);
       });
     }
     //console.log(influencerData)
-    this.setState(() => ({
-      influencerList: influencerData,
-    }));
+    // this.setState(() => ({
+    //   influencerList: influencerLocalData,
+    // }));
     //this.setState({ influencerList: influencerData });
 
-    // getDataApi.getInfluencerAction().then((querySnapshot) => {
-    //   console.log(querySnapshot)
-    //   this.setState({ influencerList: querySnapshot });
-    // });
+    getDataApi.getInfluencerAction().then((querySnapshot) => {
+      querySnapshot.map((query) => {
+        influencerRemoteData.push(query)
+      })
+      //console.log(`From firebase ${querySnapshot}`)
+      this.setState(() => ({
+        influencerList: influencerRemoteData,
+      }));
+    });
   }
   // export default function WhoList() {
   // const [influencerList, setinfluencerList] = useState([]);
@@ -123,8 +130,7 @@ class WhoList extends React.Component {
                 <CardMedia className={classes.media} image={influencer.img} />
                 <CardContent className={classes.content}>
                   <Typography
-                    className={"MuiTypography--heading"}
-                    variant={"h5"}
+                    variant="h5"
                     gutterBottom
                   >
                     {influencer.name}
@@ -138,7 +144,7 @@ class WhoList extends React.Component {
                   </Typography>
                   <Typography
                     className={"MuiTypography--subheading"}
-                    variant={"caption"}
+                    variant="subtitle1"
                   >
                     {influencer.contributions}
                   </Typography>
