@@ -1,0 +1,223 @@
+[
+   
+    {
+        "name": "William Shakespeare",
+        "img": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a2/Shakespeare.jpg/330px-Shakespeare.jpg",
+        "birthplace": "Stratford-upon-Avon, UK",
+        "contributions": "Hamlet, Romeo and Juliet, Macbeth",
+        "knowmore": "Famous for his poetry and plays, William Shakespeare is often hailed as the greatest English writer in all of history! In his lifetime, he wrote about love, envy, and death – tugging at the heartstrings of millions. He highlighted the beauty and pain of human emotion which has left a lasting impression even generations later.",
+        "ref": "https://en.wikipedia.org/wiki/William_Shakespeare"
+    },
+    {
+        "name": "Isaac Newton",
+        "img": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/39/GodfreyKneller-IsaacNewton-1689.jpg/330px-GodfreyKneller-IsaacNewton-1689.jpg",
+        "birthplace": "Woolsthorpe Manor House, UK",
+        "contributions": "Laws of Motion, Calculus, Theory of gravity",
+        "knowmore": "If you’re wondering why Calculus exists in your school curriculum, it’s thanks to Sir Isaac Newton! He was a renowned physicist and mathematician who made some of the most groundbreaking scientific discoveries in history! Fun fact: although he was a prolific inventor, rumour has it that he actually died a virgin.",
+        "ref": "https://en.wikipedia.org/wiki/Isaac_Newton"
+    },
+    {
+        "name": "Wolfgang Amadeus Mozart",
+        "img": "https://upload.wikimedia.org/wikipedia/commons/e/e4/Retrato_de_Mozart%2C_por_Johann_Nepomuk_della_Croce_%28detalle%29.jpg",
+        "birthplace": "Salzburg, Austria",
+        "contributions": "The Marriage of Figaro’, ‘The Magic Flute, Symphony No. 41’, and more",
+        "knowmore": "Even at 6 years old, he was considered a child prodigy. Mozart composed some of the most beautiful and iconic melodies to ever grace human ears. To this day, some parents believe that playing Mozart to their children during certain developmental periods will actually make their kids smarter.",
+        "ref": "https://en.wikipedia.org/wiki/Wolfgang_Amadeus_Mozart"
+    },
+    {
+        "name": "Albert Einstein",
+        "img": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3e/Einstein_1921_by_F_Schmutzer_-_restoration.jpg/330px-Einstein_1921_by_F_Schmutzer_-_restoration.jpg",
+        "birthplace": "Ulm, Germany",
+        "contributions": "Theoretical physics, Quantum theory, the most famous equation: e = mc2",
+        "knowmore": "What do paper towels, solar power, and stock market forecasts all have in common? Well, they all wouldn’t exist if it weren’t for Albert Einstein! Though he didn’t create any of these directly, Einstein’s knowledge and scientific findings laid the foundation for our understanding of the modern world. If Einstein was never born, we’d be living in a vastly different world.",
+        "ref": "https://en.wikipedia.org/wiki/Albert_Einstein"
+    },
+    {
+        "name": "Mahatma Gandhi",
+        "img": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7a/Mahatma-Gandhi%2C_studio%2C_1931.jpg/330px-Mahatma-Gandhi%2C_studio%2C_1931.jpg",
+        "birthplace": "Porbandar, India",
+        "contributions": "India’s Independence Movement",
+        "knowmore": "This man forced British invaders leave his country through sheer will-power alone. If that doesn’t make him one of the most influential personalities of all time, we don’t know what will! Gandhi was a social activist and lawyer who changed the world with his peaceful protests and hunger strikes. He believed that, “you must be the change you wish to see in the world” and he certainly lived up to that standard!",
+        "ref": "https://en.wikipedia.org/wiki/Mahatma_Gandhi"
+    },
+    {
+        "name": "Martin Luther King Jr",
+        "img": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/05/Martin_Luther_King%2C_Jr..jpg/330px-Martin_Luther_King%2C_Jr..jpg",
+        "birthplace": "Atlanta, Georgia, USA",
+        "contributions": "American civil rights movement, peaceful anti-racism protests",
+        "knowmore": "He had a dream for his country and he fought for it. Martin Luther King Jr. is, without a doubt, one of the most inspirational people ever! He is a historical leader famous for his nonviolent protests against racism in support of the African-American community. MLK dedicated his entire life to serving the people. One of the best quotes he left us with was, 'Injustice anywhere is a threat to justice everywhere'.",
+        "ref": "https://en.wikipedia.org/wiki/Martin_Luther_King_Jr."
+    },
+    {
+        "name": "Aristotle",
+        "img": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ae/Aristotle_Altemps_Inv8575.jpg/330px-Aristotle_Altemps_Inv8575.jpg",
+        "birthplace": "Stagira, Greece",
+        "contributions": "Formal logic, ethics, rhetoric, philosophy",
+        "knowmore": "Aristotle gained his knowledge from Plato, who was a student of the famous Socrates. Aristotle was a Greek philosopher and scientist who placed a lot of emphasis on observing the world around him. Unlike earlier thinkers, he was the first to develop a philosophy around objectivity, which then laid the groundwork for the method of scientific inquiry that we use today.",
+        "ref": "https://en.wikipedia.org/wiki/Aristotle"
+    },
+    {
+        "name": "Nikola Tesla",
+        "img": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d4/N.Tesla.JPG/330px-N.Tesla.JPG",
+        "birthplace": "Smiljan, Croatia",
+        "contributions": "Alternate current motor, Tesla coil",
+        "knowmore": "Let there be light… with the use of alternating current! Tesla is the engineer responsible for creating a way to distribute electricity efficiently. You might chalk this achievement up to Thomas Edison, but he only got the glory because he was better at selling his ideas to the public. Thank god for the internet and memes for filling us in on what the textbooks left out! Nikola Tesla deserves the recognition for literally lighting up our world.",
+        "ref": "https://en.wikipedia.org/wiki/Nikola_Tesla"
+    },
+    {
+        "name": "Maya Angelou",
+        "img": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4f/Angelou_at_Clinton_inauguration_%28cropped_2%29.jpg/330px-Angelou_at_Clinton_inauguration_%28cropped_2%29.jpg",
+        "birthplace": "St. Louis, Missouri, US",
+        "contributions": "I Know Why The Caged Bird Sings, Still I Rise",
+        "knowmore": "This phenomenal woman was a poet, writer, activist, and one of the most influential women of her time! Despite being a bright light in the world, Maya had a dark childhood: she was raped by her mother's boyfriend at just 7 years old, and because of the trauma, she refused to speak until she was about 12 years old. During those dark years, she would express herself through her writing, which led her to develop incredible literary skills. Her writing has inspired millions of people all over the world, especially women and survivors of abuse.",
+        "ref": "https://en.wikipedia.org/wiki/Maya_Angelou"
+    },
+    {
+        "name": "Andrew Carnegie",
+        "img": "https://cdn.pixabay.com/photo/2014/07/12/21/54/vintage-391453_1280.jpg",
+        "birthplace": "Dunfermline, Scotland.",
+        "contributions": "Steel",
+        "knowmore": "Founding and leading the Carnegie Steel Company Founding ",
+        "ref": "https://en.wikipedia.org/wiki/Andrew_Carnegie"
+    },
+    {
+        "name": "Steve Jobs",
+        "img": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/dc/Steve_Jobs_Headshot_2010-CROP_%28cropped_2%29.jpg/220px-Steve_Jobs_Headshot_2010-CROP_%28cropped_2%29.jpg",
+        "birthplace": "San Francisco, California, USA",
+        "contributions": "Apple Inc., iPhones, Mac Computers, iPods, iPads",
+        "knowmore": "From college dropout to co-founder of Apple, Inc, Steve Jobs was a visionary who revolutionised modern technology. With his black turtleneck and blue jeans, he had a knack for making us feel like every new iPhone was a necessity! To this day, people literally line up for hours outside Apple stores just to get their hands on the latest product. Steve Jobs may have passed away in 2011 but the company he built continues to innovate and inspire the world.",
+        "ref": "www.apple.com"
+    },
+ 
+    {
+        "name": "Henry Ford",
+        "img": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/18/Henry_ford_1919.jpg/330px-Henry_ford_1919.jpg",
+        "birthplace": "Greenfield Township, Dearborn, Michighan, USA",
+        "contributions": "Auto-motive manufacturer",
+        "knowmore": "Modern Transport Pioneer",
+        "ref": "www.thehenryford.org"
+    },
+    {
+        "name": "Mark Zuckerberg",
+        "img": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/18/Mark_Zuckerberg_F8_2019_Keynote_%2832830578717%29_%28cropped%29.jpg/330px-Mark_Zuckerberg_F8_2019_Keynote_%2832830578717%29_%28cropped%29.jpg",
+        "birthplace": "White Plains, New York, USA",
+        "contributions": "Social Media Mogul",
+        "knowmore": "Revolutionized Online Social Media and Networking",
+        "ref": "www.Facebook.com"
+    },
+    {
+        "name": "Jeff Bezos",
+        "img": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6c/Jeff_Bezos_at_Amazon_Spheres_Grand_Opening_in_Seattle_-_2018_%2839074799225%29_%28cropped%29.jpg/330px-Jeff_Bezos_at_Amazon_Spheres_Grand_Opening_in_Seattle_-_2018_%2839074799225%29_%28cropped%29.jpg",
+        "birthplace": "Albuquerque, New Mexico, USA",
+        "contributions": "online retail",
+        "knowmore": "Revolutionized E-Commerce",
+        "ref": "www.Amazon.com"
+    },
+    {
+        "name": "Bill Gates",
+        "img": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a0/Bill_Gates_2018.jpg/330px-Bill_Gates_2018.jpg",
+        "birthplace": "Seattle, Washington, USA",
+        "contributions": "Information Technology, Computer Science",
+        "knowmore": "Changed the Personal Computer Forever",
+        "ref": "www.gatesfoundation.org"
+    },
+    {
+        "name": "Larry Page",
+        "img": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ec/Larry_Page_in_the_European_Parliament%2C_17.06.2009_%28cropped%29.jpg/330px-Larry_Page_in_the_European_Parliament%2C_17.06.2009_%28cropped%29.jpg",
+        "birthplace": "East Lansing, Michigan, USA",
+        "contributions": "I.T entrepreneur, Computer Science",
+        "knowmore": "Co-founding Google, Co-founder Alphabet Inc.Co-founder PageRank",
+        "ref": "https://en.wikipedia.org/wiki/Larry_Page"
+    },
+    {
+        "name": "Sergey Brin",
+        "img": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a2/Sergey_Brin_cropped.jpg/330px-Sergey_Brin_cropped.jpg",
+        "birthplace": "Moscow, Russia",
+        "contributions": "I.T , Computer Science",
+        "knowmore": "Co-founding Google, Revolutionized Online Searching and Media, Co-founding Google and X",
+        "ref": "https://en.wikipedia.org/wiki/Sergey_Brin"
+    },
+    {
+        "name": "Sir Richard Branson",
+        "img": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7b/Richard_Branson_March_2015_%28cropped%29.jpg/330px-Richard_Branson_March_2015_%28cropped%29.jpg",
+        "birthplace": "Blackheath, London, England, UK",
+        "contributions": "British industrialist",
+        "knowmore": "Music, Travel, Charity",
+        "website": "www.virgin.co.uk"
+    },
+    {
+        "name": "Thomas Alva Edison",
+        "img": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9d/Thomas_Edison2.jpg/330px-Thomas_Edison2.jpg",
+        "birthplace": "Milan, Ohio, USA",
+        "contributions": "Science",
+        "knowmore": "His Inventions Changed the World",
+        "ref": "www.thomasedison.com"
+    },
+    {
+        "name": "Ariana Huffington",
+        "img": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/ce/Arianna_Huffington_2011_Shankbone_2.JPG/330px-Arianna_Huffington_2011_Shankbone_2.JPG",
+        "birthplace": "Athens, Greece",
+        "contributions": "Blogging Columnist and Author",
+        "knowmore": "A Pioneer in Blogging and Online News",
+        "ref": "www.HuffingtonPost.com"
+    },
+    {
+        "name": "Matthew Boulton",
+        "img": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/be/Matthew_Boulton_-_Carl_Frederik_von_Breda.jpg/330px-Matthew_Boulton_-_Carl_Frederik_von_Breda.jpg",
+        "birthplace": "Birmingham, West Midlands UK",
+        "contributions": "Entrepreneurial Manufacturer",
+        "knowmore": "Pioneered many manufacturing processes.",
+        "ref": "https://en.wikipedia.org/wiki/Matthew_Boulton"
+    },
+    {
+        "name": "Penny Streeter",
+        "img": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9b/Penny_Streeter_1009_ps.jpg/330px-Penny_Streeter_1009_ps.jpg",
+        "birthplace": "Zimbabwe",
+        "contributions": "Recruitment",
+        "knowmore": "Creating Employment Opportunities",
+        "ref": "www.a24group.com"
+    },
+
+    {
+        "name": "Oprah Gail Winfrey",
+        "img":"https://upload.wikimedia.org/wikipedia/commons/thumb/b/bf/Oprah_in_2014.jpg/330px-Oprah_in_2014.jpg",
+        "birthplace": "Kosciusko, Mississippi, USA",
+        "contributions": "Media and Entertainment",
+        "knowmore": "Empowering People, Female Media Pioneer",
+        "ref": "www.Oprah.com"
+    },
+
+    {
+        "name": "George Eastman",
+        "img": "https://cdn.pixabay.com/photo/2014/07/27/23/02/george-eastman-403267_1280.jpg",
+        "birthplace": "Waterville, New York, USA",
+        "contributions": "A Pioneer in Photography",
+        "knowmore": "Photography pioneer, Founder of Eastman Kodak",
+        "ref": "https://en.wikipedia.org/wiki/George_Eastman"
+    },
+    {
+        "name": "Carlos Slim Helu",
+        "img": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/bf/Carlos_Slim_%2845680472234%29_%28cropped%29.jpg/330px-Carlos_Slim_%2845680472234%29_%28cropped%29.jpg",
+        "birthplace": "Mexico City, Mexico",
+        "contributions": "Telecommunication",
+        "knowmore": "",
+        "ref": "https://en.wikipedia.org/wiki/Carlos_Slim"
+    },
+    {
+        "name": "Walt Disney",
+        "img": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/df/Walt_Disney_1946.JPG/330px-Walt_Disney_1946.JPG",
+        "birthplace": "Samur, France",
+        "contributions": "Pioneered Entertainment",
+        "knowmore": "Inspiring Fashion and Entrepreneurs",
+        "ref": "https://en.wikipedia.org/wiki/Walt_Disney"
+    },
+    {
+        "name": "Adam D’Angelo",
+        "img": "https://en.wikipedia.org/wiki/Quora#/media/File:Adam_D'Angelo_in_2011.jpg",
+        "birthplace": "USA",
+        "contributions": "Internet Software Industry",
+        "knowmore": "",
+        "ref": "https://www.quora.com"
+    }
+
+]

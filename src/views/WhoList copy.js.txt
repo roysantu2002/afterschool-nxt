@@ -7,7 +7,7 @@ import CardContent from "@material-ui/core/CardContent";
 import Container from "@material-ui/core/Container";
 import Divider from "@material-ui/core/Divider";
 import Typography from "@material-ui/core/Typography";
-import data from "../../src/data/influencer";
+import * as getDataApi from "../../src/utils/getDataApi";
 
 const styles = (theme) => ({
   card: {
@@ -50,22 +50,12 @@ class WhoList extends React.Component {
     this.state = { influencerList: [] };
   }
   componentDidMount() {
-    const influencerData = [];
-    {
-      data.map((postData) => {
-        influencerData.push(postData);
-      });
-    }
-    //console.log(influencerData)
-    this.setState(() => ({
-      influencerList: influencerData,
-    }));
-    //this.setState({ influencerList: influencerData });
+    console.log("This is mount");
+    getDataApi.getInfluencerAction().then((querySnapshot) => {
+      this.setState({ influencerList: querySnapshot });
+    });
 
-    // getDataApi.getInfluencerAction().then((querySnapshot) => {
-    //   console.log(querySnapshot)
-    //   this.setState({ influencerList: querySnapshot });
-    // });
+    console.log(this.state.influencerList)
   }
   // export default function WhoList() {
   // const [influencerList, setinfluencerList] = useState([]);
@@ -82,31 +72,35 @@ class WhoList extends React.Component {
 
   render() {
     const { classes } = this.props;
-    console.log(this.state.influencerList);
 
-    return (
-      <Container className={classes.root} component='section'>
-        {this.state.influencerList.map((influencer) => (
-          <Card className={classes.card}>
-            <CardMedia className={classes.media} image={influencer.img} />
-            <CardContent className={classes.content}>
-              <Typography
-                className={"MuiTypography--heading"}
-                variant={"h6"}
-                gutterBottom
-              ></Typography>
-              <Typography
-                className={"MuiTypography--subheading"}
-                variant={"caption"}
-              >
-                {influencer.contributions}
-              </Typography>
-              <Divider className={classes.divider} light />
-            </CardContent>
-          </Card>
-        ))}
-      </Container>
-    );
+    return <div>
+    {/* // <Container className={classes.root} component='section'> */}
+
+{/*  
+        //     <Card className={classes.card}>
+        //       {/* <CardMedia className={classes.media} image={influencer.img} /> */}
+        //       <CardContent className={classes.content}>
+        //         <Typography 
+        //           className={"MuiTypography--heading"}
+        //           variant={"h6"}
+        //           gutterBottom
+        //         >
+       
+        //         </Typography>
+        //         <Typography
+        //           className={"MuiTypography--subheading"}
+        //           variant={"caption"}
+        //         >
+        //           {/* {influencer.contributions} */}
+        //         </Typography>
+        //         <Divider className={classes.divider} light />
+        //       </CardContent>
+        //     </Card>
+       
+}
+</CardContent>
+      </div>
+    // </Container>;
   }
 }
 export default withStyles(styles)(WhoList);

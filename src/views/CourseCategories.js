@@ -4,7 +4,7 @@ import { withStyles } from "@material-ui/core/styles";
 import ButtonBase from "@material-ui/core/ButtonBase";
 import Container from "@material-ui/core/Container";
 import Typography from "../UI/Typography";
-import * as getDataApi from "../../src/utils/getDataApi";
+// import { getCourseAction } from "../../src/utils/getDataApi";
 
 const styles = (theme) => ({
   root: {
@@ -87,7 +87,7 @@ const styles = (theme) => ({
 function ProductCategories(props) {
 
   const { classes } = props;
-  const [courseCat, setcourseCat] = useState(0);
+  const [courseCat, setcourseCat] = useState([]);
 
   // const images = [
   //   {
@@ -138,13 +138,13 @@ function ProductCategories(props) {
   // ];
 
 
-  useEffect(() => {
-    getDataApi.getCourseAction()
-    .then((querySnapshot) => {
-      console.log(`From ${querySnapshot}`)
-        setcourseCat(querySnapshot)
-    })
-  })
+  // useEffect(() => {
+  //   getCourseAction()
+  //   .then((querySnapshot) => {
+  //     console.log(`From ${querySnapshot}`)
+  //       setcourseCat(querySnapshot)
+  //   })
+  // })
   return (
 
     <Container className={classes.root} component='section'>
@@ -154,7 +154,6 @@ function ProductCategories(props) {
       <div className={classes.images}>
      
         {courseCat.map((image) => (
-          
           <ButtonBase
             href='/Learn'
             key={image.title}

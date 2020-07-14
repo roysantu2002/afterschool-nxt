@@ -14,8 +14,7 @@ const styles = (theme) => ({
     //backgroundColor: '#7fc7d9', // Average color of the background image.
     backgroundPosition: 'center',
     maxwidth: "80%",
-    
- 
+
   },
   button: {
     minWidth: 200,
@@ -73,5 +72,4 @@ function ProductHero(props) {
 ProductHero.propTypes = {
   classes: PropTypes.object.isRequired,
 };
-
 export default withStyles(styles)(ProductHero);

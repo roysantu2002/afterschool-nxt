@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import clsx from 'clsx';
 import { withStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
-
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const styles = (theme) => ({
@@ -21,7 +20,6 @@ const styles = (theme) => ({
       maxHeight: 1300,
       marginTop: theme.spacing(-8),
     },
-    
   },
   container: {
     // marginTop: 24,
@@ -40,7 +38,6 @@ const styles = (theme) => ({
     backgroundColor: theme.palette.common.black,
     opacity: 0.5,
     zIndex: -1,
-  
   },
   background: {
     position: 'absolute',
@@ -51,7 +48,6 @@ const styles = (theme) => ({
     backgroundSize: 'cover',
     backgroundRepeat: 'no-repeat',
     zIndex: -3,
-  
   },
   arrowDown: {
     position: 'absolute',

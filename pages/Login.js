@@ -6,6 +6,8 @@ import Link from "@material-ui/core/Link"
 import Grid from "@material-ui/core/Grid"
 import { withStyles } from "@material-ui/core/styles"
 import Container from "@material-ui/core/Container"
+import { connect } from "react-redux";
+import loginAction from '../src/actions/loginAction'
 
 const useStyles = (theme) => ({
   paper: {
@@ -42,14 +44,14 @@ class Login extends Component {
     initialState,
   };
 
-  async getAllCourse() {
-    const dataset = await getDataApi.getCourseAction()
+  // async getAllCourse() {
+  //   const dataset = await getDataApi.getCourseAction()
     
-    const data = Object.values(dataset);
-    return data
-    //console.log(data)
-    //this.setState({ dataset });
-  }
+  //   const data = Object.values(dataset);
+  //   return data
+  //   //console.log(data)
+  //   //this.setState({ dataset });
+  // }
   // async componentDidMount() {
   //   getDataApi.getCourseAction()
   //   .then((querySnapshot) => {
@@ -248,8 +250,8 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => ({
   // getCourseAction: () =>
   //   dispatch(getCourseAction()),
-  // loginAction: (email, password) =>
-  //   dispatch(loginAction(email, password)),
+  loginAction: (email, password) =>
+    dispatch(loginAction(email, password)),
 });
 export default connect(
   mapStateToProps,

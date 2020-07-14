@@ -1,9 +1,9 @@
-import firebase from "firebase";
+import app from 'firebase';
 // import "firebase/storage";
 // import "firebase/firestore";
 
 /* TODO: For integration, update firebase configuration here */
-var config = {
+const config = {
   apiKey: "AIzaSyAbipgg-cCFdio-GnQ95fAhlko1C7UpiDY",
   authDomain: "react-19b73.firebaseapp.com",
   databaseURL: "https://react-19b73.firebaseio.com",
@@ -11,16 +11,17 @@ var config = {
   storageBucket: "react-19b73.appspot.com",
   messagingSenderId: "915146599372",
   appId: "1:915146599372:web:bc739d75171174faf24b69",
-  measurementId: "G-K7PXT2RFQF",
+  measurementId: "G-K7PXT2RFQF"
 }
 
-// firebase.initializeApp(config)
+const firebase = app.initializeApp(config)
+// class firebase {
+//   constructor() {
+//     app.initializeApp(config);
+//   }
+// }
 
-if (!firebase.apps.length) {
-  firebase.initializeApp(config)
-}
-export default firebase
-// // export default firebase;
+export default firebase;
 
 // const firestore = firebase.firestore();
 
