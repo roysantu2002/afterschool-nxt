@@ -99,7 +99,7 @@ export default createMuiTheme({
       fontFamily: 'Muli',
       fontWeight: 700,
       color: `${red}`,
-      lineHeight: 1.5
+      lineHeight: 1
     },
     subtitle1:{
       fontSize: "1.25rem",

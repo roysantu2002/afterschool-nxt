@@ -6,7 +6,7 @@
         "birthplace": "Stratford-upon-Avon, UK",
         "contributions": "Hamlet, Romeo and Juliet, Macbeth",
         "knowmore": "Famous for his poetry and plays, William Shakespeare is often hailed as the greatest English writer in all of history! In his lifetime, he wrote about love, envy, and death – tugging at the heartstrings of millions. He highlighted the beauty and pain of human emotion which has left a lasting impression even generations later.",
-        "ref": "https://en.wikipedia.org/wiki/William_Shakespeare"
+        "ref": "www.wikipedia.org/wiki/William_Shakespeare"
     },
     {
         "name": "Isaac Newton",
@@ -14,7 +14,7 @@
         "birthplace": "Woolsthorpe Manor House, UK",
         "contributions": "Laws of Motion, Calculus, Theory of gravity",
         "knowmore": "If you’re wondering why Calculus exists in your school curriculum, it’s thanks to Sir Isaac Newton! He was a renowned physicist and mathematician who made some of the most groundbreaking scientific discoveries in history! Fun fact: although he was a prolific inventor, rumour has it that he actually died a virgin.",
-        "ref": "https://en.wikipedia.org/wiki/Isaac_Newton"
+        "ref": "www.wikipedia.org/wiki/Isaac_Newton"
     },
     {
         "name": "Wolfgang Amadeus Mozart",
@@ -22,7 +22,7 @@
         "birthplace": "Salzburg, Austria",
         "contributions": "The Marriage of Figaro’, ‘The Magic Flute, Symphony No. 41’, and more",
         "knowmore": "Even at 6 years old, he was considered a child prodigy. Mozart composed some of the most beautiful and iconic melodies to ever grace human ears. To this day, some parents believe that playing Mozart to their children during certain developmental periods will actually make their kids smarter.",
-        "ref": "https://en.wikipedia.org/wiki/Wolfgang_Amadeus_Mozart"
+        "ref": "www.wikipedia.org/wiki/Wolfgang_Amadeus_Mozart"
     },
     {
         "name": "Albert Einstein",
@@ -30,7 +30,7 @@
         "birthplace": "Ulm, Germany",
         "contributions": "Theoretical physics, Quantum theory, the most famous equation: e = mc2",
         "knowmore": "What do paper towels, solar power, and stock market forecasts all have in common? Well, they all wouldn’t exist if it weren’t for Albert Einstein! Though he didn’t create any of these directly, Einstein’s knowledge and scientific findings laid the foundation for our understanding of the modern world. If Einstein was never born, we’d be living in a vastly different world.",
-        "ref": "https://en.wikipedia.org/wiki/Albert_Einstein"
+        "ref": "www.wikipedia.org/wiki/Albert_Einstein"
     },
     {
         "name": "Mahatma Gandhi",
@@ -38,7 +38,7 @@
         "birthplace": "Porbandar, India",
         "contributions": "India’s Independence Movement",
         "knowmore": "This man forced British invaders leave his country through sheer will-power alone. If that doesn’t make him one of the most influential personalities of all time, we don’t know what will! Gandhi was a social activist and lawyer who changed the world with his peaceful protests and hunger strikes. He believed that, “you must be the change you wish to see in the world” and he certainly lived up to that standard!",
-        "ref": "https://en.wikipedia.org/wiki/Mahatma_Gandhi"
+        "ref": "www.wikipedia.org/wiki/Mahatma_Gandhi"
     },
     {
         "name": "Martin Luther King Jr",
@@ -46,7 +46,7 @@
         "birthplace": "Atlanta, Georgia, USA",
         "contributions": "American civil rights movement, peaceful anti-racism protests",
         "knowmore": "He had a dream for his country and he fought for it. Martin Luther King Jr. is, without a doubt, one of the most inspirational people ever! He is a historical leader famous for his nonviolent protests against racism in support of the African-American community. MLK dedicated his entire life to serving the people. One of the best quotes he left us with was, 'Injustice anywhere is a threat to justice everywhere'.",
-        "ref": "https://en.wikipedia.org/wiki/Martin_Luther_King_Jr."
+        "ref": "www.wikipedia.org/wiki/Martin_Luther_King_Jr."
     },
     {
         "name": "Aristotle",
@@ -54,7 +54,7 @@
         "birthplace": "Stagira, Greece",
         "contributions": "Formal logic, ethics, rhetoric, philosophy",
         "knowmore": "Aristotle gained his knowledge from Plato, who was a student of the famous Socrates. Aristotle was a Greek philosopher and scientist who placed a lot of emphasis on observing the world around him. Unlike earlier thinkers, he was the first to develop a philosophy around objectivity, which then laid the groundwork for the method of scientific inquiry that we use today.",
-        "ref": "https://en.wikipedia.org/wiki/Aristotle"
+        "ref": "www.wikipedia.org/wiki/Aristotle"
     },
     {
         "name": "Nikola Tesla",
@@ -62,7 +62,7 @@
         "birthplace": "Smiljan, Croatia",
         "contributions": "Alternate current motor, Tesla coil",
         "knowmore": "Let there be light… with the use of alternating current! Tesla is the engineer responsible for creating a way to distribute electricity efficiently. You might chalk this achievement up to Thomas Edison, but he only got the glory because he was better at selling his ideas to the public. Thank god for the internet and memes for filling us in on what the textbooks left out! Nikola Tesla deserves the recognition for literally lighting up our world.",
-        "ref": "https://en.wikipedia.org/wiki/Nikola_Tesla"
+        "ref": "www.wikipedia.org/wiki/Nikola_Tesla"
     },
     {
         "name": "Maya Angelou",
@@ -70,7 +70,7 @@
         "birthplace": "St. Louis, Missouri, US",
         "contributions": "I Know Why The Caged Bird Sings, Still I Rise",
         "knowmore": "This phenomenal woman was a poet, writer, activist, and one of the most influential women of her time! Despite being a bright light in the world, Maya had a dark childhood: she was raped by her mother's boyfriend at just 7 years old, and because of the trauma, she refused to speak until she was about 12 years old. During those dark years, she would express herself through her writing, which led her to develop incredible literary skills. Her writing has inspired millions of people all over the world, especially women and survivors of abuse.",
-        "ref": "https://en.wikipedia.org/wiki/Maya_Angelou"
+        "ref": "www.wikipedia.org/wiki/Maya_Angelou"
     },
     {
         "name": "Andrew Carnegie",
@@ -78,7 +78,7 @@
         "birthplace": "Dunfermline, Scotland.",
         "contributions": "Steel",
         "knowmore": "Founding and leading the Carnegie Steel Company Founding ",
-        "ref": "https://en.wikipedia.org/wiki/Andrew_Carnegie"
+        "ref": "www.wikipedia.org/wiki/Andrew_Carnegie"
     },
     {
         "name": "Steve Jobs",
@@ -127,7 +127,7 @@
         "birthplace": "East Lansing, Michigan, USA",
         "contributions": "I.T entrepreneur, Computer Science",
         "knowmore": "Co-founding Google, Co-founder Alphabet Inc.Co-founder PageRank",
-        "ref": "https://en.wikipedia.org/wiki/Larry_Page"
+        "ref": "www.wikipedia.org/wiki/Larry_Page"
     },
     {
         "name": "Sergey Brin",
@@ -135,7 +135,7 @@
         "birthplace": "Moscow, Russia",
         "contributions": "I.T , Computer Science",
         "knowmore": "Co-founding Google, Revolutionized Online Searching and Media, Co-founding Google and X",
-        "ref": "https://en.wikipedia.org/wiki/Sergey_Brin"
+        "ref": "www.wikipedia.org/wiki/Sergey_Brin"
     },
     {
         "name": "Sir Richard Branson",
@@ -167,7 +167,7 @@
         "birthplace": "Birmingham, West Midlands UK",
         "contributions": "Entrepreneurial Manufacturer",
         "knowmore": "Pioneered many manufacturing processes.",
-        "ref": "https://en.wikipedia.org/wiki/Matthew_Boulton"
+        "ref": "www.wikipedia.org/wiki/Matthew_Boulton"
     },
     {
         "name": "Penny Streeter",
@@ -193,7 +193,7 @@
         "birthplace": "Waterville, New York, USA",
         "contributions": "A Pioneer in Photography",
         "knowmore": "Photography pioneer, Founder of Eastman Kodak",
-        "ref": "https://en.wikipedia.org/wiki/George_Eastman"
+        "ref": "www.wikipedia.org/wiki/George_Eastman"
     },
     {
         "name": "Carlos Slim Helu",
@@ -209,11 +209,11 @@
         "birthplace": "Samur, France",
         "contributions": "Pioneered Entertainment",
         "knowmore": "Inspiring Fashion and Entrepreneurs",
-        "ref": "https://en.wikipedia.org/wiki/Walt_Disney"
+        "ref": "fwikipedia.org/wiki/Walt_Disney"
     },
     {
         "name": "Adam D’Angelo",
-        "img": "https://en.wikipedia.org/wiki/Quora#/media/File:Adam_D'Angelo_in_2011.jpg",
+        "img": "https://upload.wikimedia.org/wikipedia/commons/3/38/Adam_D%27Angelo_in_2011.jpg",
         "birthplace": "USA",
         "contributions": "Internet Software Industry",
         "knowmore": "",
