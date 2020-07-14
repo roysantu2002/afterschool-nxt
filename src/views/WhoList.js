@@ -76,11 +76,11 @@ class WhoList extends React.Component {
   componentDidMount() {
     const influencerLocalData = [];
     const influencerRemoteData = []
-    {
+
       data.map((postData) => {
         influencerLocalData.push(postData);
       });
-    }
+    
     //console.log(influencerData)
     // this.setState(() => ({
     //   influencerList: influencerLocalData,

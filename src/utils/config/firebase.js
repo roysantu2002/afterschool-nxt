@@ -1,4 +1,4 @@
-import app from 'firebase';
+import firebase from 'firebase';
 // import "firebase/storage";
 // import "firebase/firestore";
 
@@ -14,14 +14,16 @@ const config = {
   measurementId: "G-K7PXT2RFQF"
 }
 
-const firebase = app.initializeApp(config)
-// class firebase {
-//   constructor() {
-//     app.initializeApp(config);
-//   }
-// }
+export default !firebase.apps.length ? firebase.initializeApp(config) : firebase.app();
 
-export default firebase;
+// const firebase = app.initializeApp(config)
+// // class firebase {
+// //   constructor() {
+// //     app.initializeApp(config);
+// //   }
+// // }
+
+// export default firebase;
 
 // const firestore = firebase.firestore();
 

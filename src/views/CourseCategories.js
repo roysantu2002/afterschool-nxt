@@ -5,6 +5,7 @@ import ButtonBase from "@material-ui/core/ButtonBase";
 import Container from "@material-ui/core/Container";
 import Typography from "../UI/Typography";
 import * as getDataApi from "../../src/utils/getDataApi";
+import data from "../../src/data/courseCat";
 
 const styles = (theme) => ({
   root: {
@@ -91,23 +92,26 @@ class CourseCategories extends React.Component {
   }
   componentDidMount() {
     const courseLocalData = [];
-    const courseRemoteData = []
+    const courseRemoteData = [];
 
-    
+    data.map((postData) => {
+      courseLocalData.push(postData);
+    });
+
     getDataApi.getCourseAction().then((querySnapshot) => {
       querySnapshot.map((query) => {
-        courseLocalData.push(query)
-      })
+        courseRemoteData.push(query);
+      });
       this.setState(() => ({
         courseCat: courseLocalData,
       }));
     });
   }
-    // {
-    //   data.map((postData) => {
-    //     influencerLocalData.push(postData);
-    //   });
-    // }
+  // {
+  //   data.map((postData) => {
+  //     influencerLocalData.push(postData);
+  //   });
+  // }
 
   // const images = [
   //   {
@@ -157,7 +161,6 @@ class CourseCategories extends React.Component {
   //   },
   // ];
 
-
   // useEffect(() => {
   //   getCourseAction()
   //   .then((querySnapshot) => {
@@ -169,47 +172,46 @@ class CourseCategories extends React.Component {
     const { classes } = this.props;
     // console.log(this.state.influencerList);
     return (
-    <Container className={classes.root} component='section'>
-      <Typography variant='h2' marked='center' align='center'>
-        For all your dreams and all desires
-      </Typography>
-      <div className={classes.images}>
-     
-        {this.state.courseCat.map((image) => (
-          <ButtonBase
-            href='/Learn'
-            key={image.title}
-            className={classes.imageWrapper}
-            style={{
-              width: image.width,
-            }}
-          >
-            <div
-              className={classes.imageSrc}
+      <Container className={classes.root} component='section'>
+        <Typography variant='h2' marked='center' align='center'>
+          For all your dreams and all desires
+        </Typography>
+        <div className={classes.images}>
+          {this.state.courseCat.map((image) => (
+            <ButtonBase
+              href='/Learn'
+              key={image.title}
+              className={classes.imageWrapper}
               style={{
-                backgroundImage: `url(${image.url})`,
+                width: image.width,
               }}
-            />
-            <div className={classes.imageBackdrop} />
-            <div className={classes.imageButton}>
-              <Typography
-                component='h3'
-                variant='h6'
-                color='inherit'
-                className={classes.imageTitle}
-              >
-                {image.title}
-                <div className={classes.imageMarked} />
-              </Typography>
-            </div>
-          </ButtonBase>
-        ))}
-      </div>
-    </Container>
+            >
+              <div
+                className={classes.imageSrc}
+                style={{
+                  backgroundImage: `url(${image.url})`,
+                }}
+              />
+              <div className={classes.imageBackdrop} />
+              <div className={classes.imageButton}>
+                <Typography
+                  component='h3'
+                  variant='h6'
+                  color='inherit'
+                  className={classes.imageTitle}
+                >
+                  {image.title}
+                  <div className={classes.imageMarked} />
+                </Typography>
+              </div>
+            </ButtonBase>
+          ))}
+        </div>
+      </Container>
     );
   }
 }
 CourseCategories.propTypes = {
   classes: PropTypes.object.isRequired,
-}
-export default withStyles(styles)(CourseCategories)
+};
+export default withStyles(styles)(CourseCategories);

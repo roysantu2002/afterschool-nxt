@@ -1,0 +1,57 @@
+[
+    {
+      "courseID": "course_01",
+      "url": "/assets/Computer.jpg",
+      "title": "Computer",
+      "width": "40%"
+    },
+    {
+      "courseID": "course_02",
+      "url": "/assets/Coding.jpg",
+      "title": "Coding",
+      "width": "20%"
+    },
+    {
+      "courseID": "course_03",
+      "url": "/assets/Robotics.jpg",
+      "title": "Robotics",
+      "width": "40%"
+    },
+    {
+      "courseID": "course_04",
+      "url": "/assets/Baking.jpg",
+      "title": "Baking",
+      "width": "38%"
+    },
+    {
+      "courseID": "course_05",
+      "url": "/assets/Cooking.jpg",
+      "title": "Cooking",
+      "width": "38%"
+    },
+    {
+      "courseID": "course_06",
+      "url": "/assets/Dancing.jpg",
+      "title": "Dancing",
+      "width": "24%"
+    },
+    {
+      "courseID": "course_07",
+      "url": "/assets/Writing.jpg",
+      "title": "Writing",
+      "width": "40%"
+    },
+    {
+      "courseID": "course_08",
+      "url": "/assets/Videography.jpg",
+      "title": "Videography",
+      "width": "20%"
+    },
+    {
+      "courseID": "course_09",
+      "url": "/assets/Filmmaking.jpg",
+      "title": "Filmmaking",
+      "width": "40%"
+    }
+  ]
+  
