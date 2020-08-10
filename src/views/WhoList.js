@@ -112,59 +112,69 @@ class WhoList extends React.Component {
 
   render() {
     const { classes } = this.props;
-    console.log(this.state.influencerList);
-    return (
-      <Grid container className={classes.root} spacing={2}>
-        <Grid item xs={12}>
-          <Typography variant='h1' marked='center' align='center'>
-            Be Inspired
-          </Typography>
-        </Grid>
-        <Grid item xs={12}>
-          <Grid container justify='center' spacing={2}>
-            {/* // <div className={classes.root}>
-      //    <GridList cellHeight={180} className={classes.gridList}> */}
-            {/* <Container className={classes.root} component='section'> */}
-            {this.state.influencerList.map((influencer) => (
-              <Card className={classes.card}>
-                <CardMedia className={classes.media} image={influencer.img} />
-                <CardContent className={classes.content}>
-                  <Typography
-                    variant="h5"
-                    gutterBottom
-                  >
-                    {influencer.name}
-                  </Typography>
-                  <Typography
-                    className={"MuiTypography--heading"}
-                    variant={"h6"}
-                    gutterBottom
-                  >
-                    {influencer.birthplace}
-                  </Typography>
-                  <Typography
-                    className={"MuiTypography--subheading"}
-                    variant="subtitle1"
-                  >
-                    {influencer.contributions}
-                  </Typography>
-                  <Divider className={classes.divider} light />
-                  <Grid
-                    item
-                    rel='noopener noreferrer'
-                    target='_blank'
-                    href={influencer.ref}
-                  >
-                    <button
-                    >Know More</button>
-                  </Grid>
-                </CardContent>
-              </Card>
-            ))}
-          </Grid>
-        </Grid>
+
+    const whoList =  
+    <Grid container className={classes.root} spacing={2}>
+    <Grid item xs={6}>
+      <Typography variant='h1' marked='center' align='center'>
+        Be Inspired
+      </Typography>
+    </Grid>
+    <Grid item xs={12}>
+      <Grid container justify='center' spacing={2}>
+        {/* // <div className={classes.root}>
+  //    <GridList cellHeight={180} className={classes.gridList}> */}
+        {/* <Container className={classes.root} component='section'> */}
+        {this.state.influencerList.map((influencer) => (
+          <Card className={classes.card}>
+            <CardMedia className={classes.media} image={influencer.img} />
+            <CardContent className={classes.content}>
+              <Typography
+                variant="h5"
+                gutterBottom
+              >
+                {influencer.name}
+              </Typography>
+              <Typography
+                className={"MuiTypography--heading"}
+                variant={"h6"}
+                gutterBottom
+              >
+                {influencer.birthplace}
+              </Typography>
+              <Typography
+                className={"MuiTypography--subheading"}
+                variant="subtitle1"
+              >
+                {influencer.contributions}
+              </Typography>
+              <Divider className={classes.divider} light />
+              <Grid
+                item
+                component={"a"}
+                rel='noopener noreferrer'
+                target='_blank'
+                href={influencer.ref}
+              >
+                <button
+                >Know More</button>
+              </Grid>
+            </CardContent>
+          </Card>
+        ))}
       </Grid>
-    );
+    </Grid>
+  </Grid>
+  
+  const test = <div> Hello </div>
+
+  const testOne = <div> THis is another Div </div>
+
+    // console.log(this.state.influencerList);
+    return (
+  
+      whoList
+      )
   }
 }
 export default withStyles(styles)(WhoList);
