@@ -4,8 +4,10 @@ import { withStyles } from "@material-ui/core/styles";
 import ButtonBase from "@material-ui/core/ButtonBase";
 import Container from "@material-ui/core/Container";
 import Typography from "../UI/Typography";
-import * as getDataApi from "../../src/utils/getDataApi";
-import data from "../../src/data/courseCat";
+import * as getDataApi from "../utils/getDataApi";
+import data from "../data/courseCat.json";
+import { makeStyles } from "@material-ui/core/styles";
+import CircularProgress from "@material-ui/core/CircularProgress";
 
 const styles = (theme) => ({
   root: {
@@ -83,30 +85,63 @@ const styles = (theme) => ({
     left: "calc(50% - 9px)",
     transition: theme.transitions.create("opacity"),
   },
+  loading: {
+    alignItems: "center",
+    justifyContent: "center",
+    display: "flex",
+    "& > * + *": {
+      marginLeft: theme.spacing(2),
+    },
+  },
 });
 
 class CourseCategories extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { courseCat: [] };
+    this.state = {
+      courseCat: [],
+      loading: false,
+    };
   }
   componentDidMount() {
     const courseLocalData = [];
     const courseRemoteData = [];
 
     data.map((postData) => {
-      courseLocalData.push(postData);
+      if (postData !== "") {
+        console.log(`local:${data}`);
+        courseLocalData.push(postData);
+      }
     });
 
     getDataApi.getCourseAction().then((querySnapshot) => {
-      querySnapshot.map((query) => {
-        courseRemoteData.push(query);
-      });
-      this.setState(() => ({
-        courseCat: courseLocalData,
-      }));
+      // console.log(`querySnapshot: ${querySnapshot}`)
+      try {
+        if (querySnapshot !== null) {
+          querySnapshot.map((query) => {
+            if (query.title !== "") {
+              courseRemoteData.push(query);
+            }
+          });
+        }
+        this.setState(() => ({
+          courseCat: courseRemoteData,
+        }));
+        this.setState(() => ({
+          loading: true,
+        }));
+      } catch (exception_var) {
+        console.log(exception_var);
+        this.setState(() => ({
+          courseCat: courseLocalData,
+        }));
+        this.setState(() => ({
+          loading: true,
+        }));
+      }
     });
   }
+
   // {
   //   data.map((postData) => {
   //     influencerLocalData.push(postData);
@@ -170,16 +205,25 @@ class CourseCategories extends React.Component {
   // })
   render() {
     const { classes } = this.props;
-    // console.log(this.state.influencerList);
-    return (
-      <Container className={classes.root} component='section'>
-        <Typography variant='h2' marked='center' align='center'>
+
+    const loadingDeatils = (
+      <Container className={classes.loading} component="section">
+        <Typography variant="h2" marked="center" align="center">
+          For all your dreams and all desires
+        </Typography>
+        <CircularProgress color="secondary" align="center" />
+      </Container>
+    );
+
+    const courseDetails = (
+      <Container className={classes.root} component="section">
+        <Typography variant="h2" marked="center" align="center">
           For all your dreams and all desires
         </Typography>
         <div className={classes.images}>
           {this.state.courseCat.map((image) => (
             <ButtonBase
-              href='/Learn'
+              href="/Learn"
               key={image.title}
               className={classes.imageWrapper}
               style={{
@@ -195,9 +239,9 @@ class CourseCategories extends React.Component {
               <div className={classes.imageBackdrop} />
               <div className={classes.imageButton}>
                 <Typography
-                  component='h3'
-                  variant='h6'
-                  color='inherit'
+                  component="h3"
+                  variant="h6"
+                  color="inherit"
                   className={classes.imageTitle}
                 >
                   {image.title}
@@ -209,8 +253,12 @@ class CourseCategories extends React.Component {
         </div>
       </Container>
     );
+
+    // console.log(this.state.influencerList);
+    return this.state.loading ? courseDetails : loadingDeatils;
   }
 }
+
 CourseCategories.propTypes = {
   classes: PropTypes.object.isRequired,
 };

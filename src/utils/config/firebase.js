@@ -1,4 +1,8 @@
-import firebase from 'firebase';
+import * as Firebase from "firebase/app"
+import "firebase/firestore"
+
+
+// import firebase from 'firebase';
 // import "firebase/storage";
 // import "firebase/firestore";
 
@@ -14,7 +18,31 @@ const config = {
   measurementId: "G-K7PXT2RFQF"
 }
 
-export default !firebase.apps.length ? firebase.initializeApp(config) : firebase.app();
+
+const firebase = Firebase.apps.length
+    ? Firebase.app()
+    : Firebase.initializeApp(config)
+
+const firestore = Firebase.firestore()
+
+export {firebase, firestore}
+
+// module.exports = {
+//     firebase,
+//     firestore,
+// }
+
+
+// try {
+//   firebase.initializeApp(firebaseConfig);
+// } catch(err){
+//   if (!/already exists/.test(err.message)) {
+//     console.error('Firebase initialization error', err.stack)}
+// }
+// const fire = firebase;
+// export default fire;
+
+// export default !firebase.apps.length ? firebase.initializeApp(config) : firebase.app();
 
 // const firebase = app.initializeApp(config)
 // // class firebase {

@@ -16,6 +16,9 @@ import { createStore} from "redux";
 import middleware from "../src/middleware";
 import reducer from "../src/reducers";
 import { Provider } from "react-redux";
+// import FirebaseProvider from './firebase/firebase'
+
+// require('dotenv').config()
 
 export default function MyApp(props) {
   const [selectedIndex, setSelectedIndex] = useState(0);
@@ -41,6 +44,7 @@ export default function MyApp(props) {
 
   const { Component, pageProps } = props;
 
+
   React.useEffect(() => {
     // Remove the server-side injected CSS.
     const jssStyles = document.querySelector("#jss-server-side");
@@ -49,7 +53,10 @@ export default function MyApp(props) {
     }
   }, []);
 
+
+  console.log(`env ${process.env.DB_HOST}`)
   return (
+
     <React.Fragment>
       <Head>
         <title>My page</title>
@@ -69,11 +76,13 @@ export default function MyApp(props) {
           setSelectedIndex={setSelectedIndex}
         />
         <Provider store={store}>
+        {/* <FirebaseProvider> */}
           <Component
             {...pageProps}
             setValue={setValue}
             selectedIndex={selectedIndex}
           />
+          {/* </FirebaseProvider> */}
         </Provider>
         <Footer setValue={setValue} selectedIndex={selectedIndex} />
       </ThemeProvider>

@@ -1,7 +1,7 @@
-import firebase from "../../src/utils/config/firebase";
-import 'firebase/firestore' 
+import { firebase, firestore } from "../../src/utils/config/firebase";
+// import 'firebase/firestore' 
 
-const firestore = firebase.firestore();
+// const firestore = firebase.firestore();
 
 export const getCourseAction = async () => {
   return firestore
@@ -20,3 +20,4 @@ export const getInfluencerAction = async () => {
     .then((querySnapshot) => querySnapshot.docs.map((doc) => doc.data()))
     .catch((error) => error);
 };
+
