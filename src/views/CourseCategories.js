@@ -109,13 +109,13 @@ class CourseCategories extends React.Component {
 
     data.map((postData) => {
       if (postData !== "") {
-        console.log(`local:${data}`);
+        // console.log(`local:${data}`);
         courseLocalData.push(postData);
       }
     });
 
     getDataApi.getCourseAction().then((querySnapshot) => {
-      // console.log(`querySnapshot: ${querySnapshot}`)
+      console.log(`querySnapshot: ${querySnapshot}`)
       try {
         if (querySnapshot !== null) {
           querySnapshot.map((query) => {
@@ -205,6 +205,7 @@ class CourseCategories extends React.Component {
   // })
   render() {
     const { classes } = this.props;
+    const courseCat = this.state.courseCat
 
     const loadingDeatils = (
       <Container className={classes.loading} component="section">
@@ -221,7 +222,7 @@ class CourseCategories extends React.Component {
           For all your dreams and all desires
         </Typography>
         <div className={classes.images}>
-          {this.state.courseCat.map((image) => (
+          {courseCat && courseCat.map((image) => (
             <ButtonBase
               href="/Learn"
               key={image.title}

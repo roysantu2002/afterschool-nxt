@@ -1,19 +1,21 @@
-import React, { useState, useEffect } from "react";
-import { makeStyles } from "@material-ui/core/styles";
-import { withStyles } from "@material-ui/core/styles";
-import Card from "@material-ui/core/Card";
-import CardMedia from "@material-ui/core/CardMedia";
-import CardContent from "@material-ui/core/CardContent";
-import Container from "@material-ui/core/Container";
-import Divider from "@material-ui/core/Divider";
-import Typography from "@material-ui/core/Typography";
-import data from "../../src/data/influencer";
-import GridList from "@material-ui/core/GridList";
-import GridListTile from "@material-ui/core/GridListTile";
-import GridListTileBar from "@material-ui/core/GridListTileBar";
-import ListSubheader from "@material-ui/core/ListSubheader";
-import Grid from "@material-ui/core/Grid";
-import * as getDataApi from "../../src/utils/getDataApi";
+import React, { useState, useEffect } from "react"
+import Styles from "../utils/globalStyles"
+import { makeStyles } from "@material-ui/core/styles"
+import { withStyles } from "@material-ui/core/styles"
+import Card from "@material-ui/core/Card"
+import CardMedia from "@material-ui/core/CardMedia"
+import CardContent from "@material-ui/core/CardContent"
+import Container from "@material-ui/core/Container"
+import Divider from "@material-ui/core/Divider"
+import Typography from "@material-ui/core/Typography"
+import data from "../data/influencer.json"
+import GridList from "@material-ui/core/GridList"
+import GridListTile from "@material-ui/core/GridListTile"
+import GridListTileBar from "@material-ui/core/GridListTileBar"
+import ListSubheader from "@material-ui/core/ListSubheader"
+import Grid from "@material-ui/core/Grid"
+import * as getDataApi from "../../src/utils/getDataApi"
+import CircularProgress from "@material-ui/core/CircularProgress";
 
 const styles = (theme) => ({
   root: {
@@ -70,8 +72,11 @@ const styles = (theme) => ({
 
 class WhoList extends React.Component {
   constructor(props) {
-    super(props);
-    this.state = { influencerList: [] };
+    super()
+      this.state = {
+        influencerList: [],
+        loading: false,
+      };
   }
   componentDidMount() {
     const influencerLocalData = [];
@@ -88,13 +93,39 @@ class WhoList extends React.Component {
     //this.setState({ influencerList: influencerData });
 
     getDataApi.getInfluencerAction().then((querySnapshot) => {
-      querySnapshot.map((query) => {
-        influencerRemoteData.push(query)
-      })
-      //console.log(`From firebase ${querySnapshot}`)
-      this.setState(() => ({
-        influencerList: influencerRemoteData,
-      }));
+      console.log(`querySnapshot: ${querySnapshot}`)
+      try {
+        if (querySnapshot !== null) {
+          querySnapshot.map((query) => {
+            if (query.title !== "") {
+              influencerRemoteData.push(query);
+            }
+          });
+        }
+        this.setState(() => ({
+          influencerList: influencerRemoteData,
+        }));
+        this.setState(() => ({
+          loading: true,
+        }));
+      } catch (exception_var) {
+        console.log(exception_var);
+        this.setState(() => ({
+          influencerList: influencerLocalData,
+        }));
+        this.setState(() => ({
+          loading: true,
+        }));
+      }
+
+
+      // querySnapshot.map((query) => {
+      //   influencerRemoteData.push(query)
+      // })
+      // //console.log(`From firebase ${querySnapshot}`)
+      // this.setState(() => ({
+      //   influencerList: influencerRemoteData,
+      // }));
     });
   }
   // export default function WhoList() {
@@ -112,8 +143,18 @@ class WhoList extends React.Component {
 
   render() {
     const { classes } = this.props;
+    const influencerList = this.state.influencerList
 
-    const whoList =  
+    const loadingDeatils = (
+      <Container className={classes.loading} component="section">
+        <Typography variant="h2" marked="center" align="center">
+        Be Inspired
+        </Typography>
+        <CircularProgress color="secondary" align="center" />
+      </Container>
+    );
+
+    const influencerDetails = 
     <Grid container className={classes.root} spacing={2}>
     <Grid item xs={6}>
       <Typography variant='h1' marked='center' align='center'>
@@ -122,12 +163,9 @@ class WhoList extends React.Component {
     </Grid>
     <Grid item xs={12}>
       <Grid container justify='center' spacing={2}>
-        {/* // <div className={classes.root}>
-  //    <GridList cellHeight={180} className={classes.gridList}> */}
-        {/* <Container className={classes.root} component='section'> */}
-        {this.state.influencerList.map((influencer) => (
-          <Card className={classes.card}>
-            <CardMedia className={classes.media} image={influencer.img} />
+        {influencerList && influencerList.map((influencer) => (
+          <Card key={influencer.name} className={classes.card}>
+            <CardMedia  className={classes.media} image={influencer.img} />
             <CardContent className={classes.content}>
               <Typography
                 variant="h5"
@@ -165,16 +203,8 @@ class WhoList extends React.Component {
       </Grid>
     </Grid>
   </Grid>
-  
-  const test = <div> Hello </div>
 
-  const testOne = <div> THis is another Div </div>
-
-    // console.log(this.state.influencerList);
-    return (
-  
-      whoList
-      )
+    return this.state.loading ? influencerDetails : loadingDeatils;
   }
 }
 export default withStyles(styles)(WhoList);
