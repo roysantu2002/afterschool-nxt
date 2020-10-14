@@ -19,11 +19,9 @@ const config = {
 
 // const firebase = Firebase.initializeApp(config)
 
-const firebase = Firebase.apps.length
-    ? Firebase.app()
-    : Firebase.initializeApp(config)
+Firebase.apps.length ? Firebase.app() : Firebase.initializeApp(config)
 
-export default firebase
+export default Firebase
 // const firestore = Firebase.firestore()
 
 // export {firebase, firestore}

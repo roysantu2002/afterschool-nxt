@@ -7,7 +7,7 @@ import Link from 'next/link'
 import Grid from '@material-ui/core/Grid';
 import { withStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
-import firebase  from '../src/utils/config/firebase'
+import Firebase  from '../src/utils/config/firebase'
 import Axios from '../src/utils/config/axiosConfig'
 import OtpInput from 'react-otp-input';
 import Radio from '@material-ui/core/Radio';
@@ -147,7 +147,7 @@ class SignUp extends Component {
   /* Generate and solve invisible recaptcha and send OTP to phone number*/
   handleSignUp = async () => {
     this.setState({ infoMessage: "Please wait..." })
-    window.recaptchaVerifier = new firebase.auth.RecaptchaVerifier('sign-in-button', {
+    window.recaptchaVerifier = new Firebase.auth.RecaptchaVerifier('sign-in-button', {
       'size': 'invisible',
       'callback': function (response) {
         // Invisible recaptcha solved
@@ -158,7 +158,7 @@ class SignUp extends Component {
 
     let number = '+91' + this.state.phone;
 
-    firebase.auth().signInWithPhoneNumber(number, appVerifier).then((e) => {
+    Firebase.auth().signInWithPhoneNumber(number, appVerifier).then((e) => {
       this.setState({ isOtpVisible: true, otpConfirmation: e })
       this.setState({ infoMessage: "Enter the OTP..." })
       let code = this.state.otpValue;
@@ -201,7 +201,7 @@ class SignUp extends Component {
 
   /* Create user in firebase authentication system using email and password */
   createUserInFirebase = async (email, password) => {
-    await firebase.auth().createUserWithEmailAndPassword(email, password).then(response => {
+    await Firebase.auth().createUserWithEmailAndPassword(email, password).then(response => {
       return true;
     }).catch(function (error) {
       alert(error.message);
@@ -236,7 +236,7 @@ class SignUp extends Component {
 
     //Upload image
     var imageName = email.replace("@", "_");
-    const uploadTask = firebase.storage().ref('avatars/' + imageName).put(image);
+    const uploadTask = Firebase.storage().ref('avatars/' + imageName).put(image);
     await sleep(4000);
     uploadTask.on('state_changed',
       (snapshot) => {
