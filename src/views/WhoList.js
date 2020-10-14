@@ -14,7 +14,7 @@ import GridListTile from "@material-ui/core/GridListTile"
 import GridListTileBar from "@material-ui/core/GridListTileBar"
 import ListSubheader from "@material-ui/core/ListSubheader"
 import Grid from "@material-ui/core/Grid"
-import * as getDataApi from "../../src/utils/getDataApi"
+import * as getDataApi from "../utils/getDataApi";
 import CircularProgress from "@material-ui/core/CircularProgress";
 
 const styles = (theme) => ({

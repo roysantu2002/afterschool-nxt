@@ -303,7 +303,7 @@ export default function Header(props) {
       <Button
         component={Link}
         color='secondary'
-        href='/Signup'
+        href='/SignUp'
         variant='contained'
         className={classes.cusmButton}
       >

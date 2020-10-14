@@ -1,6 +1,5 @@
-import * as Firebase from "firebase/app"
-import "firebase/firestore"
-
+import Firebase from 'firebase';
+//import "firebase/firestore"
 
 // import firebase from 'firebase';
 // import "firebase/storage";
@@ -15,17 +14,19 @@ const config = {
   storageBucket: "react-19b73.appspot.com",
   messagingSenderId: "915146599372",
   appId: "1:915146599372:web:bc739d75171174faf24b69",
-  measurementId: "G-K7PXT2RFQF"
+  // measurementId: "G-K7PXT2RFQF"
 }
 
+// const firebase = Firebase.initializeApp(config)
 
 const firebase = Firebase.apps.length
     ? Firebase.app()
     : Firebase.initializeApp(config)
 
-const firestore = Firebase.firestore()
+export default firebase
+// const firestore = Firebase.firestore()
 
-export {firebase, firestore}
+// export {firebase, firestore}
 
 // module.exports = {
 //     firebase,
