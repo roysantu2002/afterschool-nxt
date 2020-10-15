@@ -8,6 +8,7 @@ import * as getDataApi from "../utils/getDataApi";
 import data from "../data/courseCat.json";
 import { makeStyles } from "@material-ui/core/styles";
 import CircularProgress from "@material-ui/core/CircularProgress";
+import axios from "axios";
 
 const styles = (theme) => ({
   root: {
@@ -107,6 +108,13 @@ class CourseCategories extends React.Component {
     const courseLocalData = [];
     const courseRemoteData = [];
 
+    //to be removed
+    console.log("Axios")
+    axios
+      .get("https://us-central1-react-19b73.cloudfunctions.net/sendMail")
+      .then((res) => console.log(res))
+      .catch((err) => console.log(err));
+
     data.map((postData) => {
       if (postData !== "") {
         // console.log(`local:${data}`);
@@ -115,7 +123,7 @@ class CourseCategories extends React.Component {
     });
 
     getDataApi.getCourseAction().then((querySnapshot) => {
-      console.log(`querySnapshot: ${querySnapshot}`)
+      console.log(`querySnapshot: ${querySnapshot}`);
       try {
         if (querySnapshot !== null) {
           querySnapshot.map((query) => {
@@ -205,7 +213,7 @@ class CourseCategories extends React.Component {
   // })
   render() {
     const { classes } = this.props;
-    const courseCat = this.state.courseCat
+    const courseCat = this.state.courseCat;
 
     const loadingDeatils = (
       <Container className={classes.loading} component="section">
@@ -222,35 +230,36 @@ class CourseCategories extends React.Component {
           For all your dreams and all desires
         </Typography>
         <div className={classes.images}>
-          {courseCat && courseCat.map((image) => (
-            <ButtonBase
-              href="/Learn"
-              key={image.title}
-              className={classes.imageWrapper}
-              style={{
-                width: image.width,
-              }}
-            >
-              <div
-                className={classes.imageSrc}
+          {courseCat &&
+            courseCat.map((image) => (
+              <ButtonBase
+                href="/Learn"
+                key={image.title}
+                className={classes.imageWrapper}
                 style={{
-                  backgroundImage: `url(${image.url})`,
+                  width: image.width,
                 }}
-              />
-              <div className={classes.imageBackdrop} />
-              <div className={classes.imageButton}>
-                <Typography
-                  component="h3"
-                  variant="h6"
-                  color="inherit"
-                  className={classes.imageTitle}
-                >
-                  {image.title}
-                  <div className={classes.imageMarked} />
-                </Typography>
-              </div>
-            </ButtonBase>
-          ))}
+              >
+                <div
+                  className={classes.imageSrc}
+                  style={{
+                    backgroundImage: `url(${image.url})`,
+                  }}
+                />
+                <div className={classes.imageBackdrop} />
+                <div className={classes.imageButton}>
+                  <Typography
+                    component="h3"
+                    variant="h6"
+                    color="inherit"
+                    className={classes.imageTitle}
+                  >
+                    {image.title}
+                    <div className={classes.imageMarked} />
+                  </Typography>
+                </div>
+              </ButtonBase>
+            ))}
         </div>
       </Container>
     );
