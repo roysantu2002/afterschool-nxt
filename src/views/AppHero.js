@@ -46,11 +46,11 @@ function ProductHero(props) {
       {/* Increase the network loading priority of the background image. */}
       <img style={{ display: 'none' }} src={backgroundImage} alt="Learning afterschool" />
       <Typography color="inherit" align="center" variant="h1" className={classes.head}>
-        Learning After School
+        AfterSchool Creative Learning Centre
       </Typography>
       <Typography color="inherit" align="center" variant="h5" className={classes.h5}>
-        How do you? <br/>
-        Keep Learning for Life
+        Why Afterschooolapp? <br/>
+        Oneroof Creative Learning Guidance Centre
 
       </Typography>
       <Button

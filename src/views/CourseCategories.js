@@ -109,11 +109,11 @@ class CourseCategories extends React.Component {
     const courseRemoteData = [];
 
     //to be removed
-    console.log("Axios")
-    axios
-      .get("https://us-central1-react-19b73.cloudfunctions.net/sendMail")
-      .then((res) => console.log(res))
-      .catch((err) => console.log(err));
+    // console.log("Axios")
+    // axios
+    //   .get("https://us-central1-react-19b73.cloudfunctions.net/sendMail")
+    //   .then((res) => console.log(res))
+    //   .catch((err) => console.log(err));
 
     data.map((postData) => {
       if (postData !== "") {
