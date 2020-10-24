@@ -8,6 +8,7 @@ import * as getDataApi from "../utils/getDataApi";
 import data from "../data/courseCat.json";
 import { makeStyles } from "@material-ui/core/styles";
 import CircularProgress from "@material-ui/core/CircularProgress";
+
 import axios from "axios";
 
 const styles = (theme) => ({

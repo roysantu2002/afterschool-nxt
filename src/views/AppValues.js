@@ -4,6 +4,7 @@ import { withStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
 import Container from "@material-ui/core/Container";
 import Typography from "../UI/Typography";
+import CardBase from './CardBase'
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
@@ -76,6 +77,7 @@ function ProductValues(props) {
               /> */}
             <Typography variant='h5' className={classes.title}>
              CHALLENGE YOURSELF
+             <CardBase name="challenge" img='/assets/challenge.svg'></CardBase>
             </Typography>
             <Typography variant='h5'>
               {"Why Challenge Yourself?"} <br />
