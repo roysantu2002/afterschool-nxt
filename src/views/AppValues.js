@@ -14,7 +14,7 @@ const styles = (theme) => ({
     // overflow: 'hidden',
     marginTop: theme.spacing(8),
     marginBottom: theme.spacing(4),
-    backgroundImage: "url('/assets/bg-patt.svg')",
+    // backgroundImage: "url('/assets/bg-patt.svg')",
     
   },
   // container: {
@@ -24,6 +24,11 @@ const styles = (theme) => ({
   //   position: 'relative',
 
   // },
+  topGap: {
+    marginTop: theme.spacing(8),
+    display: "flex",
+    flexWrap: "wrap",
+  },
   item: {
     display: "flex",
     flexDirection: "column",
@@ -60,51 +65,38 @@ function ProductValues(props) {
        <Typography variant="h2" marked="center" align="center">
         Use your imagination, plan your success
       </Typography>
+      <Typography className={classes.topGap}></Typography>
       {/* <img
           src="/static/assets/bubble.png"
           className={classes.curvyLines}
           alt="curvy lines"
         /> */}
       <Grid container spacing={5}>
-    
+      
         <Grid item xs={12} md={4}>
-          <div className={classes.item}>
+          {/* <div className={classes.item}>
             <FontAwesomeIcon icon={["fa", "thumbtack"]} size='3x' className={classes.ico}/>
             {/* <img
                 className={classes.image}
                 src="/assets/push.svg"
                 alt="suitcase"
               /> */}
-            <Typography variant='h5' className={classes.title}>
-             CHALLENGE YOURSELF
-             <CardBase name="challenge" img='/assets/challenge.svg'></CardBase>
-            </Typography>
+            {/* <Typography variant='h5' className={classes.title}>
+             CHALLENGE YOURSELF */}
+             <CardBase title="CHALLENGE" name="CHALLENGE" img='/assets/challenge.svg'></CardBase>
+            {/* </Typography>
             <Typography variant='h5'>
               {"Why Challenge Yourself?"} <br />
               {"achiever went little far from the comfort zone."}
             </Typography>
-          </div>
+          </div> */}
         </Grid>
         <Grid item xs={12} md={4}>
-          <div className={classes.item}>
-            <FontAwesomeIcon icon={["fa", "link"]} size='3x'
-              color='#835A00' className={classes.ico} />
-            {/* <img
-                className={classes.image}
-                src="/assets/connect.svg"
-                alt="graph"
-              /> */}
-            <Typography variant='h5' className={classes.title}>
-              CONNECT
-            </Typography>
-            <Typography variant='h5'>
-              {"Why Connect Afterschool?"} <br />
-              {"as we understand you better."}
-            </Typography>
-          </div>
+        <CardBase title="EXPLORE" name="EXPLORE" img='/assets/Explore.svg'></CardBase>
         </Grid>
         <Grid item xs={12} md={4}>
-          <div className={classes.item}>
+        <CardBase title="LEARN" name="LEARN" img='/assets/Learn.svg'></CardBase>
+          {/* <div className={classes.item}>
             <FontAwesomeIcon
               icon={["fa", "crosshairs"]}
               size='3x'
@@ -117,7 +109,7 @@ function ProductValues(props) {
               {"You'll no more feel stuck in life."}
               {"as you learn, you achieve what you want."}
             </Typography>
-          </div>
+          </div> */}
         </Grid>
       </Grid>
     </Container>

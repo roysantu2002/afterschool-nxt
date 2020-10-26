@@ -49,8 +49,8 @@ function ProductHero(props) {
         AfterSchool Learning Centre
       </Typography>
       <Typography color="inherit" align="center" variant="h5" className={classes.h5}>
-        Why Afterschooolapp? <br/>
-        Oneroof Learning Guidance Centre
+        Why Afterschoooll? <br/>
+        Most Valued Technical Learning Guidance Centre
 
       </Typography>
       <Button

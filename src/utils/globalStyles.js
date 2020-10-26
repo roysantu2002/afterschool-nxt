@@ -1,11 +1,16 @@
 import zIndex from "@material-ui/core/styles/zIndex";
 
 const globalStyles = (theme) => ({
+  paper: {
+    width: "70%",
+    height: "70%",
+    backgroundColor: 'grey'
+  },
   root: {
     border: `1px solid ${theme.palette.secondary[400]}`,
     padding: theme.spacing(2),
     borderRadius: "2px",
-    maxWidth: 200
+    // minWidth: 275
   },
   loading: {
     alignItems: "center",
@@ -22,7 +27,7 @@ const globalStyles = (theme) => ({
   card: {
     padding: 8,
     margnTop: 4,
-    maxWidth: 300,
+    // minWidth: 275,
     // margin: "auto",
     transition: "0.3s",
     boxShadow: "0 8px 40px -12px rgba(0,0,0,0.3)",
@@ -59,7 +64,8 @@ const globalStyles = (theme) => ({
   },
   heading: {
     fontWeight: "bold"
-  },
+  }
+
 });
 
 export default globalStyles;

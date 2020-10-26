@@ -1,6 +1,7 @@
 import React from "react";
 import Styles from "../utils/globalStyles";
 import ClearIcon from "@material-ui/icons/Clear";
+import Paper from "@material-ui/core/Paper";
 
 import {
   Typography,
@@ -17,44 +18,38 @@ import Box from '@material-ui/core/Box';
 
 export const CardBase = (props) => {
   return (
-    <div className={Styles.page}>
+    // <div className={Styles.page}>
+       <Paper className={Styles.paper}>
      <Grid
         container
         direction="column"
         alignItems="center"
         className={Styles.root}
       >
-   {/* <Header className={Styles} /> */}
-      {/* <CardMedia
-        component="img"
-        className={Styles.media}
-        alt="Contemplative Reptile"
-        image={props.img}
-        title="Contemplative Reptile"
-      /> */}
+        
       <Grid container justify="center" alignItems="center" spacing={5}>
      <div className={Styles.photoContainer}>
       <Avatar alt={props.name} src={props.img} className={Styles.avatar}/>
      </div>
      </Grid>
-     <Card key={props.name} className={Styles.card}>
+     {/* <Card key={props.name}> */}
       <CardContent className={Styles.content}>
         <Typography
           className={"MuiTypography--heading"}
           variant={"h6"}
           gutterBottom
         >
-          Nature Around Us
+        
         </Typography>
         <Typography className={"MuiTypography--subheading"} variant={"caption"}>
-          We are going to learn different kinds of species in nature that live
-          together to form amazing environment.
+        {props.title}
         </Typography>
         <Divider className={Styles.divider} light />
       </CardContent>
-    </Card>
+    {/* </Card> */}
     </Grid>
-    </div>
+    </Paper>
+    // </div>
   );
 }
 
