@@ -1,17 +1,30 @@
 import React from "react";
 import Styles from "../utils/globalStyles";
-import { withStyles } from "@material-ui/core/styles";
-import Avatar from "@material-ui/core/Avatar";
+import ClearIcon from "@material-ui/icons/Clear";
+
+import {
+  Typography,
+  Grid,
+  makeStyles,
+  Button,
+  Avatar
+} from "@material-ui/core";
+
 import Card from "@material-ui/core/Card";
-import CardMedia from "@material-ui/core/CardMedia";
 import CardContent from "@material-ui/core/CardContent";
 import Divider from "@material-ui/core/Divider";
-import Typography from "@material-ui/core/Typography";
 import Box from '@material-ui/core/Box';
 
-function CardBase(props) {
+export const CardBase = (props) => {
   return (
-    <Card key={props.name} className={Styles.card}>
+    <div className={Styles.page}>
+     <Grid
+        container
+        direction="column"
+        alignItems="center"
+        className={Styles.root}
+      >
+   {/* <Header className={Styles} /> */}
       {/* <CardMedia
         component="img"
         className={Styles.media}
@@ -19,9 +32,12 @@ function CardBase(props) {
         image={props.img}
         title="Contemplative Reptile"
       /> */}
-      <Box display="flex" alignContent="center" p={1}>
-      <Avatar alt={props.name} src={props.img} className={Styles.media}/>
-      </Box>
+      <Grid container justify="center" alignItems="center" spacing={5}>
+     <div className={Styles.photoContainer}>
+      <Avatar alt={props.name} src={props.img} className={Styles.avatar}/>
+     </div>
+     </Grid>
+     <Card key={props.name} className={Styles.card}>
       <CardContent className={Styles.content}>
         <Typography
           className={"MuiTypography--heading"}
@@ -37,8 +53,17 @@ function CardBase(props) {
         <Divider className={Styles.divider} light />
       </CardContent>
     </Card>
+    </Grid>
+    </div>
   );
 }
-//   <Card key={props.name} className={Styles.card}>{props.name}
-//   <img src={props.img} alt={props.name}></img></Card>
-export default CardBase;
+
+const Header = () => {
+  return (
+    <Grid container justify="flex-end">
+      <Grid item xs={1}>
+        <ClearIcon className={Styles.header} />
+      </Grid>
+    </Grid>
+  );
+};

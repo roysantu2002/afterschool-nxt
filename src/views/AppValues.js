@@ -4,7 +4,7 @@ import { withStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
 import Container from "@material-ui/core/Container";
 import Typography from "../UI/Typography";
-import CardBase from './CardBase'
+import {CardBase} from './CardBase'
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
