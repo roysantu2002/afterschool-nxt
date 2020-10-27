@@ -219,7 +219,7 @@ class CourseCategories extends React.Component {
     const loadingDeatils = (
       <Container className={classes.loading} component="section">
         <Typography variant="h2" marked="center" align="center">
-          For all your dreams and all desires
+        Why not learn 'AfterSchool'?
         </Typography>
         <CircularProgress color="secondary" align="center" />
       </Container>
@@ -228,7 +228,7 @@ class CourseCategories extends React.Component {
     const courseDetails = (
       <Container className={classes.root} component="section">
         <Typography variant="h2" marked="center" align="center">
-          For all your dreams and all desires
+        Why not learn 'AfterSchool'?
         </Typography>
         <div className={classes.images}>
           {courseCat &&

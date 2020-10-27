@@ -2,8 +2,8 @@ import zIndex from "@material-ui/core/styles/zIndex";
 
 const globalStyles = (theme) => ({
   paper: {
-    width: "70%",
-    height: "70%",
+    width: "50%",
+    height: "150%",
     backgroundColor: 'grey'
   },
   root: {

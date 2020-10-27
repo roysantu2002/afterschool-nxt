@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="100" height="100" viewBox="0 0 100 100">
+  <defs>
+    <clipPath id="clip-Mentor">
+      <rect width="100" height="100"/>
+    </clipPath>
+  </defs>
+  <g id="Mentor" clip-path="url(#clip-Mentor)">
+    <path id="Path_4" data-name="Path 4" d="M50,0A50,50,0,1,1,0,50,50,50,0,0,1,50,0Z" fill="#ff3422"/>
+    <g id="beenhere-24px" transform="translate(29 29)">
+      <path id="Path_10" data-name="Path 10" d="M0,0H45.543V45.543H0Z" fill="none"/>
+      <path id="Path_11" data-name="Path 11" d="M33.362,1H6.8A3.79,3.79,0,0,0,3.019,4.8L3,29.332a3.806,3.806,0,0,0,1.67,3.15l14.365,9.564a1.928,1.928,0,0,0,2.106,0l14.346-9.564a3.806,3.806,0,0,0,1.67-3.15V4.8A3.806,3.806,0,0,0,33.362,1ZM32.034,13.714l-14.4,14.4a1.89,1.89,0,0,1-2.676,0L8.143,21.3a1.892,1.892,0,1,1,2.676-2.676l5.465,5.465L29.339,11.038a1.9,1.9,0,0,1,2.695,2.676Z" transform="translate(2.693 0.898)" fill="#fff"/>
+    </g>
+  </g>
+</svg>

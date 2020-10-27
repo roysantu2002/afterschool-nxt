@@ -6,6 +6,7 @@ import Container from "@material-ui/core/Container";
 import Button from "../UI/Button/Button";
 import Typography from "../UI/Typography";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {CardBase} from './CardBase'
 
 const styles = (theme) => ({
   // root: {
@@ -89,11 +90,12 @@ function ProductHowItWorks(props) {
         /> */}
       {/* <Container className={classes.root} component='section'></Container> */}
       <Typography variant='h2' marked='center' align='center' >
-        How to succeed after school?
+        After School Goal Enrichment?
       </Typography>
       <Grid container spacing={5} className={classes.gridControl}>
         <Grid item xs={12} md={4}>
-          <div className={classes.item}>
+        <CardBase text="Every successful people have an idea, dreams and a goal." title="FIND A GOAL" name="GOAL" img='/assets/Goal.svg'></CardBase>
+          {/* <div className={classes.item}>
           <Typography variant='h5' marked='center' align='center' className={classes.title}>
             "FIND A GOAL"
             </Typography>
@@ -105,11 +107,12 @@ function ProductHowItWorks(props) {
             <Typography variant='h5' align='center'>
               {"Every successful people have an idea, dreams and a goal."}
             </Typography>
-          </div>
+          </div> */}
         </Grid>
         <Grid item xs={12} md={4}>
-          <div className={classes.item}>
-          <Typography variant='h5' marked='center' align='center' className={classes.title}>
+          {/* <div className={classes.item}> */}
+          <CardBase title="GET A MENTOR" name="MENTOR" img='/assets/Mentor.svg' text="Best ways to improve is to find a mentor and Learn."></CardBase>
+          {/* <Typography variant='h5' marked='center' align='center' className={classes.title}>
             “DECIDE TO LEARN”
             </Typography>
             <FontAwesomeIcon
@@ -121,10 +124,11 @@ function ProductHowItWorks(props) {
               {"In Italian: Ancora imparo. A tiny reminder that I’m still learning, always learning."}
               
             </Typography>
-          </div>
+          </div> */}
         </Grid>
         <Grid item xs={12} md={4}>
-          <div className={classes.item}>
+        <CardBase  title="ACHIEVE" name="ACHIEVE" img='/assets/Success.svg' text="Success is the new way of life."></CardBase>
+          {/* <div className={classes.item}>
           <Typography variant='h5' marked='center' align='center' className={classes.title} >
             “GET A MENTOR”
             </Typography>
@@ -137,7 +141,7 @@ function ProductHowItWorks(props) {
               {"One of the best ways to improve yourself and your career is to find a mentor. "}
               {"Your Sundays will no longer be alike."}
             </Typography>
-          </div>
+          </div> */}
         </Grid>
       </Grid>
       <Grid container justify='center'>

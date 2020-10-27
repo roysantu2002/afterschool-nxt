@@ -8,50 +8,58 @@ import {
   Grid,
   makeStyles,
   Button,
-  Avatar
+  Avatar,
 } from "@material-ui/core";
 
 import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
 import Divider from "@material-ui/core/Divider";
-import Box from '@material-ui/core/Box';
+import Box from "@material-ui/core/Box";
 
 export const CardBase = (props) => {
   return (
     // <div className={Styles.page}>
-       <Paper className={Styles.paper}>
-     <Grid
+    <Paper className={Styles.paper}>
+      <Grid
         container
         direction="column"
         alignItems="center"
-        className={Styles.root}
+        // className={Styles.root}
       >
-        
-      <Grid container justify="center" alignItems="center" spacing={5}>
-     <div className={Styles.photoContainer}>
-      <Avatar alt={props.name} src={props.img} className={Styles.avatar}/>
-     </div>
-     </Grid>
-     {/* <Card key={props.name}> */}
-      <CardContent className={Styles.content}>
-        <Typography
-          className={"MuiTypography--heading"}
-          variant={"h6"}
-          gutterBottom
-        >
-        
-        </Typography>
+        <Grid container justify="center" alignItems="center" spacing={5}>
+          <div className={Styles.photoContainer}>
+            <Avatar
+              alt={props.name}
+              src={props.img}
+              className={Styles.avatar}
+            />
+          </div>
+        </Grid>
+        {/* <Card key={props.name}> */}
+        <CardContent className={Styles.content}>
+          <Typography
+            className={"MuiTypography--heading"}
+            variant={"h6"}
+            gutterBottom
+          ></Typography>
+          <Typography
+            className={"MuiTypography--subheading"}
+            variant={"caption"}
+          >
+            {props.title}
+          </Typography>
+          <Divider className={Styles.divider} light />
+        </CardContent>
+
         <Typography className={"MuiTypography--subheading"} variant={"caption"}>
-        {props.title}
+          {props.text}
         </Typography>
-        <Divider className={Styles.divider} light />
-      </CardContent>
-    {/* </Card> */}
-    </Grid>
+        {/* </Card> */}
+      </Grid>
     </Paper>
     // </div>
   );
-}
+};
 
 const Header = () => {
   return (

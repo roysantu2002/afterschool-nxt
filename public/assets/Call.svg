@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="100" height="100" viewBox="0 0 100 100">
+  <defs>
+    <clipPath id="clip-Call">
+      <rect width="100" height="100"/>
+    </clipPath>
+  </defs>
+  <g id="Call" clip-path="url(#clip-Call)">
+    <path id="Path_4" data-name="Path 4" d="M50,0A50,50,0,1,1,0,50,50,50,0,0,1,50,0Z" fill="#ff3422"/>
+    <g id="perm_phone_msg-24px" transform="translate(19 19)">
+      <path id="Path_12" data-name="Path 12" d="M0,0H62.836V62.836H0Z" fill="none"/>
+      <path id="Path_13" data-name="Path 13" d="M47.466,3H29.139a2.626,2.626,0,0,0-2.618,2.618V29.182l7.854-7.854H47.466a2.626,2.626,0,0,0,2.618-2.618V5.618A2.626,2.626,0,0,0,47.466,3ZM45.45,35.1l-6.65-.759a5.212,5.212,0,0,0-4.294,1.492l-4.817,4.817A39.391,39.391,0,0,1,12.435,23.4l4.844-4.844a5.212,5.212,0,0,0,1.492-4.294l-.759-6.6A5.24,5.24,0,0,0,12.8,3.026H8.272a5.2,5.2,0,0,0-5.236,5.42,44.487,44.487,0,0,0,41.6,41.6,5.2,5.2,0,0,0,5.42-5.236V40.283A5.189,5.189,0,0,0,45.45,35.1Z" transform="translate(4.897 4.854)" fill="#fff"/>
+    </g>
+  </g>
+</svg>

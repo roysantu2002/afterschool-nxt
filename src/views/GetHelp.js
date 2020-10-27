@@ -5,6 +5,7 @@ import Container from '@material-ui/core/Container';
 import { withStyles } from '@material-ui/core/styles';
 import Typography from '../UI/Typography';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Avatar } from '@material-ui/core';
 
 const styles = (theme) => ({
   root: {
@@ -42,10 +43,9 @@ function ProductSmokingHero(props) {
       <Typography variant="subtitle1" className={classes.link}>
         We are here to help. Get in touch!
       </Typography>
-      <FontAwesomeIcon
-              icon={["fa", "life-ring"]}
-              size='3x'
-              className={classes.ico}
+      <Avatar
+              src='assets\Call.svg'
+              alt='help'
             />
     </Container>
   );
