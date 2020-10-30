@@ -31,7 +31,7 @@ exports.sendMail = functions.https.onRequest((req, res) => {
     } = req.query;
 
     mailOptions = {
-      from: `afterschoolapps`,
+      from: `afterschooll`,
       to: email,
       subject: "We have received your message!",
       html: `

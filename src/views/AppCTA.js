@@ -13,6 +13,10 @@ import DialogContent from "@material-ui/core/DialogContent";
 import useMediaQuery from "@material-ui/core/useMediaQuery";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import axios from "axios";
+import Firebase from "../../src/utils/firebase";
+// import * as admin from "firebase-admin";
+import * as getDataApi from "../utils/getDataApi";
+
 
 const styles = (theme) => ({
   root: {
@@ -69,16 +73,17 @@ function ProductCTA(props) {
   const matchesMD = useMediaQuery(theme.breakpoints.down("md"));
   const matchesSM = useMediaQuery(theme.breakpoints.down("sm"));
   const matchesXS = useMediaQuery(theme.breakpoints.down("xs"));
-  
+
   const [open, setOpen] = useState(false);
   const [email, setEmail] = useState("");
   const [emailHelper, setEmailHelper] = useState("");
   const [loading, setLoading] = useState(false);
   const [alert, setAlert] = useState({ open: false, color: "" });
   const [alertMessage, setAlertMesssage] = useState("");
-
+  const [inquiry, setInquiry] = useState("");
 
   const onChange = (event) => {
+    let inquiryList = [];
     let valid;
     switch (event.target.id) {
       case "email":
@@ -90,7 +95,28 @@ function ProductCTA(props) {
         if (!valid) {
           setEmailHelper("Invalid email");
         } else {
+          console.log(event.target.value)
+          const email = event.target.value
           setEmailHelper("");
+          getDataApi.getInquiry(email).then((querySnapshot) => {
+            // console.log(`Inquiry: ${querySnapshot}`);
+            try {
+              if (querySnapshot !== null) {
+                querySnapshot.map((query) => {
+                  inquiryList.push(query.email);
+                  // if (query.email === email) {
+
+                  // setEmailHelper("Email already exists");
+                  // }
+                });
+                console.log(inquiryList.includes(email.toString))
+                if (inquiryList.includes('test') === true) {
+                  console.log("Email already exists")
+                  console.log(email);
+                }
+              }
+            } catch {}
+          });
         }
         break;
       default:
@@ -121,30 +147,54 @@ function ProductCTA(props) {
   const onConfirm = () => {
     setLoading(true);
 
-    axios
-      .get(
-        "https://us-central1-react-19b73.cloudfunctions.net/sendMail",
-        {
-          params: {
-            email: email,
-          }
-        }
-      )
-      .then(res => {
-        setLoading(false);
-        setOpen(false);
-        setEmail("");
-        setAlert({ open: true, color: "#4BB543" });
-        setAlertMesssage("Message sent successfully!");
-      })
-      .catch(err => {
-        setLoading(false);
-        setAlert({ open: true, color: "#FF3232" });
-        setAlertMesssage("Something went wrong! Please try again.");
-        console.error(err);
-      });
-  };
+    // const firestore = Firebase.firestore();
+    // // Create a reference to the cities collection
+    // const emailRef = firestore.collection("inquiry");
 
+    // // Create a query against the collection
+    // const date = emailRef.where("email", "==", email).get();
+
+    // console.log("test",date)
+    // admin.auth
+    //   .listUsers(1)
+    //   .then((userRecords) => {
+    //     userRecords.users.forEach((user) => console.log(user.toJSON()));
+    //   })
+    //   .catch((error) => console.log(error));
+
+    // Firebase
+    //   .getUserByEmail(email)
+    //   .then(function (userRecord) {
+    //     // See the UserRecord reference doc for the contents of userRecord.
+    //     console.log("Successfully fetched user data:", userRecord.toJSON());
+    //   })
+    //   .catch(function (error) {
+    //     console.log("Error fetching user data:", error);
+    //   });
+
+    // axios
+    //   .get(
+    //     "https://us-central1-react-19b73.cloudfunctions.net/sendMail",
+    //     {
+    //       params: {
+    //         email: email,
+    //       }
+    //     }
+    //   )
+    //   .then(res => {
+    //     setLoading(false);
+    //     setOpen(false);
+    //     setEmail("");
+    //     setAlert({ open: true, color: "#4BB543" });
+    //     setAlertMesssage("Message sent successfully!");
+    //   })
+    //   .catch(err => {
+    //     setLoading(false);
+    //     setAlert({ open: true, color: "#FF3232" });
+    //     setAlertMesssage("Something went wrong! Please try again.");
+    //     console.error(err);
+    //   });
+  };
 
   return (
     <Container className={classes.root} component="section">
@@ -170,10 +220,7 @@ function ProductCTA(props) {
                 onChange={onChange}
               />
               <Button
-              disabled={
-                emailHelper.length !== 0 ||
-                email.length === 0
-              }
+                disabled={emailHelper.length !== 0 || email.length === 0}
                 type="submit"
                 color="primary"
                 variant="contained"
@@ -191,26 +238,28 @@ function ProductCTA(props) {
           open={open}
           fullScreen={matchesXS}
           onClose={() => setOpen(false)}
-          PaperProps={{
-            // style: {
-            //   paddingTop: matchesSM ? "1em" : "5em",
-            //   paddingBottom: matchesSM ? "1em" : "5em",
-            //   paddingLeft: matchesSM
-            //     ? 0
-            //     : matchesSM
-            //     ? 0
-            //     : matchesSM
-            //     ? "15em"
-            //     : "25em",
-            //   paddingRight: matchesSM
-            //     ? 0
-            //     : matchesSM
-            //     ? 0
-            //     : matchesSM
-            //     ? "15em"
-            //     : "25em",
-            // },
-          }}
+          PaperProps={
+            {
+              // style: {
+              //   paddingTop: matchesSM ? "1em" : "5em",
+              //   paddingBottom: matchesSM ? "1em" : "5em",
+              //   paddingLeft: matchesSM
+              //     ? 0
+              //     : matchesSM
+              //     ? 0
+              //     : matchesSM
+              //     ? "15em"
+              //     : "25em",
+              //   paddingRight: matchesSM
+              //     ? 0
+              //     : matchesSM
+              //     ? 0
+              //     : matchesSM
+              //     ? "15em"
+              //     : "25em",
+              // },
+            }
+          }
         >
           <DialogContent>
             <Grid container direction="column">
@@ -219,7 +268,7 @@ function ProductCTA(props) {
                   Confirm Message
                 </Typography>
               </Grid>
-            
+
               <Grid item style={{ marginBottom: "0.5em" }}>
                 <TextField
                   label="Email"
@@ -250,10 +299,7 @@ function ProductCTA(props) {
               </Grid>
               <Grid item>
                 <Button
-                  disabled={
-                    emailHelper.length !== 0 ||
-                    email.length === 0 
-                  }
+                  disabled={emailHelper.length !== 0 || email.length === 0}
                   variant="contained"
                   className={classes.sendButton}
                   onClick={() => {
@@ -270,6 +316,18 @@ function ProductCTA(props) {
             </Grid>
           </DialogContent>
         </Dialog>
+        <Snackbar
+          open={alert.open}
+          ContentProps={{
+            style: {
+              backgroundColor: alert.color,
+            },
+          }}
+          anchorOrigin={{ vertical: "top", horizontal: "center" }}
+          message={alertMessage}
+          autoHideDuration={4000}
+          onClose={() => setAlert(false)}
+        />
         <Grid item xs={12} md={6} className={classes.imagesWrapper}>
           <Hidden smDown>
             <div className={classes.imageDots} />
@@ -281,11 +339,6 @@ function ProductCTA(props) {
           </Hidden>
         </Grid>
       </Grid>
-      <Snackbar
-        open={open}
-        onClose={handleClose}
-        message="We will send you our best offers, once a week."
-      />
     </Container>
   );
 }
