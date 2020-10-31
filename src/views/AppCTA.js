@@ -95,27 +95,11 @@ function ProductCTA(props) {
         if (!valid) {
           setEmailHelper("Invalid email");
         } else {
-          console.log(event.target.value)
+          // console.log(event.target.value)
           const email = event.target.value
           setEmailHelper("");
           getDataApi.getInquiry(email).then((querySnapshot) => {
-            // console.log(`Inquiry: ${querySnapshot}`);
-            try {
-              if (querySnapshot !== null) {
-                querySnapshot.map((query) => {
-                  inquiryList.push(query.email);
-                  // if (query.email === email) {
-
-                  // setEmailHelper("Email already exists");
-                  // }
-                });
-                console.log(inquiryList.includes(email.toString))
-                if (inquiryList.includes('test') === true) {
-                  console.log("Email already exists")
-                  console.log(email);
-                }
-              }
-            } catch {}
+            setEmailHelper(querySnapshot)
           });
         }
         break;

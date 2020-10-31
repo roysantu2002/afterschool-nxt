@@ -16,4 +16,4 @@ export const firebase = Firebase.apps.length
 
 // export const db = firebase.firestore()
 
-export default (firebase);
+export default firebase;
