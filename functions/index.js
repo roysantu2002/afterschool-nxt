@@ -1,20 +1,21 @@
 // const functions = require("firebase-functions");
-const functions = require('firebase-functions');
+const functions = require("firebase-functions");
 
 const config = functions.config();
 const admin = require("firebase-admin");
 const nodemailer = require("nodemailer");
 const cors = require("cors")({ origin: true });
+const crypto = require("crypto");
 
 admin.initializeApp();
 
 let transporter = nodemailer.createTransport({
-  secure: false, 
+  secure: false,
   service: "gmail",
   auth: {
     user: config.user.email,
-    pass: config.user.pass
-  }
+    pass: config.user.pass,
+  },
 });
 let mailOptions;
 // let mailOptions = {
@@ -25,10 +26,26 @@ let mailOptions;
 // };
 
 exports.sendMail = functions.https.onRequest((req, res) => {
+  // POST headers before sending to firebase server
+  const httpOptions = {
+    headers: new HttpHeaders({
+      "Content-Type": "application/json",
+      Authorization: "0d1d95a713908852bc1b98d7d382e82a80b5b115",
+    }),
+  };
+
+  // firebase functions check
+  let key = functions.config().app_name.key;
+  let request_key = request.get("authorization");
+  if (key === request_key) {
+    console.log("Awesome!!!");
+  } else {
+    response.status(400).send("You shall not pass!!!");
+    return;
+  }
+
   cors(req, res, () => {
-    const {
-      email,
-    } = req.query;
+    const { email } = req.query;
 
     mailOptions = {
       from: `afterschooll`,
@@ -589,15 +606,15 @@ exports.sendMail = functions.https.onRequest((req, res) => {
   </table>
   </body>
   </html>
-        `
+        `,
     };
 
-   transporter.sendMail(mailOptions, error =>{
-       if(error){
-           res.send(error)
-       }else{
-           res.send("Success")
-       }
-   })
-})
-})
+    transporter.sendMail(mailOptions, (error) => {
+      if (error) {
+        res.send(error);
+      } else {
+        res.send("Success");
+      }
+    });
+  });
+});

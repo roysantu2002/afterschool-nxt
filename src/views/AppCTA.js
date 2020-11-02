@@ -80,8 +80,10 @@ function AppCTA(props) {
   const [alert, setAlert] = useState({ open: false, color: "" });
   const [alertMessage, setAlertMesssage] = useState("");
   // const [inquiry, setInquiry] = useState("");
+ 
 
   const onChange = (event) => {
+    console.log(crypto.randomBytes(20).toString('hex'))
     // let inquiryList = [];
     let valid;
     switch (event.target.id) {
