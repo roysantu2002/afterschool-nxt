@@ -54,7 +54,7 @@ export default function MyApp(props) {
   }, []);
 
 
-  console.log(`env ${process.env.DB_HOST}`)
+  // console.log(`env ${process.env.DB_HOST}`)
   return (
 
     <React.Fragment>

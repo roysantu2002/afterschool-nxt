@@ -6,7 +6,7 @@ import Hidden from "@material-ui/core/Hidden";
 import Container from "@material-ui/core/Container";
 import Typography from "../UI/Typography";
 import TextField from "../UI/Input/TextField";
-import Snackbar from "../UI/Snackbar";
+import Snackbar from "@material-ui/core/Snackbar";
 import Button from "../UI/Button/Button";
 import Dialog from "@material-ui/core/Dialog";
 import DialogContent from "@material-ui/core/DialogContent";
@@ -16,7 +16,6 @@ import axios from "axios";
 import Firebase from "../../src/utils/firebase";
 // import * as admin from "firebase-admin";
 import * as getDataApi from "../utils/getDataApi";
-
 
 const styles = (theme) => ({
   root: {
@@ -31,7 +30,7 @@ const styles = (theme) => ({
     display: "flex",
     justifyContent: "center",
     backgroundColor: theme.palette.warning.main,
-    padding: theme.spacing(8, 3),
+    padding: theme.spacing(8),
   },
   cardContent: {
     maxWidth: 400,
@@ -54,7 +53,7 @@ const styles = (theme) => ({
     right: 0,
     bottom: 0,
     width: "100%",
-    background: "url('/assets/onepirate/productCTAImageDots.png')",
+    // background: "url('/assets/onepirate/productCTAImageDots.png')",
   },
   image: {
     position: "absolute",
@@ -67,11 +66,11 @@ const styles = (theme) => ({
   },
 });
 
-function ProductCTA(props) {
+function AppCTA(props) {
   const { classes } = props;
   const theme = useTheme();
-  const matchesMD = useMediaQuery(theme.breakpoints.down("md"));
-  const matchesSM = useMediaQuery(theme.breakpoints.down("sm"));
+  // const matchesMD = useMediaQuery(theme.breakpoints.down("md"));
+  // const matchesSM = useMediaQuery(theme.breakpoints.down("sm"));
   const matchesXS = useMediaQuery(theme.breakpoints.down("xs"));
 
   const [open, setOpen] = useState(false);
@@ -80,10 +79,10 @@ function ProductCTA(props) {
   const [loading, setLoading] = useState(false);
   const [alert, setAlert] = useState({ open: false, color: "" });
   const [alertMessage, setAlertMesssage] = useState("");
-  const [inquiry, setInquiry] = useState("");
+  // const [inquiry, setInquiry] = useState("");
 
   const onChange = (event) => {
-    let inquiryList = [];
+    // let inquiryList = [];
     let valid;
     switch (event.target.id) {
       case "email":
@@ -96,10 +95,13 @@ function ProductCTA(props) {
           setEmailHelper("Invalid email");
         } else {
           // console.log(event.target.value)
-          const email = event.target.value
-          setEmailHelper("");
-          getDataApi.getInquiry(email).then((querySnapshot) => {
-            setEmailHelper(querySnapshot)
+          // const email = event.target.value
+          // setEmailHelper("");
+          getDataApi.getInquiry(event.target.value).then((querySnapshot) => {
+            // console.log(querySnapshot)
+            querySnapshot === "NA"
+              ? setEmailHelper("")
+              : setEmailHelper(querySnapshot);
           });
         }
         break;
@@ -131,53 +133,25 @@ function ProductCTA(props) {
   const onConfirm = () => {
     setLoading(true);
 
-    // const firestore = Firebase.firestore();
-    // // Create a reference to the cities collection
-    // const emailRef = firestore.collection("inquiry");
-
-    // // Create a query against the collection
-    // const date = emailRef.where("email", "==", email).get();
-
-    // console.log("test",date)
-    // admin.auth
-    //   .listUsers(1)
-    //   .then((userRecords) => {
-    //     userRecords.users.forEach((user) => console.log(user.toJSON()));
-    //   })
-    //   .catch((error) => console.log(error));
-
-    // Firebase
-    //   .getUserByEmail(email)
-    //   .then(function (userRecord) {
-    //     // See the UserRecord reference doc for the contents of userRecord.
-    //     console.log("Successfully fetched user data:", userRecord.toJSON());
-    //   })
-    //   .catch(function (error) {
-    //     console.log("Error fetching user data:", error);
-    //   });
-
-    // axios
-    //   .get(
-    //     "https://us-central1-react-19b73.cloudfunctions.net/sendMail",
-    //     {
-    //       params: {
-    //         email: email,
-    //       }
-    //     }
-    //   )
-    //   .then(res => {
-    //     setLoading(false);
-    //     setOpen(false);
-    //     setEmail("");
-    //     setAlert({ open: true, color: "#4BB543" });
-    //     setAlertMesssage("Message sent successfully!");
-    //   })
-    //   .catch(err => {
-    //     setLoading(false);
-    //     setAlert({ open: true, color: "#FF3232" });
-    //     setAlertMesssage("Something went wrong! Please try again.");
-    //     console.error(err);
-    //   });
+    axios
+      .get("https://us-central1-react-19b73.cloudfunctions.net/sendMail", {
+        params: {
+          email: email,
+        },
+      })
+      .then((res) => {
+        setLoading(false);
+        setOpen(false);
+        setEmail("");
+        setAlert({ open: true, color: "#4BB543" });
+        setAlertMesssage("Message sent successfully!");
+      })
+      .catch((err) => {
+        setLoading(false);
+        setAlert({ open: true, color: "#FF3232" });
+        setAlertMesssage("Something went wrong! Please try again.");
+        console.error(err);
+      });
   };
 
   return (
@@ -258,7 +232,7 @@ function ProductCTA(props) {
                   label="Email"
                   error={emailHelper.length !== 0}
                   helperText={emailHelper}
-                  id="email"
+                  id="emailid"
                   fullWidth
                   value={email}
                   onChange={onChange}
@@ -301,18 +275,22 @@ function ProductCTA(props) {
           </DialogContent>
         </Dialog>
         <Snackbar
+          autoHideDuration={4000}
           open={alert.open}
           ContentProps={{
             style: {
               backgroundColor: alert.color,
             },
           }}
+          TransitionProps={{
+            appear: false,
+          }}
           anchorOrigin={{ vertical: "top", horizontal: "center" }}
           message={alertMessage}
-          autoHideDuration={4000}
           onClose={() => setAlert(false)}
         />
-        <Grid item xs={12} md={6} className={classes.imagesWrapper}>
+        {/* setAlert(open:false) */}
+        {/* <Grid item xs={12} md={6} className={classes.imagesWrapper}>
           <Hidden smDown>
             <div className={classes.imageDots} />
             <img
@@ -321,14 +299,15 @@ function ProductCTA(props) {
               className={classes.image}
             />
           </Hidden>
+        </Grid> */}
+  
         </Grid>
-      </Grid>
     </Container>
   );
 }
 
-ProductCTA.propTypes = {
+AppCTA.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(ProductCTA);
+export default withStyles(styles)(AppCTA);

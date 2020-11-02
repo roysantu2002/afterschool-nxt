@@ -524,19 +524,19 @@
       height: calc(100% - 48px);
     }
   
-    .mdc-component__toolbar .cover-image__frame {
+    /* .mdc-component__toolbar .cover-image__frame {
       display: block;
       height: 220px;
       position: relative;
       width: 100%;
-    }
+    } */
   
-    .mdc-component__toolbar .cover-image {
+    /* .mdc-component__toolbar .cover-image {
       display: block;
       height: 100%;
       width: 100%;
       overflow: hidden;
-    }
+    } */
   
     .mdc-component__toolbar .mdc-fab {
       position: absolute;

@@ -53,7 +53,7 @@ const styles = (theme) => ({
     padding: theme.spacing.unit * 3,
   },
   divider: {
-    margin: `${theme.spacing.unit * 3}px 0`,
+    margin: theme.spacing(3),
   },
   heading: {
     fontWeight: "bold",
@@ -93,7 +93,7 @@ class WhoList extends React.Component {
     //this.setState({ influencerList: influencerData });
 
     getDataApi.getInfluencerAction().then((querySnapshot) => {
-      console.log(`querySnapshot: ${querySnapshot}`)
+      // console.log(`querySnapshot: ${querySnapshot}`)
       try {
         if (querySnapshot !== null) {
           querySnapshot.map((query) => {

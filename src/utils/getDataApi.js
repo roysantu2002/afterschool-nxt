@@ -24,7 +24,7 @@ export const getInquiry = async (email) => {
   return db
           .doc(randomstring.generate(10))
           .set({ email: email, date: Date.now() })
-          .then((querySnapshot) => doList)
+          .then((querySnapshot) => "NA")
     .catch((querySnapshot) => "Email Exists");
   }else{return querySnapshot}
 

@@ -2,7 +2,7 @@ import {firebase} from "../utils/config/firebase"
 
 const getCourseAction = () => async dispatch => {
 
-  console.log("Without Despatch")
+  // console.log("Without Despatch")
     const firestore = firebase.firestore()
   firestore
     .collection("course_cat").get()

@@ -53,7 +53,7 @@ const globalStyles = (theme) => ({
   },
   content: {
     textAlign: "left",
-    padding: theme.spacing.unit * 3
+    padding: theme.spacing(3)
   },
   header: {
     color: theme.palette.grey[400],

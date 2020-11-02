@@ -124,7 +124,7 @@ class CourseCategories extends React.Component {
     });
 
     getDataApi.getCourseAction().then((querySnapshot) => {
-      console.log(`querySnapshot: ${querySnapshot}`);
+      // console.log(`querySnapshot: ${querySnapshot}`);
       try {
         if (querySnapshot !== null) {
           querySnapshot.map((query) => {

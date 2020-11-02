@@ -152,7 +152,7 @@ const useStyles = makeStyles((theme) => ({
   customButton: {
     fontWeight: theme.typography.fontWeightMedium,
     fontFamily: theme.typography.fontFamilySecondary,
-    margin: theme.spacing.unit,
+    margin: theme.spacing(10),
     borderRadius: 50,
     width: 110,
     textTransform: "none",
@@ -255,7 +255,7 @@ export default function Header(props) {
     [...menuOptions, ...routes].forEach((route) => {
       switch (window.location.pathname) {
         case `${route.link}`:
-          console.log(route.name);
+          // console.log(route.name);
           if (props.value !== route.activeIndex) {
             props.setValue(route.activeIndex);
             if (
