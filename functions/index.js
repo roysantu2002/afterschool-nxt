@@ -1,5 +1,6 @@
 // const functions = require("firebase-functions");
 const functions = require("firebase-functions");
+const request = require('firebase-functions/lib/providers/https')
 
 const config = functions.config();
 const admin = require("firebase-admin");
@@ -7,7 +8,10 @@ const nodemailer = require("nodemailer");
 const cors = require("cors")({ origin: true });
 const crypto = require("crypto");
 
-admin.initializeApp();
+// // Initialize Admin SDK for use in the server
+// try {
+  admin.initializeApp();
+// } catch (e) {}
 
 let transporter = nodemailer.createTransport({
   secure: false,
@@ -25,27 +29,53 @@ let mailOptions;
 //     text: 'Hello'
 // };
 
-exports.sendMail = functions.https.onRequest((req, res) => {
-  // POST headers before sending to firebase server
-  const httpOptions = {
-    headers: new HttpHeaders({
-      "Content-Type": "application/json",
-      Authorization: "0d1d95a713908852bc1b98d7d382e82a80b5b115",
-    }),
-  };
+const validateFirebaseIdToken = async (req, res, next) => {
+    const key = functions.config().app_name.key;
 
-  // firebase functions check
-  let key = functions.config().app_name.key;
-  let request_key = request.get("authorization");
-  if (key === request_key) {
-    console.log("Awesome!!!");
-  } else {
-    response.status(400).send("You shall not pass!!!");
-    return;
-  }
+    const authorization = request.get('Authorization');
+    const split = 
+          authorization ? authorization.split('Bearer ') : [];
+    const bearerKey = 
+          split && split.length >= 2 ? split[1] : undefined;
+
+    return key === bearerKey;
+}
+
+
+exports.sendMail = functions.https.onRequest((req, res) => {
+
 
   cors(req, res, () => {
     const { email } = req.query;
+    const { options } = req.query;
+
+    console.log(options)
+    // // Check for POST request
+    // if (request.method !== "POST") {
+    //   res.status(400).send("Please send a POST request");
+    //   return;
+    // }
+
+    // // POST headers before sending to firebase server
+    // const httpOptions = {
+    //   headers: new HttpHeaders({
+    //     "Content-Type": "application/json",
+    //     Authorization: "0d1d95a713908852bc1b98d7d382e82a80b5b115",
+    //   }),
+    // };
+
+    // res.set("Access-Control-Allow-Origin", "http://localhost:3000");
+    // res.set("Access-Control-Allow-Headers", "*");
+
+    // firebase functions check
+    // let key = functions.config().app_name.key;
+    // let request_key = res.get("authorization");
+    // if (key === request_key) {
+    //   console.log("Awesome!!!");
+    // } else {
+    //   res.status(400).send("You shall not pass!!!");
+    //   return;
+    // }
 
     mailOptions = {
       from: `afterschooll`,

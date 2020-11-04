@@ -83,7 +83,7 @@ function AppCTA(props) {
  
 
   const onChange = (event) => {
-    console.log(crypto.randomBytes(20).toString('hex'))
+    // console.log(crypto.randomBytes(20).toString('hex'))
     // let inquiryList = [];
     let valid;
     switch (event.target.id) {
@@ -135,13 +135,26 @@ function AppCTA(props) {
   const onConfirm = () => {
     setLoading(true);
 
+    const token = "0d1d95a713908852bc1b98d7d382e82a80b5b115"
+
+       // POST headers before sending to firebase server
+    const options = {
+      headers: {"Content-Type": "application/json",
+      Authorization: `Bearer ${token}`}
+    }
+    
+
     axios
       .get("https://us-central1-react-19b73.cloudfunctions.net/sendMail", {
         params: {
-          email: email,
+          email: email, options
+        },
+        headers: {
+          'Authorization': `Bearer ${token}`
         },
       })
       .then((res) => {
+        
         setLoading(false);
         setOpen(false);
         setEmail("");
@@ -152,7 +165,7 @@ function AppCTA(props) {
         setLoading(false);
         setAlert({ open: true, color: "#FF3232" });
         setAlertMesssage("Something went wrong! Please try again.");
-        console.error(err);
+        console.error(`sent email {err}`);
       });
   };
 
