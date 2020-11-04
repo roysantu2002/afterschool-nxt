@@ -14,6 +14,7 @@ import useMediaQuery from "@material-ui/core/useMediaQuery";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import axios from "axios";
 import Firebase from "../../src/utils/firebase";
+
 // import * as admin from "firebase-admin";
 import * as getDataApi from "../utils/getDataApi";
 
@@ -79,8 +80,8 @@ function AppCTA(props) {
   const [loading, setLoading] = useState(false);
   const [alert, setAlert] = useState({ open: false, color: "" });
   const [alertMessage, setAlertMesssage] = useState("");
+  const [token, setToken] = useState("");
   // const [inquiry, setInquiry] = useState("");
- 
 
   const onChange = (event) => {
     // console.log(crypto.randomBytes(20).toString('hex'))
@@ -100,10 +101,19 @@ function AppCTA(props) {
           // const email = event.target.value
           // setEmailHelper("");
           getDataApi.getInquiry(event.target.value).then((querySnapshot) => {
-            // console.log(querySnapshot)
-            querySnapshot === "NA"
-              ? setEmailHelper("")
-              : setEmailHelper(querySnapshot);
+            if (querySnapshot) {
+              const keyQueryString = querySnapshot.split(",");
+              // console.log(`Key ${keyQueryString[1]}`);
+              // console.log(`Key ${keyQueryString[0]}`);
+
+              keyQueryString[0] === "NA"
+                ? setEmailHelper("")
+                : setEmailHelper(querySnapshot);
+
+              keyQueryString[1].length > 10
+                ? setToken(keyQueryString[1])
+                : setToken("");
+            }
           });
         }
         break;
@@ -135,26 +145,29 @@ function AppCTA(props) {
   const onConfirm = () => {
     setLoading(true);
 
-    const token = "0d1d95a713908852bc1b98d7d382e82a80b5b115"
+    // const token = functions.config().app_name.key
+    // console.log(`Token: ${token}`);
+    // const token = "0d1d95a713908852bc1b98d7d382e82a80b5b115"
 
-       // POST headers before sending to firebase server
+    // POST headers before sending to firebase server
     const options = {
-      headers: {"Content-Type": "application/json",
-      Authorization: `Bearer ${token}`}
-    }
-    
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    };
 
     axios
       .get("https://us-central1-react-19b73.cloudfunctions.net/sendMail", {
         params: {
-          email: email, options
+          email: email,
+          options,
         },
         headers: {
-          'Authorization': `Bearer ${token}`
+          Authorization: `Bearer ${token}`,
         },
       })
       .then((res) => {
-        
         setLoading(false);
         setOpen(false);
         setEmail("");
@@ -315,8 +328,7 @@ function AppCTA(props) {
             />
           </Hidden>
         </Grid> */}
-  
-        </Grid>
+      </Grid>
     </Container>
   );
 }

@@ -11,21 +11,33 @@ const Firestore = Firebase.firestore();
 export const getInquiry = async (email) => {
  const db = Firestore.collection("inquiry")
   const refInquiry = await db.where("email", "==", email).get()
+  const refToken = await db.where("token", "!=", "").get()
+
   let doList = []
+  let tokenValue = ""
+
+  refToken.forEach(doc => {
+    if(doc)
+    // tokenList.push(doc.data())
+    tokenValue = doc.data().token
+  });
+
   refInquiry.forEach(doc => {
       if(doc)
       doList.push(doc.data())
+      
     });
 
   // const doc = refInquiry.data
-  // console.log(doList)
-  let querySnapshot = "Email Exists"
+  // console.log(tokenList.token)
+  let querySnapshot = "Email Exists,"+""
+  
   if(doList.length < 1){
   return db
           .doc(randomstring.generate(10))
           .set({ email: email, date: Date.now() })
-          .then((querySnapshot) => "NA")
-    .catch((querySnapshot) => "Email Exists");
+          .then((querySnapshot) => "NA,"+tokenValue)
+    .catch((querySnapshot) => "Email Exists, ")
   }else{return querySnapshot}
 
   // console.log(randomstring.generate(10))

@@ -10,7 +10,7 @@ const crypto = require("crypto");
 
 // // Initialize Admin SDK for use in the server
 // try {
-  admin.initializeApp();
+admin.initializeApp();
 // } catch (e) {}
 
 let transporter = nodemailer.createTransport({
@@ -30,15 +30,15 @@ let mailOptions;
 // };
 
 const validateFirebaseIdToken = async (req, res, next) => {
-    const key = functions.config().app_name.key;
+  const key = functions.config().app_name.key;
 
-    const authorization = request.get('Authorization');
-    const split = 
-          authorization ? authorization.split('Bearer ') : [];
-    const bearerKey = 
-          split && split.length >= 2 ? split[1] : undefined;
+  const authorization = request.get('Authorization');
+  const split =
+    authorization ? authorization.split('Bearer ') : [];
+  const bearerKey =
+    split && split.length >= 2 ? split[1] : undefined;
 
-    return key === bearerKey;
+  return key === bearerKey;
 }
 
 
@@ -49,8 +49,20 @@ exports.sendMail = functions.https.onRequest((req, res) => {
     const { email } = req.query;
     const { options } = req.query;
 
-    console.log(options)
-    // // Check for POST request
+    const key = functions.config().app_name.key;
+
+    functions.logger.log("Key: ", key)
+    const authorization = req.get('Authorization')
+    const split =
+      authorization ? authorization.split('Bearer ') : [];
+    const bearerKey =
+      split && split.length >= 2 ? split[1] : undefined;
+
+    functions.logger.log("authorization", bearerKey)
+
+    if (bearerKey !== key) { return }
+    // console.log(`Options Param {options.Authorization}`)
+    // // // Check for POST request
     // if (request.method !== "POST") {
     //   res.status(400).send("Please send a POST request");
     //   return;
