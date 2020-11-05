@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import PropTypes from "prop-types";
 import { withStyles, useTheme } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
-import Hidden from "@material-ui/core/Hidden";
 import Container from "@material-ui/core/Container";
 import Typography from "../UI/Typography";
 import TextField from "../UI/Input/TextField";
