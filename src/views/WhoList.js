@@ -16,6 +16,8 @@ import ListSubheader from "@material-ui/core/ListSubheader"
 import Grid from "@material-ui/core/Grid"
 import * as getDataApi from "../utils/getDataApi";
 import CircularProgress from "@material-ui/core/CircularProgress";
+import Fade from 'react-reveal/Fade'
+
 
 const styles = (theme) => ({
   root: {
@@ -161,6 +163,7 @@ class WhoList extends React.Component {
         Be Inspired
       </Typography>
     </Grid>
+    <Fade bottom cascade={true}>
     <Grid item xs={12}>
       <Grid container justify='center' spacing={2}>
         {influencerList && influencerList.map((influencer) => (
@@ -202,6 +205,7 @@ class WhoList extends React.Component {
         ))}
       </Grid>
     </Grid>
+    </Fade>
   </Grid>
 
     return this.state.loading ? influencerDetails : loadingDeatils;

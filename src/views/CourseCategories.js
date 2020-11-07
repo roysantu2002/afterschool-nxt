@@ -8,7 +8,7 @@ import * as getDataApi from "../utils/getDataApi";
 import data from "../data/courseCat.json";
 import { makeStyles } from "@material-ui/core/styles";
 import CircularProgress from "@material-ui/core/CircularProgress";
-
+import Fade from 'react-reveal/Fade'
 import axios from "axios";
 
 const styles = (theme) => ({
@@ -230,6 +230,7 @@ class CourseCategories extends React.Component {
         <Typography variant="h2" marked="center" align="center">
         Why not learn 'AfterSchool'?
         </Typography>
+        <Fade bottom cascade={true}>
         <div className={classes.images}>
           {courseCat &&
             courseCat.map((image) => (
@@ -262,6 +263,7 @@ class CourseCategories extends React.Component {
               </ButtonBase>
             ))}
         </div>
+        </Fade>
       </Container>
     );
 
