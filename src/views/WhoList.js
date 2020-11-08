@@ -85,51 +85,68 @@ class WhoList extends React.Component {
     const influencerLocalData = [];
     const influencerRemoteData = [];
 
-    data.map((postData) => {
-      influencerLocalData.push(postData);
-    });
+    const localStorageInfluenceData = localStorage.getItem("influencerList");
+    // localStorageInfluenceData ? localStorage.getItem('user') : '';
+    // this.setState({ user, rememberMe });
 
-    //console.log(influencerData)
-    // this.setState(() => ({
-    //   influencerList: influencerLocalData,
-    // }));
-    //this.setState({ influencerList: influencerData });
+    if (localStorageInfluenceData === null) {
+      data.map((postData) => {
+        influencerLocalData.push(postData);
+      });
 
-    getDataApi.getInfluencerAction().then((querySnapshot) => {
-      // console.log(`querySnapshot: ${querySnapshot}`)
-      try {
-        if (querySnapshot !== null) {
-          querySnapshot.map((query) => {
-            if (query.title !== "") {
-              influencerRemoteData.push(query);
-            }
-          });
-        }
-        this.setState(() => ({
-          influencerList: influencerRemoteData,
-        }));
-        this.setState(() => ({
-          loading: true,
-        }));
-      } catch (exception_var) {
-        console.log(exception_var);
-        this.setState(() => ({
-          influencerList: influencerLocalData,
-        }));
-        this.setState(() => ({
-          loading: true,
-        }));
-      }
-
-      // querySnapshot.map((query) => {
-      //   influencerRemoteData.push(query)
-      // })
-      // //console.log(`From firebase ${querySnapshot}`)
+      //console.log(influencerData)
       // this.setState(() => ({
-      //   influencerList: influencerRemoteData,
+      //   influencerList: influencerLocalData,
       // }));
-    });
+      //this.setState({ influencerList: influencerData });
+      console.log(`Local Storage: ${localStorageInfluenceData}`);
+      getDataApi.getInfluencerAction().then((querySnapshot) => {
+        // console.log(`querySnapshot: ${querySnapshot}`)
+        try {
+          if (querySnapshot !== null) {
+            querySnapshot.map((query) => {
+              if (query.title !== "") {
+                influencerRemoteData.push(query);
+              }
+            });
+          }
+          this.setState(() => ({
+            influencerList: influencerRemoteData,
+          }));
+          localStorage.setItem(
+            "influencerList",
+            JSON.stringify(influencerRemoteData)
+          );
+          this.setState(() => ({
+            loading: true,
+          }));
+        } catch (exception_var) {
+          console.log(exception_var);
+          this.setState(() => ({
+            influencerList: influencerRemoteData,
+          }));
+          this.setState(() => ({
+            loading: true,
+          }));
+          localStorage.setItem(
+            "influencerList",
+            JSON.stringify(influencerRemoteData)
+          );
+        }
+      });
+    } else {
+      console.log("From Local Storage");
+      const localStorageData = JSON.parse(localStorageInfluenceData)
+      // localStorageData.map((influencer) => {
+      //   console.log(influencer.name.replace(/\s/g, ""));
+      // });
+      // console.log(JSON.parse(localStorageInfluenceData))
+        this.setState(() => ({
+        influencerList: localStorageData,
+      }))
+    }
   }
+
   // export default function WhoList() {
   // const [influencerList, setinfluencerList] = useState([]);
   // const classes = useStyles();
@@ -144,8 +161,11 @@ class WhoList extends React.Component {
   // });
 
   render() {
-    const { classes } = this.props;
-    const influencerList = this.state.influencerList;
+    const { classes } = this.props
+    const influencerList = this.state.influencerList
+    const key = 0
+    //const influencerList = localStorage.getItem('influencerList') === 'true'
+    //influencerList ? localStorage.getItem('influencerList') : this.state.influencerList
 
     const loadingDeatils = (
       <Container className={classes.loading} component="section">
@@ -164,12 +184,12 @@ class WhoList extends React.Component {
           </Typography>
         </Grid>
         <Fade bottom cascade={true}>
-          <Grid item xs={8}>
+          <Grid item xs={12}>
             <Grid container className={classes.root} spacing={4}>
               {influencerList &&
                 influencerList.map((influencer) => (
                   <Grid item xs={8} md={4} sm={6} xl={3}>
-                    <Card key={influencer.name} className={classes.card}>
+                    <Card key={influencer.name.replace(/\s/g, "")} className={classes.card}>
                       <CardMedia
                         className={classes.media}
                         image={influencer.img}
@@ -205,16 +225,16 @@ class WhoList extends React.Component {
                     </Card>
                   </Grid>
                 ))}
- 
             </Grid>
           </Grid>
           <Grid item xs={2}>
-        
             <Grid container className={classes.root} spacing={4}>
-              <Grid item>     <Typography>Test</Typography></Grid>
-       
+              <Grid item>
+                {" "}
+                <Typography>Test</Typography>
               </Grid>
             </Grid>
+          </Grid>
         </Fade>
       </Grid>
     );
