@@ -304,7 +304,7 @@ export default function Header(props) {
       <Button
         component={Link}
         color='secondary'
-        href='/SignUp'
+        href='/Login'
         variant='contained'
         className={classes.cusmButton}
       >
@@ -468,7 +468,7 @@ export default function Header(props) {
               root: classes.drawerItemLogin,
               selected: classes.drawerItemSelected,
             }}
-            href='/Login'
+            href='/SignIn'
             selected={props.value === 4}
           >
             <ListItemText

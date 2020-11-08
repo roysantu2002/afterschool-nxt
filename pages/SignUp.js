@@ -64,7 +64,7 @@ const initialState = {
   radioValue: "teacher"
 }
 
-class SignUp extends Component {
+class Signup extends Component {
   state = initialState;
 
   /* Basic validation on form */
@@ -162,10 +162,10 @@ class SignUp extends Component {
       this.setState({ isOtpVisible: true, otpConfirmation: e })
       this.setState({ infoMessage: "Enter the OTP..." })
       let code = this.state.otpValue;
-      if (code == null) { window.location.href = "/signup" };
+      if (code == null) { window.location.href = "/Signup" };
     }).catch((error) => {
       alert(error.message);
-      window.location.href = "/signup"
+      window.location.href = "/Signup"
     })
   }
 
@@ -441,4 +441,4 @@ function sleep(ms) {
   return new Promise(resolve => setTimeout(resolve, ms));
 }
 
-export default withStyles(useStyles, { withTheme: true })(SignUp);
+export default withStyles(useStyles, { withTheme: true })(Signup);

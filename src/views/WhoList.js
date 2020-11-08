@@ -202,10 +202,6 @@ class WhoList extends React.Component {
           </Grid>
           <Grid item xs={2}>
             <Grid container className={classes.root} spacing={4}>
-              <Grid item>
-                {" "}
-                <Typography>Test</Typography>
-              </Grid>
             </Grid>
           </Grid>
         </Fade>
