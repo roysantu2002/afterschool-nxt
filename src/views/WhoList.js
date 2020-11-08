@@ -17,7 +17,8 @@ import Grid from "@material-ui/core/Grid";
 import * as getDataApi from "../utils/getDataApi";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import Fade from "react-reveal/Fade";
-
+import nextId from "react-id-generator";
+import {setWithExpiry, getWithExpiry} from '../utils/helpers'
 const styles = (theme) => ({
   root: {
     display: "flex",
@@ -78,30 +79,27 @@ class WhoList extends React.Component {
     super();
     this.state = {
       influencerList: [],
+      localStorageList: [],
       loading: false,
     };
   }
   componentDidMount() {
-    const influencerLocalData = [];
-    const influencerRemoteData = [];
-
-    const localStorageInfluenceData = localStorage.getItem("influencerList");
+    const influencerLocalData = []
+    const influencerRemoteData = []
+    const howLong = 259200000
+    // const localStorageInfluenceData = localStorage.getItem("influencerList")
+    const localStorageInfluenceData = getWithExpiry("influencerList")
+    // console.log(localStorageInfluenceData)
     // localStorageInfluenceData ? localStorage.getItem('user') : '';
     // this.setState({ user, rememberMe });
 
     if (localStorageInfluenceData === null) {
+      console.log("Local Storage Null")
       data.map((postData) => {
         influencerLocalData.push(postData);
       });
 
-      //console.log(influencerData)
-      // this.setState(() => ({
-      //   influencerList: influencerLocalData,
-      // }));
-      //this.setState({ influencerList: influencerData });
-      console.log(`Local Storage: ${localStorageInfluenceData}`);
       getDataApi.getInfluencerAction().then((querySnapshot) => {
-        // console.log(`querySnapshot: ${querySnapshot}`)
         try {
           if (querySnapshot !== null) {
             querySnapshot.map((query) => {
@@ -113,60 +111,35 @@ class WhoList extends React.Component {
           this.setState(() => ({
             influencerList: influencerRemoteData,
           }));
-          localStorage.setItem(
-            "influencerList",
-            JSON.stringify(influencerRemoteData)
-          );
+          setWithExpiry("influencerList", JSON.stringify(influencerRemoteData), howLong)
           this.setState(() => ({
             loading: true,
           }));
         } catch (exception_var) {
-          console.log(exception_var);
           this.setState(() => ({
-            influencerList: influencerRemoteData,
+            influencerList: influencerLocalData,
           }));
           this.setState(() => ({
             loading: true,
           }));
-          localStorage.setItem(
-            "influencerList",
-            JSON.stringify(influencerRemoteData)
-          );
+          setWithExpiry("influencerList", JSON.stringify(influencerLocalData), howLong)
+    
         }
       });
     } else {
-      console.log("From Local Storage");
-      const localStorageData = JSON.parse(localStorageInfluenceData)
-      // localStorageData.map((influencer) => {
-      //   console.log(influencer.name.replace(/\s/g, ""));
-      // });
-      // console.log(JSON.parse(localStorageInfluenceData))
+      const localData = JSON.parse(localStorageInfluenceData)
+      this.setState(() => ({
+        loading: true,
+      }));
         this.setState(() => ({
-        influencerList: localStorageData,
+        influencerList: localData,
       }))
     }
   }
 
-  // export default function WhoList() {
-  // const [influencerList, setinfluencerList] = useState([]);
-  // const classes = useStyles();
-
-  // useEffect(() => {
-  //   getDataApi.getInfluencerAction().then((querySnapshot) => {
-  //     setinfluencerList(querySnapshot);
-  //   });
-  //   influencerList.map((influencer) => {
-  //     console.log("----" + influencer.name);
-  //   });
-  // });
-
   render() {
     const { classes } = this.props
     const influencerList = this.state.influencerList
-    const key = 0
-    //const influencerList = localStorage.getItem('influencerList') === 'true'
-    //influencerList ? localStorage.getItem('influencerList') : this.state.influencerList
-
     const loadingDeatils = (
       <Container className={classes.loading} component="section">
         <Typography variant="h2" marked="center" align="center">
@@ -188,8 +161,8 @@ class WhoList extends React.Component {
             <Grid container className={classes.root} spacing={4}>
               {influencerList &&
                 influencerList.map((influencer) => (
-                  <Grid item xs={8} md={4} sm={6} xl={3}>
-                    <Card key={influencer.name.replace(/\s/g, "")} className={classes.card}>
+                  <Grid key={nextId()} item xs={8} md={4} sm={6} xl={3}>
+                    <Card key={nextId()} className={classes.card}>
                       <CardMedia
                         className={classes.media}
                         image={influencer.img}
