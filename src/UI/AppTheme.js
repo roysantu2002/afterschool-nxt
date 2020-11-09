@@ -7,6 +7,7 @@ const lightBlue = "#051e3e"
 const darkBlue = "#628078"
 const appleGrey = "#999999"
 const darkBlack = "#000000"
+const white = "#ffffff"
 
 export default createMuiTheme({
   palette: {
@@ -15,7 +16,8 @@ export default createMuiTheme({
       darkGold: `${gold}`,
       darkBlue: `${darkBlue}`,
       appleGrey: `${appleGrey}`,
-      darkBlack : `${darkBlack}`
+      darkBlack : `${darkBlack}`,
+      white : `${white}`
     },
     primary: {
       main: `${darkRed}`,

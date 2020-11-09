@@ -161,6 +161,11 @@ const useStyles = makeStyles((theme) => ({
   drawerItemLogin: {
     backgroundColor: theme.palette.common.darkGold,
   },
+  btn_login:{
+    onMouseOver: theme.palette.common.primary
+
+  }
+
 }));
 
 export default function Header(props) {
@@ -303,10 +308,10 @@ export default function Header(props) {
 
       <Button
         component={Link}
-        color='secondary'
+        color="white"
         href='/Login'
-        variant='contained'
-        className={classes.cusmButton}
+        variant='outlined'
+        className={classes.btn_login}
       >
         Login
       </Button>

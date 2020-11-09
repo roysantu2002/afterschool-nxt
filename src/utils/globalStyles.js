@@ -2,8 +2,9 @@ import zIndex from "@material-ui/core/styles/zIndex";
 
 const globalStyles = (theme) => ({
   paper: {
+    zIndex: 20,
     width: "50%",
-    height: "150%",
+    height: "90%",
     backgroundColor: 'grey'
   },
   root: {
@@ -36,10 +37,10 @@ const globalStyles = (theme) => ({
     },
   },
   photoContainer: {
-    marginBottom: theme.spacing(1)
+    marginBottom: theme.spacing(5)
   },
   media: {
-    paddingTop: "56.25%",
+    paddingTop: "10.25%",
     alignSelf: 'center',
     // height: '100%', 
     // width: '100%',
