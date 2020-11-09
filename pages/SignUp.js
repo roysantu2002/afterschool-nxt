@@ -19,6 +19,8 @@ import Loader from "@material-ui/core/CircularProgress";
 import Paper from "@material-ui/core/Paper";
 import Styles from "../src/utils/globalStyles";
 import { CenterFocusStrong } from "@material-ui/icons";
+import Switch from "@material-ui/core/Switch";
+import Typography from "../src/UI/Typography"
 
 const useStyles = (theme) => ({
   paper: {
@@ -72,6 +74,8 @@ const initialState = {
   infoMessage: "",
   loader: false,
   radioValue: "teacher",
+  checkedA: true,
+  checkedB: true,
 };
 
 class Signup extends Component {
@@ -380,20 +384,20 @@ class Signup extends Component {
         <Loader type="ThreeDots" color="red" height={100} width={100} />
       </div>
     ) : (
-      <Container component="main" maxWidth="md" >
+      <Container component="main" maxWidth="md">
         <Grid container direction="column" alignItems="center"></Grid>
         <CssBaseline />
         <Paper className={Styles.paper}>
           <Grid container direction="column" alignItems="center">
             {/* <Grid container justify="center" alignItems="center" spacing={5}> */}
-              {/* <div className={Styles.photoContainer}> */}
-                <Avatar
-                  alt="Avatar"
-                  src={this.state.imageURL}
-                  onClick={this.handleAvatar}
-                  style={{ cursor: "pointer" }}
-                />
-              {/* </div> */}
+            {/* <div className={Styles.photoContainer}> */}
+            <Avatar
+              alt="Avatar"
+              src={this.state.imageURL}
+              onClick={this.handleAvatar}
+              style={{ cursor: "pointer" }}
+            />
+            {/* </div> */}
             {/* {/* </Grid> */}
           </Grid>
           {/* <div className={classes.paper}> */}
@@ -495,16 +499,49 @@ class Signup extends Component {
                   {this.state.phoneError}
                 </div>
               </Grid>
-              <Grid item xs={12}>
-                <FormControl component="fieldset">
+              <Grid container className={classes.root} spacing={2}>
+                <Grid item xs={12}>
+                  <Grid container justify="center" spacing={2}>
+                      {/* <Paper className={classes.paper}> */}
+                    <Grid key="teacher" item>
+                        <Typography
+                          component="h3"
+                          variant="h6"
+                          color="inherit"
+                          marginTop="20%"
+                        >
+                          {" "}
+                          Teacher
+                        </Typography>
+                    </Grid>
+                    <Grid key="switch" item>
+                  
+                      <Switch
+                        checked={this.state.checkedA}
+                        onChange={this.handleChange}
+                        name="checkedA"
+                        inputProps={{ "aria-label": "secondary checkbox" }}
+                      />
+                      
+                    </Grid>
+                    <Grid key="teacher" item>
+                      Student
+                      <Paper className={classes.paper} />
+                    </Grid>
+                   {/* </Paper> */}
+                   </Grid>
+                </Grid>
+              </Grid>
+              {/* <FormControl component="fieldset">
                   <FormLabel component="legend">User Type</FormLabel>
                   <RadioGroup
                     aria-label="User Type"
                     name="userType"
                     value={this.state.radioValue}
                     onChange={this.handleRadioButtonChange}
-                  >
-                    <FormControlLabel
+                  > */}
+
+              {/* <FormControlLabel
                       value="teacher"
                       control={<Radio />}
                       label="Teacher"
@@ -514,10 +551,10 @@ class Signup extends Component {
                       control={<Radio />}
                       label="Student"
                     />
-                  </RadioGroup>
-                </FormControl>
-              </Grid>
+                  </RadioGroup> */}
+              {/* </FormControl> */}
             </Grid>
+            {/* </Grid> */}
             {!this.state.isOtpVisible ? (
               <Button
                 id="sign-up-button"
