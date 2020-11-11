@@ -21,8 +21,14 @@ import Styles from "../src/utils/globalStyles";
 import { CenterFocusStrong } from "@material-ui/icons";
 import Switch from "@material-ui/core/Switch";
 import Typography from "../src/UI/Typography";
+import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 
 const useStyles = (theme) => ({
+  root: {
+    height: "90%",
+    marginTop: theme.spacing(8),
+    marginBottom: theme.spacing(8),
+  },
   paper: {
     marginTop: theme.spacing(8),
     display: "flex",
@@ -37,8 +43,8 @@ const useStyles = (theme) => ({
     alignItems: "center",
     width: "100%",
     marginTop: theme.spacing(5),
-    padding: 10,
     marginBottom: theme.spacing(5),
+    padding: 15
   },
   submit: {
     margin: theme.spacing(3, 0, 2),
@@ -46,6 +52,10 @@ const useStyles = (theme) => ({
   large: {
     width: theme.spacing(10),
     height: theme.spacing(10),
+    
+  },
+  photoContainer: {
+    Zindex: -20
   },
   main: {
     marginTop: 20,
@@ -53,6 +63,16 @@ const useStyles = (theme) => ({
   },
   teacher: {
     marginTop: 20,
+  },
+  signupImage: {
+    backgroundImage: "url(https://source.unsplash.com/random?computer?coding)",
+    backgroundRepeat: "no-repeat",
+    backgroundColor:
+      theme.palette.type === "light"
+        ? theme.palette.grey[50]
+        : theme.palette.grey[900],
+    backgroundSize: "cover",
+    backgroundPosition: "center",
   },
 });
 
@@ -84,7 +104,7 @@ class Signup extends Component {
   state = initialState;
 
   componentDidMount() {
-    this.state.teacherStudent ? console.log("Teacher") : console.log("Student") 
+    this.state.teacherStudent ? console.log("Teacher") : console.log("Student");
   }
   /* Basic validation on form */
   validateForm = () => {
@@ -188,7 +208,9 @@ class Signup extends Component {
         break;
       case "teacherStudent":
         this.setState({ teacherStudent: event.target.checked });
-        this.state.teacherStudent ? console.log("Teacher") : console.log("Student") 
+        this.state.teacherStudent
+          ? console.log("Teacher")
+          : console.log("Student");
 
         break;
       default:
@@ -395,165 +417,170 @@ class Signup extends Component {
       </div>
     ) : (
       <>
-        <Container component="main" maxWidth="sm">
-          <Grid container direction="column" alignItems="center"></Grid>
+    <Grid container component="main" className={classes.root}>
           <CssBaseline />
-          <Paper className={Styles.paper}>
-            <Grid container direction="column" alignItems="center">
+          <Grid item xs={false} sm={4} md={7} className={classes.signupImage} />
+          {/* <Grid container direction="column" alignItems="center"></Grid>
+          <CssBaseline /> */}
+          {/* <Paper className={Styles.paper}>
+            <Grid container direction="column" alignItems="center"> */}
+          <Grid
+            item
+            xs={12}
+            sm={8}
+            md={5}
+            component={Paper}
+            elevation={6}
+            square>
+            <div className={classes.paper}>
               {/* <Grid container justify="center" alignItems="center" spacing={5}> */}
-              {/* <div className={Styles.photoContainer}> */}
+              <Grid container justify="center" alignItems="center" spacing={5}>
+              <div className={Styles.photoContainer}>
               <Avatar
                 alt="Avatar"
-                src={this.state.imageURL}
+                // src={this.state.imageURL}
                 onClick={this.handleAvatar}
                 style={{ cursor: "pointer" }}
                 className={classes.large}
-              />
-              {/* </div> */}
-              {/* {/* </Grid> */}
-            </Grid>
-            {/* <div className={classes.paper}> */}
-            {/* <Avatar
-            alt="Avatar"
-            src={this.state.imageURL}
-            className={classes.large}
-            onClick={this.handleAvatar}
-            style={{ cursor: "pointer" }}
-          /> */}
-            <div style={{ fontSize: 12, color: "red" }}>
-              {this.state.imageError}
-            </div>
-            <form
-              className={classes.form}
-              onSubmit={this.handleSubmit}
-              noValidate
-            >
-              <Grid container spacing={2}>
-                <Grid item xs={12} sm={6}>
-                  <TextField
-                    autoComplete="fname"
-                    name="firstName"
-                    variant="outlined"
-                    required
-                    fullWidth
-                    id="firstName"
-                    label="First Name"
-                    value={this.state.firstName}
-                    autoFocus
-                    onChange={this.handleChange.bind(this)}
-                  />
-                  <div style={{ fontSize: 12, color: "red" }}>
-                    {this.state.firstNameError}
-                  </div>
-                </Grid>
-                <Grid item xs={12} sm={6}>
-                  <TextField
-                    variant="outlined"
-                    required
-                    fullWidth
-                    id="lastName"
-                    label="Last Name"
-                    value={this.state.lastName}
-                    name="lastName"
-                    autoComplete="lname"
-                    onChange={this.handleChange}
-                  />
-                  <div style={{ fontSize: 12, color: "red" }}>
-                    {this.state.lastNameError}
-                  </div>
-                </Grid>
-                <Grid item xs={12}>
-                  <TextField
-                    variant="outlined"
-                    required
-                    fullWidth
-                    id="email"
-                    label="Email"
-                    value={this.state.email}
-                    name="email"
-                    autoComplete="email"
-                    onChange={this.handleChange}
-                  />
-                  <div style={{ fontSize: 12, color: "red" }}>
-                    {this.state.emailError}
-                  </div>
-                </Grid>
-                <Grid item xs={12}>
-                  <TextField
-                    variant="outlined"
-                    required
-                    fullWidth
-                    name="password"
-                    label="Password"
-                    value={this.state.password}
-                    type="password"
-                    id="password"
-                    autoComplete="current-password"
-                    onChange={this.handleChange}
-                  />
-                  <div style={{ fontSize: 12, color: "red" }}>
-                    {this.state.passwordError}
-                  </div>
-                </Grid>
-                <Grid item xs={12}>
-                  <TextField
-                    variant="outlined"
-                    required
-                    fullWidth
-                    name="phone"
-                    label="Mobile number (for OTP):"
-                    type="phone"
-                    id="phone"
-                    autoComplete="phone"
-                    onChange={this.handleChange}
-                  />
-                  <div style={{ fontSize: 12, color: "red" }}>
-                    {this.state.phoneError}
-                  </div>
-                </Grid>
-                <Grid container className={classes.root} spacing={2}>
+                >
+               <AccountCircleIcon/> </Avatar>
+
+              </div>
+              </Grid>
+              <div style={{ fontSize: 12, color: "red" }}>
+                {this.state.imageError}
+              </div>
+              <form
+                className={classes.form}
+                onSubmit={this.handleSubmit}
+                noValidate
+              >
+                <Grid container spacing={2}>
+                  <Grid item xs={12} sm={6}>
+                    <TextField
+                      autoComplete="fname"
+                      name="firstName"
+                      variant="outlined"
+                      required
+                      fullWidth
+                      id="firstName"
+                      label="First Name"
+                      value={this.state.firstName}
+                      autoFocus
+                      onChange={this.handleChange.bind(this)}
+                    />
+                    <div style={{ fontSize: 12, color: "red" }}>
+                      {this.state.firstNameError}
+                    </div>
+                  </Grid>
+                  <Grid item xs={12} sm={6}>
+                    <TextField
+                      variant="outlined"
+                      required
+                      fullWidth
+                      id="lastName"
+                      label="Last Name"
+                      value={this.state.lastName}
+                      name="lastName"
+                      autoComplete="lname"
+                      onChange={this.handleChange}
+                    />
+                    <div style={{ fontSize: 12, color: "red" }}>
+                      {this.state.lastNameError}
+                    </div>
+                  </Grid>
                   <Grid item xs={12}>
-                    <Grid container justify="center" spacing={2}>
-                      {/* <Paper className={classes.paper}> */}
-                      <div className={classes.teacher}>
-                        <Grid key="teacher" item>
-                          <Typography
-                            component="h3"
-                            variant="h6"
-                            color="inherit"
-                          >
-                            Teacher
-                          </Typography>
+                    <TextField
+                      variant="outlined"
+                      required
+                      fullWidth
+                      id="email"
+                      label="Email"
+                      value={this.state.email}
+                      name="email"
+                      autoComplete="email"
+                      onChange={this.handleChange}
+                    />
+                    <div style={{ fontSize: 12, color: "red" }}>
+                      {this.state.emailError}
+                    </div>
+                  </Grid>
+                  <Grid item xs={12}>
+                    <TextField
+                      variant="outlined"
+                      required
+                      fullWidth
+                      name="password"
+                      label="Password"
+                      value={this.state.password}
+                      type="password"
+                      id="password"
+                      autoComplete="current-password"
+                      onChange={this.handleChange}
+                    />
+                    <div style={{ fontSize: 12, color: "red" }}>
+                      {this.state.passwordError}
+                    </div>
+                  </Grid>
+                  <Grid item xs={12}>
+                    <TextField
+                      variant="outlined"
+                      required
+                      fullWidth
+                      name="phone"
+                      label="Mobile number (for OTP):"
+                      type="phone"
+                      id="phone"
+                      autoComplete="phone"
+                      onChange={this.handleChange}
+                    />
+                    <div style={{ fontSize: 12, color: "red" }}>
+                      {this.state.phoneError}
+                    </div>
+                  </Grid>
+                  <Grid container className={classes.root} spacing={2}>
+                    <Grid item xs={12}>
+                      <Grid container justify="center" spacing={2}>
+                        {/* <Paper className={classes.paper}> */}
+                        <div className={classes.teacher}>
+                          <Grid key="teacher" item>
+                            <Typography
+                              component="h3"
+                              variant="h6"
+                              color="inherit"
+                            >
+                              Teacher
+                            </Typography>
+                          </Grid>
+                        </div>
+                        <Grid key="switch" item>
+                          <Switch
+                            checked={this.state.teacherStudent}
+                            onChange={this.handleChange}
+                            name="teacherStudent"
+                            defaultChecked
+                            color="default"
+                            inputProps={{
+                              "aria-label": "checkbox with default color",
+                            }}
+                          />
                         </Grid>
-                      </div>
-                      <Grid key="switch" item>
-                        <Switch
-                          checked={this.state.teacherStudent}
-                          onChange={this.handleChange}
-                          name="teacherStudent"
-                          defaultChecked
-                          color="default"
-                          inputProps={{
-                            "aria-label": "checkbox with default color",
-                          }}
-                        />
+                        <div className={classes.teacher}>
+                          <Grid key="student" item>
+                            <Typography
+                              component="h3"
+                              variant="h6"
+                              color="inherit"
+                            >
+                              Student
+                            </Typography>
+                          </Grid>
+                        </div>
+                        {/* </Paper> */}
                       </Grid>
-                      <div className={classes.teacher}>
-                        <Grid key="student" item>
-                          <Typography
-                            component="h3"
-                            variant="h6"
-                            color="inherit"
-                          >
-                            Student
-                          </Typography>
-                        </Grid>
-                      </div>
-                      {/* </Paper> */}
                     </Grid>
                   </Grid>
-                </Grid>
-                {/* <FormControl component="fieldset">
+                  {/* <FormControl component="fieldset">
                   <FormLabel component="legend">User Type</FormLabel>
                   <RadioGroup
                     aria-label="User Type"
@@ -562,7 +589,7 @@ class Signup extends Component {
                     onChange={this.handleRadioButtonChange}
                   > */}
 
-                {/* <FormControlLabel
+                  {/* <FormControlLabel
                       value="teacher"
                       control={<Radio />}
                       label="Teacher"
@@ -573,61 +600,62 @@ class Signup extends Component {
                       label="Student"
                     />
                   </RadioGroup> */}
-                {/* </FormControl> */}
-              </Grid>
-              {/* </Grid> */}
-              {!this.state.isOtpVisible ? (
-                <Button
-                  id="sign-up-button"
-                  fullWidth
-                  variant="contained"
-                  color="primary"
-                  className={classes.submit}
-                  onClick={this.handleSubmit}
-                >
-                  Sign Up with OTP
-                </Button>
-              ) : null}
-              <h3>{this.state.infoMessage} </h3>
-              {this.state.isOtpVisible ? (
-                <Grid container justify="center">
-                  <OtpInput
-                    value={this.state.otpValue}
-                    onChange={this.handleOtpChange}
-                    numInputs={6}
-                    otpType="number"
-                    disabled={!this.state.isOtpVisible}
-                    hasErrored={this.state.IsOtpError}
-                    separator={<span>-</span>}
-                    inputStyle={{
-                      width: "2rem",
-                      height: "2rem",
-                      margin: "20px 1rem",
-                      fontSize: "1.5rem",
-                      borderRadius: 3,
-                      border: "2px solid rgba(0,0,0,0.2)",
-                    }}
-                  />
+                  {/* </FormControl> */}
+                </Grid>
+                {/* </Grid> */}
+                {!this.state.isOtpVisible ? (
                   <Button
-                    onClick={this.verifyOTP}
+                    id="sign-up-button"
+                    fullWidth
                     variant="contained"
                     color="primary"
+                    className={classes.submit}
+                    onClick={this.handleSubmit}
                   >
-                    Verify OTP
+                    Sign Up with OTP
                   </Button>
+                ) : null}
+                <h3>{this.state.infoMessage} </h3>
+                {this.state.isOtpVisible ? (
+                  <Grid container justify="center">
+                    <OtpInput
+                      value={this.state.otpValue}
+                      onChange={this.handleOtpChange}
+                      numInputs={6}
+                      otpType="number"
+                      disabled={!this.state.isOtpVisible}
+                      hasErrored={this.state.IsOtpError}
+                      separator={<span>-</span>}
+                      inputStyle={{
+                        width: "2rem",
+                        height: "2rem",
+                        margin: "20px 1rem",
+                        fontSize: "1.5rem",
+                        borderRadius: 3,
+                        border: "2px solid rgba(0,0,0,0.2)",
+                      }}
+                    />
+                    <Button
+                      onClick={this.verifyOTP}
+                      variant="contained"
+                      color="primary"
+                    >
+                      Verify OTP
+                    </Button>
+                  </Grid>
+                ) : null}
+                <div id="sign-in-button"></div>
+                <Grid container justify="flex-end">
+                  <Grid item>
+                    <Link href="/SignIn" variant="body2">
+                      Already have an account? Sign in
+                    </Link>
+                  </Grid>
                 </Grid>
-              ) : null}
-              <div id="sign-in-button"></div>
-              <Grid container justify="flex-end">
-                <Grid item>
-                  <Link href="/SignIn" variant="body2">
-                    Already have an account? Sign in
-                  </Link>
-                </Grid>
-              </Grid>
-            </form>
-          </Paper>
-        </Container>
+              </form>
+            </div>
+          </Grid>
+        </Grid>
       </>
     );
   }
