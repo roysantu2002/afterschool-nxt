@@ -22,6 +22,8 @@ import { CenterFocusStrong } from "@material-ui/icons";
 import Switch from "@material-ui/core/Switch";
 import Typography from "../src/UI/Typography";
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
+import Snackbar from "@material-ui/core/Snackbar";
+
 
 const useStyles = (theme) => ({
   root: {
@@ -98,6 +100,8 @@ const initialState = {
   loader: false,
   radioValue: "teacher",
   teacherStudent: true,
+  setAlert: { open: false, color: "" },
+  alertMessage: ""
 };
 
 class Signup extends Component {
@@ -260,17 +264,22 @@ class Signup extends Component {
 
     Firebase.auth()
       .signInWithPhoneNumber(number, appVerifier)
-      .then((e) => {
-        this.setState({ isOtpVisible: true, otpConfirmation: e });
+      .then((res) => {
+        console.log(res)
+        this.setState({ isOtpVisible: true, otpConfirmation: res });
         this.setState({ infoMessage: "Enter the OTP..." });
         let code = this.state.otpValue;
         if (code == null) {
-          window.location.href = "/Signup";
+          console.log("Code returned null")
+          // window.location.href = "/Signup";
         }
       })
       .catch((error) => {
-        alert(error.message);
-        window.location.href = "/Signup";
+        console.log(error.code)
+        this.setState({setAlert : { open: true, color: "#FF3232" }})
+        this.setState({alertMessage : error.code})
+        // this.state.setAlertMesssage("Message sent successfully!");
+        // window.location.href = "/Signup";
       });
   };
 
@@ -288,7 +297,7 @@ class Signup extends Component {
     var password = this.state.password;
     var phone = this.state.phone;
     var image = this.state.image;
-    var userType = this.state.radioValue;
+    var userType = this.state.teacherStudent;
 
     this.setState({ loader: true });
 
@@ -321,9 +330,12 @@ class Signup extends Component {
         return true;
       })
       .catch(function (error) {
-        alert(error.message);
-        window.location.href = "/signup";
-        return false;
+        if(error.code === "auth/email-already-in-use"){
+          console.log(error);
+        }
+        
+        // window.location.href = "/signup";
+        // return false;
       });
   };
 
@@ -655,6 +667,21 @@ class Signup extends Component {
               </form>
             </div>
           </Grid>
+          <Snackbar
+          autoHideDuration={4000}
+          open={this.state.setAlert.open}
+          ContentProps={{
+            style: {
+              backgroundColor: this.state.setAlert.color,
+            },
+          }}
+          TransitionProps={{
+            appear: false,
+          }}
+          anchorOrigin={{ vertical: "top", horizontal: "center" }}
+          message={this.state.alertMessage}
+          onClose={() => this.setState({setAlert: false})}
+        />
         </Grid>
       </>
     );
