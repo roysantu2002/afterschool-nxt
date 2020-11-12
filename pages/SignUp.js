@@ -21,8 +21,11 @@ import Styles from "../src/utils/globalStyles";
 import { CenterFocusStrong } from "@material-ui/icons";
 import Switch from "@material-ui/core/Switch";
 import Typography from "../src/UI/Typography";
-import AccountCircleIcon from '@material-ui/icons/AccountCircle';
+import AccountCircleIcon from "@material-ui/icons/AccountCircle";
 import Snackbar from "@material-ui/core/Snackbar";
+import IconButton from '@material-ui/core/IconButton';
+import CloseIcon from '@material-ui/icons/Close';
+import Alert from '@material-ui/lab/Alert';
 
 
 const useStyles = (theme) => ({
@@ -46,7 +49,7 @@ const useStyles = (theme) => ({
     width: "100%",
     marginTop: theme.spacing(5),
     marginBottom: theme.spacing(5),
-    padding: 15
+    padding: 15,
   },
   submit: {
     margin: theme.spacing(3, 0, 2),
@@ -54,10 +57,9 @@ const useStyles = (theme) => ({
   large: {
     width: theme.spacing(10),
     height: theme.spacing(10),
-    
   },
   photoContainer: {
-    Zindex: -20
+    Zindex: -20,
   },
   main: {
     marginTop: 20,
@@ -94,14 +96,14 @@ const initialState = {
   IsOtpError: false,
   otpConfirmation: null,
   image: null,
-  imageURL: "/avatar.jpg",
+  imageURL: "/assets/avatar.png",
   imageError: "",
   infoMessage: "",
   loader: false,
   radioValue: "teacher",
   teacherStudent: true,
   setAlert: { open: false, color: "" },
-  alertMessage: ""
+  alertMessage: "",
 };
 
 class Signup extends Component {
@@ -265,21 +267,23 @@ class Signup extends Component {
     Firebase.auth()
       .signInWithPhoneNumber(number, appVerifier)
       .then((res) => {
-        console.log(res)
+        // console.log(res)
         this.setState({ isOtpVisible: true, otpConfirmation: res });
         this.setState({ infoMessage: "Enter the OTP..." });
         let code = this.state.otpValue;
         if (code == null) {
-          console.log("Code returned null")
+          console.log("Code returned null");
           // window.location.href = "/Signup";
         }
       })
       .catch((error) => {
-        console.log(error.code)
-        this.setState({setAlert : { open: true, color: "#FF3232" }})
-        this.setState({alertMessage : error.code})
+        this.setState({ setAlert: { open: true, color: "#FFFFFF" } })
+        if(error.code === "auth/too-many-requests"){
+          this.setState({ alertMessage: "Too many requests!!"})
+        }
+        else{this.setState({ alertMessage: "Please try again later"})}
         // this.state.setAlertMesssage("Message sent successfully!");
-        // window.location.href = "/Signup";
+        window.location.href = "/Signup";
       });
   };
 
@@ -303,22 +307,29 @@ class Signup extends Component {
 
     e.confirm(code)
       .then(async (result) => {
-        await this.createUserInFirebase(email, password);
-        await this.saveDetailsToDB(
-          firstName,
-          lastName,
-          email,
-          phone,
-          image,
-          userType
-        );
+        const res = await this.createUserInFirebase(email, password);
+        console.log(`res ${res}`);
+        if (!res) {
+          console.log("Issue Found");
+        } else {
+          await this.saveDetailsToDB(
+            firstName,
+            lastName,
+            email,
+            phone,
+            image,
+            userType
+          );
+          // this.setState({ loader: false });
+          window.location.href = "/";
+        }
         /* OTP verification successful. Can be redirected to next page */
-        this.setState({ loader: false });
-        window.location.href = "/";
       })
       .catch((error) => {
-        alert(error.message);
-        window.location.href = "/signup";
+        console.log(error);
+        // this.setState({alertMessage : error})
+        // this.setState({setAlert : { open: true, color: "#FF3232" }})
+        // window.location.href = "/signup";
       });
   };
 
@@ -330,10 +341,22 @@ class Signup extends Component {
         return true;
       })
       .catch(function (error) {
-        if(error.code === "auth/email-already-in-use"){
-          console.log(error);
+        if (error.code === "auth/email-already-in-use") {
+          this.setState({ alertMessage: "Email address is already in use!" });
+          console.log("That email address is already in use!");
         }
-        
+
+        if (error.code === "auth/invalid-email") {
+          console.log("That email address is invalid!");
+          // this.setState({ alertMessage: "Email  address is invalid!" });
+        }
+        this.setState({ loader: false });
+      // this.setState({ setAlert: { open: true, color: "#FF3232" } });
+        return false;
+        // }
+        //   // if(error.code === "auth/email-already-in-use"){
+        //   //   return error.code
+        //   }
         // window.location.href = "/signup";
         // return false;
       });
@@ -360,15 +383,19 @@ class Signup extends Component {
       await Axios.post("/students.json", Data)
         .then((response) => {})
         .catch((error) => {
-          alert(error.message);
-          window.location.href = "/signup";
+          console.log(error.code)
+          // this.setState({ setAlert: { open: true, color: "#FF3232" } });
+          this.setState({ alertMessage: error.code });
+          // window.location.href = "/signup";
         });
     } else if (userType === "teacher") {
       await Axios.post("/teachers.json", Data)
         .then((response) => {})
         .catch((error) => {
-          alert(error.message);
-          window.location.href = "/signup";
+          console.log(error.code)
+          // this.setState({ setAlert: { open: true, color: "#FF3232" } });
+          // this.setState({ alertMessage: error.code });
+          // window.location.href = "/signup";
         });
     }
 
@@ -429,7 +456,7 @@ class Signup extends Component {
       </div>
     ) : (
       <>
-    <Grid container component="main" className={classes.root}>
+        <Grid container component="main" className={classes.root}>
           <CssBaseline />
           <Grid item xs={false} sm={4} md={7} className={classes.signupImage} />
           {/* <Grid container direction="column" alignItems="center"></Grid>
@@ -443,21 +470,21 @@ class Signup extends Component {
             md={5}
             component={Paper}
             elevation={6}
-            square>
+            square
+          >
             <div className={classes.paper}>
               {/* <Grid container justify="center" alignItems="center" spacing={5}> */}
               <Grid container justify="center" alignItems="center" spacing={5}>
-              <div className={Styles.photoContainer}>
-              <Avatar
-                alt="Avatar"
-                // src={this.state.imageURL}
-                onClick={this.handleAvatar}
-                style={{ cursor: "pointer" }}
-                className={classes.large}
-                >
-               <AccountCircleIcon/> </Avatar>
-
-              </div>
+                <div className={Styles.photoContainer}>
+                  <Avatar
+                    alt="Avatar"
+                    src={this.state.imageURL}
+                    onClick={this.handleAvatar}
+                    style={{ cursor: "pointer" }}
+                    className={classes.large}
+                  ></Avatar>
+                  {/* <AccountCircleIcon/> </Avatar> */}
+                </div>
               </Grid>
               <div style={{ fontSize: 12, color: "red" }}>
                 {this.state.imageError}
@@ -668,20 +695,13 @@ class Signup extends Component {
             </div>
           </Grid>
           <Snackbar
-          autoHideDuration={4000}
-          open={this.state.setAlert.open}
-          ContentProps={{
-            style: {
-              backgroundColor: this.state.setAlert.color,
-            },
-          }}
-          TransitionProps={{
-            appear: false,
-          }}
-          anchorOrigin={{ vertical: "top", horizontal: "center" }}
-          message={this.state.alertMessage}
-          onClose={() => this.setState({setAlert: false})}
-        />
+            autoHideDuration={8000}
+            open={this.state.setAlert.open}
+            anchorOrigin={{ vertical: "top", horizontal: "center" }}
+            onClose={() => this.setState({ setAlert: false })}
+          >
+            <Alert severity="error">{this.state.alertMessage}</Alert>
+            </Snackbar>                           
         </Grid>
       </>
     );
