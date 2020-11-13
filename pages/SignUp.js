@@ -23,9 +23,9 @@ import Switch from "@material-ui/core/Switch";
 import Typography from "../src/UI/Typography";
 import AccountCircleIcon from "@material-ui/icons/AccountCircle";
 import Snackbar from "@material-ui/core/Snackbar";
-import IconButton from '@material-ui/core/IconButton';
-import CloseIcon from '@material-ui/icons/Close';
-import Alert from '@material-ui/lab/Alert';
+import IconButton from "@material-ui/core/IconButton";
+import CloseIcon from "@material-ui/icons/Close";
+import Alert from "@material-ui/lab/Alert";
 import CircularProgress from "@material-ui/core/CircularProgress";
 
 const useStyles = (theme) => ({
@@ -100,17 +100,21 @@ const initialState = {
   imageError: "",
   infoMessage: "",
   loader: false,
-  radioValue: "teacher",
+  userType: "Student",
   teacherStudent: true,
   setAlert: { open: false, color: "" },
   alertMessage: "",
-  createUserWithEmail: false
+  createUserWithEmail: false,
+  savetoDB: false,
+  numInputs: 6,
+  uid: ""
 };
 
 class Signup extends Component {
   state = initialState;
 
   componentDidMount() {
+    
     this.state.teacherStudent ? console.log("Teacher") : console.log("Student");
   }
   /* Basic validation on form */
@@ -179,6 +183,8 @@ class Signup extends Component {
 
   /* Enable typing in text boxes */
   handleChange = (event) => {
+
+    console.log(`User Type ${this.state.userType}`)
     let valid;
     this.setState({
       [event.target.name]: event.target.value,
@@ -215,10 +221,8 @@ class Signup extends Component {
         break;
       case "teacherStudent":
         this.setState({ teacherStudent: event.target.checked });
-        this.state.teacherStudent
-          ? console.log("Teacher")
-          : console.log("Student");
-
+        this.state.teacherStudent ? this.setState({userType: "Student"})
+          : this.setState({userType: "Teacher"})
         break;
       default:
         break;
@@ -251,48 +255,51 @@ class Signup extends Component {
 
   /* Generate and solve invisible recaptcha and send OTP to phone number*/
   handleSignUp = async () => {
-    var email = this.state.email
-    var password = this.state.password
-    await this.createUserInFirebase(email, password)
+    var email = this.state.email;
+    var password = this.state.password;
+    await this.createUserInFirebase(email, password);
+    if (this.state.createUserWithEmail) {
+      this.setState({ infoMessage: "Please wait..." });
+      window.recaptchaVerifier = new Firebase.auth.RecaptchaVerifier(
+        "sign-in-button",
+        {
+          size: "invisible",
+          callback: function (response) {
+            // Invisible recaptcha solved
+          },
+        }
+      );
 
-    if(this.state.createUserWithEmail){
-    this.setState({ infoMessage: "Please wait..." });
-    window.recaptchaVerifier = new Firebase.auth.RecaptchaVerifier(
-      "sign-in-button",
-      {
-        size: "invisible",
-        callback: function (response) {
-          // Invisible recaptcha solved
-        },
-      }
-    );
+      var appVerifier = window.recaptchaVerifier;
+      let number = "+91" + this.state.phone;
 
-    var appVerifier = window.recaptchaVerifier;
-    let number = "+91" + this.state.phone;
-
-    Firebase.auth()
-      .signInWithPhoneNumber(number, appVerifier)
-      .then((res) => {
-        // console.log(res)
-        this.setState({ isOtpVisible: true, otpConfirmation: res });
-        this.setState({ infoMessage: "Enter the OTP..." });
-        let code = this.state.otpValue;
-        if (code == null) {
-          console.log("Code returned null");
+      Firebase.auth()
+        .signInWithPhoneNumber(number, appVerifier)
+        .then((res) => {
+          console.log(`tenantId ${res.user}`);
+          this.setState({ isOtpVisible: true, otpConfirmation: res });
+          this.setState({ infoMessage: "Enter the OTP..." });
+          let code = this.state.otpValue;
+          if (code == null) {
+            this.setState({ alertMessage: "Please try again later" });
+            this.setState({ setAlert: { open: true } });
+            // window.location.href = "/Signup";
+          }
+        })
+        .catch((error) => {
+          this.setState({ setAlert: { open: true, color: "#FFFFFF" } });
+          if (error.code === "auth/too-many-requests") {
+            this.setState({ alertMessage: "Too many requests!!" });
+            this.setState({ infoMessage: "Too many requests!!" });
+          } else {
+            this.setState({ alertMessage: error.code });
+            console.log(error)
+          }
+          this.setState({ setAlert: { open: true } });
           // window.location.href = "/Signup";
-        }
-      })
-      .catch((error) => {
-        this.setState({ setAlert: { open: true, color: "#FFFFFF" } })
-        if(error.code === "auth/too-many-requests"){
-          this.setState({ alertMessage: "Too many requests!!"})
-        }
-        else{this.setState({ alertMessage: "Please try again later"})}
-        // this.state.setAlertMesssage("Message sent successfully!");
-        // window.location.href = "/Signup";
-      });
-  }
-}
+        });
+    }
+  };
 
   /* Verify OTP. If verification successful, do the following: 
   1. Create user in firebase authentication system
@@ -304,52 +311,54 @@ class Signup extends Component {
     var code = this.state.otpValue;
     var firstName = this.state.firstName;
     var lastName = this.state.lastName;
-    var email = this.state.email
-    var password = this.state.password
+    var email = this.state.email;
+    var password = this.state.password;
     var phone = this.state.phone;
     var image = this.state.image;
-    var userType = this.state.teacherStudent;
+    var userType = this.state.userType;
 
     this.setState({ loader: true });
 
     e.confirm(code)
-      .then(async (result) => {
-        const res = await this.createUserInFirebase(email, password);
-        console.log(`res ${res}`);
-        if (!res) {
-          console.log("Issue Found");
-        } else {
-          await this.saveDetailsToDB(
-            firstName,
-            lastName,
-            email,
-            phone,
-            image,
-            userType
-          )
-          // this.setState({ loader: false });
-          window.location.href = "/";
-        }
-        /* OTP verification successful. Can be redirected to next page */
-      })
-      .catch((error) => {
-        console.log(error);
-        // this.setState({alertMessage : error})
-        // this.setState({setAlert : { open: true, color: "#FF3232" }})
-        // window.location.href = "/signup";
-      });
-  };
-
+    .then(async (result) => {
+      await this.saveDetailsToDB(
+        firstName,
+        lastName,
+        email,
+        phone,
+        image,
+        userType
+      );
+    })
+      /* OTP verification successful. Can be redirected to next page */
+   
+   .catch((error) => {
+          if (error.code === "auth/code-expired") {
+            this.setState({ alertMessage: "Code Expired!" });
+            console.log("auth/code-expired");
+          }
+          if (error.code === "auth/invalid-verification-code") {
+            // console.log("That email address is invalid!");
+            this.setState({ alertMessage: "Invalid verification code!" });
+          } else this.setState({ alertMessage: "Something went wrong" });
+          // console.log(error);
+          // this.setState({alertMessage : error})
+          this.setState({ setAlert: { open: true } });
+          // window.location.href = "/signup";
+        });
+}
   /* Create user in firebase authentication system using email and password */
   createUserInFirebase = async (email, password) => {
     await Firebase.auth()
       .createUserWithEmailAndPassword(email, password)
-      .then((response) => {
-        this.setState({ createUserWithEmail: true})
+      .then(cred => {
+        this.setState({ uid: cred.user.uid });
+        console.log(`user id created ${cred.user.uid}`)
+        this.setState({ createUserWithEmail: true });
       })
       .catch((error) => {
         if (error.code === "auth/email-already-in-use") {
-          this.setState({ alertMessage: "Email address is already in use!" })
+          this.setState({ alertMessage: "Email address is already in use!" });
           console.log("That email address is already in use!");
         }
         if (error.code === "auth/invalid-email") {
@@ -358,6 +367,7 @@ class Signup extends Component {
         }
         this.setState({ loader: false });
         this.setState({ setAlert: { open: true, color: "#FF3232" } });
+        // window.location.href = "/Signup"
         // this.setState({ createUserWithEmail: false})
         // }
         //   // if(error.code === "auth/email-already-in-use"){
@@ -385,28 +395,33 @@ class Signup extends Component {
       phone: phone,
       userType: userType,
     };
-    if (userType === "student") {
+    if (userType === "Student") {
       await Axios.post("/students.json", Data)
         .then((response) => {})
         .catch((error) => {
-          console.log(error.code)
+          //console.log(error.code)
           // this.setState({ setAlert: { open: true, color: "#FF3232" } });
           this.setState({ alertMessage: error.code });
-          // window.location.href = "/signup";
+          this.setState({ setAlert: { open: true, } })
+          // window.location.href = "/Login"
         });
-    } else if (userType === "teacher") {
+    } else if (userType === "Teacher") {
       await Axios.post("/teachers.json", Data)
         .then((response) => {})
         .catch((error) => {
-          console.log(error.code)
+          this.setState({ alertMessage: error.code })
+          this.setState({ setAlert: { open: true, } })
+          // console.log(error.code)
           // this.setState({ setAlert: { open: true, color: "#FF3232" } });
           // this.setState({ alertMessage: error.code });
-          // window.location.href = "/signup";
+          // window.location.href = "/Login"
         });
     }
 
     //Upload image
-    var imageName = email.replace("@", "_");
+   // var imageName = email.replace("@", "_");
+    var imageName = this.state.uid
+    console.log(this.state.uid)
     const uploadTask = Firebase.storage()
       .ref("avatars/" + imageName)
       .put(image);
@@ -414,20 +429,24 @@ class Signup extends Component {
     uploadTask.on(
       "state_changed",
       (snapshot) => {
-        // progrss function ....
-        console.log("Image uploading...");
+        // window.location.href = "/Login"
+        //progrss function ....
+        //console.log("Image uploading...");
       },
       (error) => {
+        // this.setState({savetoDB: })
         // error function ....
-        console.log(error);
-        alert(error.message);
-        window.location.href = "/signup";
+        //console.log(error);
+        this.setState({ alertMessage: "Something went wrong!!" });
+       
       },
       () => {
+        // this.setState({ savetoDB: true });
         // complete function ....
       }
     );
-  };
+    // window.location.href = "/Login"
+  }
 
   /* Handle image selection for Avatar */
   handleAvatar = () => {
@@ -453,8 +472,6 @@ class Signup extends Component {
     });
   };
 
- 
-
   /* Render sign up form */
   render() {
     const { classes } = this.props;
@@ -469,13 +486,13 @@ class Signup extends Component {
         />
       </React.Fragment>
     );
-    
+
     return (
-    // return this.state.loader === true ? (
-    //   <div align="center">
-    //     <Loader type="ThreeDots" color="red" height={100} width={100} />
-    //   </div>
-    // ) : (
+      // return this.state.loader === true ? (
+      //   <div align="center">
+      //     <Loader type="ThreeDots" color="red" height={100} width={100} />
+      //   </div>
+      // ) : (
       <>
         <Grid container component="main" className={classes.root}>
           <CssBaseline />
@@ -681,7 +698,7 @@ class Signup extends Component {
                     <OtpInput
                       value={this.state.otpValue}
                       onChange={this.handleOtpChange}
-                      numInputs={6}
+                      numInputs={this.state.numInputs}
                       otpType="number"
                       disabled={!this.state.isOtpVisible}
                       hasErrored={this.state.IsOtpError}
@@ -699,8 +716,10 @@ class Signup extends Component {
                       onClick={this.verifyOTP}
                       variant="contained"
                       color="primary"
+                      disabled={this.state.otpValue.length < this.state.numInputs}
                     >
-                      {this.state.loader ? <CircularProgress size={30} /> : buttonContents}
+                      {buttonContents}
+                      {this.state.loader ? <CircularProgress size={30} /> : ""}
                     </Button>
                   </Grid>
                 ) : null}
@@ -722,7 +741,7 @@ class Signup extends Component {
             onClose={() => this.setState({ setAlert: false })}
           >
             <Alert severity="error">{this.state.alertMessage}</Alert>
-            </Snackbar>                           
+          </Snackbar>
         </Grid>
       </>
     );
