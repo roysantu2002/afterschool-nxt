@@ -26,7 +26,7 @@ import Snackbar from "@material-ui/core/Snackbar";
 import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
 import Alert from '@material-ui/lab/Alert';
-import CircularProgress from "@material-ui/core/CircularProgress";
+
 
 const useStyles = (theme) => ({
   root: {
@@ -104,7 +104,6 @@ const initialState = {
   teacherStudent: true,
   setAlert: { open: false, color: "" },
   alertMessage: "",
-  createUserWithEmail: false
 };
 
 class Signup extends Component {
@@ -251,11 +250,11 @@ class Signup extends Component {
 
   /* Generate and solve invisible recaptcha and send OTP to phone number*/
   handleSignUp = async () => {
-    var email = this.state.email
-    var password = this.state.password
-    await this.createUserInFirebase(email, password)
 
-    if(this.state.createUserWithEmail){
+    const res = await this.createUserInFirebase(email, password);
+        console.log(`res ${res}`);
+
+        
     this.setState({ infoMessage: "Please wait..." });
     window.recaptchaVerifier = new Firebase.auth.RecaptchaVerifier(
       "sign-in-button",
@@ -289,10 +288,9 @@ class Signup extends Component {
         }
         else{this.setState({ alertMessage: "Please try again later"})}
         // this.state.setAlertMesssage("Message sent successfully!");
-        // window.location.href = "/Signup";
+        window.location.href = "/Signup";
       });
-  }
-}
+  };
 
   /* Verify OTP. If verification successful, do the following: 
   1. Create user in firebase authentication system
@@ -304,8 +302,8 @@ class Signup extends Component {
     var code = this.state.otpValue;
     var firstName = this.state.firstName;
     var lastName = this.state.lastName;
-    var email = this.state.email
-    var password = this.state.password
+    var email = this.state.email;
+    var password = this.state.password;
     var phone = this.state.phone;
     var image = this.state.image;
     var userType = this.state.teacherStudent;
@@ -326,7 +324,7 @@ class Signup extends Component {
             phone,
             image,
             userType
-          )
+          );
           // this.setState({ loader: false });
           window.location.href = "/";
         }
@@ -345,20 +343,21 @@ class Signup extends Component {
     await Firebase.auth()
       .createUserWithEmailAndPassword(email, password)
       .then((response) => {
-        this.setState({ createUserWithEmail: true})
+        return true;
       })
-      .catch((error) => {
+      .catch(function (error) {
         if (error.code === "auth/email-already-in-use") {
-          this.setState({ alertMessage: "Email address is already in use!" })
+          this.setState({ alertMessage: "Email address is already in use!" });
           console.log("That email address is already in use!");
         }
+
         if (error.code === "auth/invalid-email") {
-          // console.log("That email address is invalid!");
-          this.setState({ alertMessage: "Email  address is invalid!" });
+          console.log("That email address is invalid!");
+          // this.setState({ alertMessage: "Email  address is invalid!" });
         }
         this.setState({ loader: false });
-        this.setState({ setAlert: { open: true, color: "#FF3232" } });
-        // this.setState({ createUserWithEmail: false})
+      // this.setState({ setAlert: { open: true, color: "#FF3232" } });
+        return false;
         // }
         //   // if(error.code === "auth/email-already-in-use"){
         //   //   return error.code
@@ -453,29 +452,14 @@ class Signup extends Component {
     });
   };
 
- 
-
   /* Render sign up form */
   render() {
     const { classes } = this.props;
-
-    const buttonContents = (
-      <React.Fragment>
-        verifyOTP
-        <img
-          src="/assets/send.svg"
-          alt="paper airplane"
-          style={{ marginLeft: "1em" }}
-        />
-      </React.Fragment>
-    );
-    
-    return (
-    // return this.state.loader === true ? (
-    //   <div align="center">
-    //     <Loader type="ThreeDots" color="red" height={100} width={100} />
-    //   </div>
-    // ) : (
+    return this.state.loader === true ? (
+      <div align="center">
+        <Loader type="ThreeDots" color="red" height={100} width={100} />
+      </div>
+    ) : (
       <>
         <Grid container component="main" className={classes.root}>
           <CssBaseline />
@@ -700,7 +684,7 @@ class Signup extends Component {
                       variant="contained"
                       color="primary"
                     >
-                      {this.state.loader ? <CircularProgress size={30} /> : buttonContents}
+                      Verify OTP
                     </Button>
                   </Grid>
                 ) : null}
