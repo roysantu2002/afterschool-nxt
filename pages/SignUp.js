@@ -27,7 +27,8 @@ import IconButton from "@material-ui/core/IconButton";
 import CloseIcon from "@material-ui/icons/Close";
 import Alert from "@material-ui/lab/Alert";
 import CircularProgress from "@material-ui/core/CircularProgress";
-
+import CardMedia from "@material-ui/core/CardMedia";
+import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 
 const useStyles = (theme) => ({
   root: {
@@ -36,7 +37,7 @@ const useStyles = (theme) => ({
     marginBottom: theme.spacing(8),
   },
   paper: {
-    marginTop: theme.spacing(8),
+    marginTop: theme.spacing(1),
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
@@ -150,30 +151,20 @@ class Signup extends Component {
     if (this.state.phone.length !== 10) {
       phoneError = "10-digit phone number without +91";
     }
-
-    if (!this.state.image) {
-      imageError = "Please select an Avatar image";
-    }
-
-    if (this.state.image != null && this.state.image.size > 100000) {
-      imageError = "Please upload a picture less than 100kb size";
-    }
-
     if (
       firstNameError ||
       lastNameError ||
       emailError ||
       passwordError ||
-      phoneError ||
-      imageError
+      phoneError
     ) {
       this.setState({
         firstNameError,
         lastNameError,
         emailError,
         passwordError,
-        phoneError,
-        imageError,
+        phoneError
+    
       });
       return false;
     }
@@ -183,8 +174,8 @@ class Signup extends Component {
 
   /* Enable typing in text boxes */
   handleChange = (event) => {
-    let valid
-    let validOne
+    let valid;
+    let validOne;
     this.setState({
       [event.target.name]: event.target.value,
     });
@@ -226,16 +217,29 @@ class Signup extends Component {
         break;
 
       case "phone":
-        valid = /^[3-9]\d\d*$/.test(event.target.value) 
-        validOne = /^(\d)(?=(?:\d*\1){3})/.test(event.target.value)
+        function uniqueDigit(str) {
+          var a = 0;
+          for (var i = 0; i < 10; i++) {
+            new RegExp(i, "g").test(str) && a++;
+          }
+          return a;
+        }
+
+        // console.log(uniqueDigit(event.target.value))
+        valid = /^[3-9]\d\d*$/.test(event.target.value);
+        validOne = /^(\d)(?=(?:\d*\1){3})/.test(event.target.value);
         // valid = /^[7-9]\d{9}$/',$test) && !preg_match('/(\d)(?=(?:\d*\1){5})
         // valid = /^\d*$/.test(event.target.value);
-        console.log(validOne)
+        console.log(validOne);
         if (!event.target.value) {
           this.setState({ phoneError: "Phone cannot be empty" });
         }
-        if (event.target.value.length !== 10 || !valid) {
-          this.setState({ phoneError: "Invalid mobile number !! without +91" });
+        if (
+          event.target.value.length !== 10 ||
+          !valid ||
+          uniqueDigit(event.target.value) < 4
+        ) {
+          this.setState({ phoneError: "Invalid mobile number !!" });
         } else {
           this.setState({
             phoneError: "",
@@ -264,8 +268,8 @@ class Signup extends Component {
         lastNameError: "",
         emailError: "",
         passwordError: "",
-        phoneError: "",
-        imageError: "",
+        phoneError: ""
+  
       });
       this.handleSignUp(this);
     }
@@ -278,19 +282,18 @@ class Signup extends Component {
     var firstName = this.state.firstName;
     var lastName = this.state.lastName;
     var phone = this.state.phone;
-    var image = this.state.image;
     var userType = this.state.userType;
 
+    this.setState({ loader: true });
     await this.createUserInFirebase(email, password);
+
     if (this.state.createUserWithEmail) {
-      this.setState({ alertMessage: this.state.uid });
-      this.setState({ setAlert: { open: true } });
+      this.setState({ loader: false });
       await this.saveDetailsToDB(
         firstName,
         lastName,
         email,
         phone,
-        image,
         userType
       );
     }
@@ -420,7 +423,6 @@ class Signup extends Component {
     lastName,
     email,
     phone,
-    image,
     userType
   ) => {
     const Data = {
@@ -439,9 +441,11 @@ class Signup extends Component {
         .catch((error) => {
           //console.log(error.code)
           // this.setState({ setAlert: { open: true, color: "#FF3232" } });
-          this.setState({ alertMessage: error.code });
+          this.setState({
+            alertMessage: "Something went wrong, please try again!",
+          });
           this.setState({ setAlert: { open: true } });
-          window.location.href = "/Login";
+          // window.location.href = "/Login";
         });
     } else if (userType === "Teacher") {
       await Axios.post("/teachers.json", Data)
@@ -449,41 +453,44 @@ class Signup extends Component {
           window.location.href = "/Login";
         })
         .catch((error) => {
-          this.setState({ alertMessage: error.code });
+          this.setState({
+            alertMessage: "Something went wrong, please try again!",
+          });
           this.setState({ setAlert: { open: true } });
           // console.log(error.code)
           // this.setState({ setAlert: { open: true, color: "#FF3232" } });
           // this.setState({ alertMessage: error.code });
-          window.location.href = "/Login";
+          // window.location.href = "/Login";
         });
     }
 
     //Upload image
     // var imageName = email.replace("@", "_");
-    var imageName = this.state.uid;
-    console.log(this.state.uid);
-    const uploadTask = Firebase.storage()
-      .ref("avatars/" + imageName)
-      .put(image);
-    await sleep(4000);
-    uploadTask.on(
-      "state_changed",
-      (snapshot) => {
-        // window.location.href = "/Login"
-        //progrss function ....
-        //console.log("Image uploading...");
-      },
-      (error) => {
-        // this.setState({savetoDB: })
-        // error function ....
-        //console.log(error);
-        this.setState({ alertMessage: "Something went wrong!!" });
-      },
-      () => {
-        // this.setState({ savetoDB: true });
-        // complete function ....
-      }
-    );
+    // var imageName = this.state.uid;
+    // console.log(`imageName ${this.state.uid}`);
+    // const uploadTask = Firebase.storage()
+    //   .ref("avatars/" + imageName)
+    //   .put(image);
+    // await sleep(4000);
+    // uploadTask.on(
+    //   "state_changed",
+    //   (snapshot) => {
+
+    //     // window.location.href = "/Login"
+    //     //progrss function ....
+    //     console.log(snapshot);
+    //   },
+    //   (error) => {
+    //     // this.setState({savetoDB: })
+    //     // error function ....
+    //     console.log(error);
+    //     this.setState({ alertMessage: "Something went wrong!!" });
+    //   },
+    //   () => {
+    //     // this.setState({ savetoDB: true });
+    //     // complete function ....
+    //   }
+    // );
     // window.location.href = "/Login"
   };
 
@@ -517,7 +524,7 @@ class Signup extends Component {
 
     const buttonContents = (
       <React.Fragment>
-        verifyOTP
+        Sign Up with OTP
         <img
           src="/assets/send.svg"
           alt="paper airplane"
@@ -550,20 +557,14 @@ class Signup extends Component {
             square
           >
             <div className={classes.paper}>
-              {/* <Grid container justify="center" alignItems="center" spacing={5}> */}
-              <Grid container justify="center" alignItems="center" spacing={5}>
-                <div className={Styles.photoContainer}>
-                  <Avatar
-                    alt="Avatar"
-                    src={this.state.imageURL}
-                    onClick={this.handleAvatar}
-                    style={{ cursor: "pointer" }}
-                    className={classes.large}
-                  ></Avatar>
-                  {/* <AccountCircleIcon/> </Avatar> */}
-                </div>
-              </Grid>
-              <div style={{ fontSize: 12, color: "red" }}>
+              <Avatar className={classes.avatar}>
+                <LockOutlinedIcon />
+              </Avatar>
+              <Typography component="h1" variant="h5">
+                Sign up
+              </Typography>
+
+              <div style={{ fontSize: 12, color: "red", marginTop: 20 }}>
                 {this.state.imageError}
               </div>
               <form
@@ -728,7 +729,8 @@ class Signup extends Component {
                     className={classes.submit}
                     onClick={this.handleSubmit}
                   >
-                    Sign Up with OTP
+                    {buttonContents}
+                    {this.state.loader ? <CircularProgress size={30} /> : ""}
                   </Button>
                 ) : null}
                 <h3>{this.state.infoMessage} </h3>
