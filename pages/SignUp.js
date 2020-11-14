@@ -107,14 +107,13 @@ const initialState = {
   createUserWithEmail: false,
   savetoDB: false,
   numInputs: 6,
-  uid: ""
+  uid: "",
 };
 
 class Signup extends Component {
   state = initialState;
 
   componentDidMount() {
-    
     this.state.teacherStudent ? console.log("Teacher") : console.log("Student");
   }
   /* Basic validation on form */
@@ -148,7 +147,7 @@ class Signup extends Component {
       phoneError = "Phone cannot be empty";
     }
     if (this.state.phone.length !== 10) {
-      phoneError = "Please enter a valid 10-digit phone number";
+      phoneError = "10-digit phone number without +91";
     }
 
     if (!this.state.image) {
@@ -183,8 +182,7 @@ class Signup extends Component {
 
   /* Enable typing in text boxes */
   handleChange = (event) => {
-
-    console.log(`User Type ${this.state.userType}`)
+    console.log(`User Type ${this.state.userType}`);
     let valid;
     this.setState({
       [event.target.name]: event.target.value,
@@ -221,8 +219,18 @@ class Signup extends Component {
         break;
       case "teacherStudent":
         this.setState({ teacherStudent: event.target.checked });
-        this.state.teacherStudent ? this.setState({userType: "Student"})
-          : this.setState({userType: "Teacher"})
+        this.state.teacherStudent
+          ? this.setState({ userType: "Student" })
+          : this.setState({ userType: "Teacher" });
+        break;
+
+      case "phone":
+        if (!this.state.phone) {
+          this.setState({phoneError : "Phone cannot be empty"})
+        }
+        if (this.state.phone.length !== 10) {
+          this.setState({phoneError : "10-digit phone number without +91"})
+        }
         break;
       default:
         break;
@@ -257,70 +265,16 @@ class Signup extends Component {
   handleSignUp = async () => {
     var email = this.state.email;
     var password = this.state.password;
-    await this.createUserInFirebase(email, password);
-    if (this.state.createUserWithEmail) {
-      this.setState({ infoMessage: "Please wait..." });
-      window.recaptchaVerifier = new Firebase.auth.RecaptchaVerifier(
-        "sign-in-button",
-        {
-          size: "invisible",
-          callback: function (response) {
-            // Invisible recaptcha solved
-          },
-        }
-      );
-
-      var appVerifier = window.recaptchaVerifier;
-      let number = "+91" + this.state.phone;
-
-      Firebase.auth()
-        .signInWithPhoneNumber(number, appVerifier)
-        .then((res) => {
-          console.log(`tenantId ${res.user}`);
-          this.setState({ isOtpVisible: true, otpConfirmation: res });
-          this.setState({ infoMessage: "Enter the OTP..." });
-          let code = this.state.otpValue;
-          if (code == null) {
-            this.setState({ alertMessage: "Please try again later" });
-            this.setState({ setAlert: { open: true } });
-            // window.location.href = "/Signup";
-          }
-        })
-        .catch((error) => {
-          this.setState({ setAlert: { open: true, color: "#FFFFFF" } });
-          if (error.code === "auth/too-many-requests") {
-            this.setState({ alertMessage: "Too many requests!!" });
-            this.setState({ infoMessage: "Too many requests!!" });
-          } else {
-            this.setState({ alertMessage: error.code });
-            console.log(error)
-          }
-          this.setState({ setAlert: { open: true } });
-          // window.location.href = "/Signup";
-        });
-    }
-  };
-
-  /* Verify OTP. If verification successful, do the following: 
-  1. Create user in firebase authentication system
-  2. Save user details to firebase realtime DB
-  3. Save Avatar to firebase storage
-  4. Provide confirmation message and redirect to result page */
-  verifyOTP = () => {
-    var e = this.state.otpConfirmation;
-    var code = this.state.otpValue;
     var firstName = this.state.firstName;
     var lastName = this.state.lastName;
-    var email = this.state.email;
-    var password = this.state.password;
     var phone = this.state.phone;
     var image = this.state.image;
     var userType = this.state.userType;
 
-    this.setState({ loader: true });
-
-    e.confirm(code)
-    .then(async (result) => {
+    await this.createUserInFirebase(email, password);
+    if (this.state.createUserWithEmail) {
+      this.setState({ alertMessage: this.state.uid });
+      this.setState({ setAlert: { open: true } });
       await this.saveDetailsToDB(
         firstName,
         lastName,
@@ -329,31 +283,102 @@ class Signup extends Component {
         image,
         userType
       );
-    })
-      /* OTP verification successful. Can be redirected to next page */
-   
-   .catch((error) => {
-          if (error.code === "auth/code-expired") {
-            this.setState({ alertMessage: "Code Expired!" });
-            console.log("auth/code-expired");
-          }
-          if (error.code === "auth/invalid-verification-code") {
-            // console.log("That email address is invalid!");
-            this.setState({ alertMessage: "Invalid verification code!" });
-          } else this.setState({ alertMessage: "Something went wrong" });
-          // console.log(error);
-          // this.setState({alertMessage : error})
-          this.setState({ setAlert: { open: true } });
-          // window.location.href = "/signup";
-        });
-}
+    }
+    //   this.setState({ infoMessage: "Please wait..." });
+    //   window.recaptchaVerifier = new Firebase.auth.RecaptchaVerifier(
+    //     "sign-in-button",
+    //     {
+    //       size: "invisible",
+    //       callback: function (response) {
+    //         // Invisible recaptcha solved
+    //       },
+    //     }
+    //   );
+
+    //   var appVerifier = window.recaptchaVerifier;
+    //   let number = "+91" + this.state.phone;
+
+    //   Firebase.auth()
+    //     .signInWithPhoneNumber(number, appVerifier)
+    //     .then((res) => {
+    //       console.log(`tenantId ${res.user}`);
+    //       this.setState({ isOtpVisible: true, otpConfirmation: res });
+    //       this.setState({ infoMessage: "Enter the OTP..." });
+    //       let code = this.state.otpValue;
+    //       if (code == null) {
+    //         this.setState({ alertMessage: "Please try again later" });
+    //         this.setState({ setAlert: { open: true } });
+    //         // window.location.href = "/Signup";
+    //       }
+    //     })
+    //     .catch((error) => {
+    //       this.setState({ setAlert: { open: true, color: "#FFFFFF" } });
+    //       if (error.code === "auth/too-many-requests") {
+    //         this.setState({ alertMessage: "Too many requests!!" });
+    //         this.setState({ infoMessage: "Too many requests!!" });
+    //       } else {
+    //         this.setState({ alertMessage: error.code });
+    //         console.log(error)
+    //       }
+    //       this.setState({ setAlert: { open: true } });
+    //       // window.location.href = "/Signup";
+    //     });
+    // }
+  };
+
+  /* Verify OTP. If verification successful, do the following: 
+  1. Create user in firebase authentication system
+  2. Save user details to firebase realtime DB
+  3. Save Avatar to firebase storage
+  4. Provide confirmation message and redirect to result page */
+  // verifyOTP = () => {
+  //   var e = this.state.otpConfirmation;
+  //   var code = this.state.otpValue;
+  //   var firstName = this.state.firstName;
+  //   var lastName = this.state.lastName;
+  //   var email = this.state.email;
+  //   var password = this.state.password;
+  //   var phone = this.state.phone;
+  //   var image = this.state.image;
+  //   var userType = this.state.userType;
+
+  //   this.setState({ loader: true });
+
+  //   e.confirm(code)
+  //   .then(async (result) => {
+  //     await this.saveDetailsToDB(
+  //       firstName,
+  //       lastName,
+  //       email,
+  //       phone,
+  //       image,
+  //       userType
+  //     );
+  //   })
+  //     /* OTP verification successful. Can be redirected to next page */
+
+  //  .catch((error) => {
+  //         if (error.code === "auth/code-expired") {
+  //           this.setState({ alertMessage: "Code Expired!" });
+  //           console.log("auth/code-expired");
+  //         }
+  //         if (error.code === "auth/invalid-verification-code") {
+  //           // console.log("That email address is invalid!");
+  //           this.setState({ alertMessage: "Invalid verification code!" });
+  //         } else this.setState({ alertMessage: "Something went wrong" });
+  //         // console.log(error);
+  //         // this.setState({alertMessage : error})
+  //         this.setState({ setAlert: { open: true } });
+  //         // window.location.href = "/signup";
+  //       });
+
   /* Create user in firebase authentication system using email and password */
   createUserInFirebase = async (email, password) => {
     await Firebase.auth()
       .createUserWithEmailAndPassword(email, password)
-      .then(cred => {
+      .then((cred) => {
         this.setState({ uid: cred.user.uid });
-        console.log(`user id created ${cred.user.uid}`)
+        console.log(`user id created ${cred.user.uid}`);
         this.setState({ createUserWithEmail: true });
       })
       .catch((error) => {
@@ -389,6 +414,7 @@ class Signup extends Component {
     userType
   ) => {
     const Data = {
+      uid: this.state.uid,
       firstName: firstName,
       lastName: lastName,
       email: email,
@@ -397,31 +423,35 @@ class Signup extends Component {
     };
     if (userType === "Student") {
       await Axios.post("/students.json", Data)
-        .then((response) => {})
+        .then((response) => {
+          window.location.href = "/Login";
+        })
         .catch((error) => {
           //console.log(error.code)
           // this.setState({ setAlert: { open: true, color: "#FF3232" } });
           this.setState({ alertMessage: error.code });
-          this.setState({ setAlert: { open: true, } })
-          // window.location.href = "/Login"
+          this.setState({ setAlert: { open: true } });
+          window.location.href = "/Login";
         });
     } else if (userType === "Teacher") {
       await Axios.post("/teachers.json", Data)
-        .then((response) => {})
+        .then((response) => {
+          window.location.href = "/Login";
+        })
         .catch((error) => {
-          this.setState({ alertMessage: error.code })
-          this.setState({ setAlert: { open: true, } })
+          this.setState({ alertMessage: error.code });
+          this.setState({ setAlert: { open: true } });
           // console.log(error.code)
           // this.setState({ setAlert: { open: true, color: "#FF3232" } });
           // this.setState({ alertMessage: error.code });
-          // window.location.href = "/Login"
+          window.location.href = "/Login";
         });
     }
 
     //Upload image
-   // var imageName = email.replace("@", "_");
-    var imageName = this.state.uid
-    console.log(this.state.uid)
+    // var imageName = email.replace("@", "_");
+    var imageName = this.state.uid;
+    console.log(this.state.uid);
     const uploadTask = Firebase.storage()
       .ref("avatars/" + imageName)
       .put(image);
@@ -438,7 +468,6 @@ class Signup extends Component {
         // error function ....
         //console.log(error);
         this.setState({ alertMessage: "Something went wrong!!" });
-       
       },
       () => {
         // this.setState({ savetoDB: true });
@@ -446,7 +475,7 @@ class Signup extends Component {
       }
     );
     // window.location.href = "/Login"
-  }
+  };
 
   /* Handle image selection for Avatar */
   handleAvatar = () => {
@@ -716,7 +745,9 @@ class Signup extends Component {
                       onClick={this.verifyOTP}
                       variant="contained"
                       color="primary"
-                      disabled={this.state.otpValue.length < this.state.numInputs}
+                      disabled={
+                        this.state.otpValue.length < this.state.numInputs
+                      }
                     >
                       {buttonContents}
                       {this.state.loader ? <CircularProgress size={30} /> : ""}
