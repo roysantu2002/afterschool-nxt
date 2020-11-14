@@ -28,6 +28,7 @@ import CloseIcon from "@material-ui/icons/Close";
 import Alert from "@material-ui/lab/Alert";
 import CircularProgress from "@material-ui/core/CircularProgress";
 
+
 const useStyles = (theme) => ({
   root: {
     height: "90%",
@@ -182,8 +183,8 @@ class Signup extends Component {
 
   /* Enable typing in text boxes */
   handleChange = (event) => {
-    console.log(`User Type ${this.state.userType}`);
-    let valid;
+    let valid
+    let validOne
     this.setState({
       [event.target.name]: event.target.value,
     });
@@ -225,11 +226,20 @@ class Signup extends Component {
         break;
 
       case "phone":
-        if (!this.state.phone) {
-          this.setState({phoneError : "Phone cannot be empty"})
+        valid = /^[3-9]\d\d*$/.test(event.target.value) 
+        validOne = /^(\d)(?=(?:\d*\1){3})/.test(event.target.value)
+        // valid = /^[7-9]\d{9}$/',$test) && !preg_match('/(\d)(?=(?:\d*\1){5})
+        // valid = /^\d*$/.test(event.target.value);
+        console.log(validOne)
+        if (!event.target.value) {
+          this.setState({ phoneError: "Phone cannot be empty" });
         }
-        if (this.state.phone.length !== 10) {
-          this.setState({phoneError : "10-digit phone number without +91"})
+        if (event.target.value.length !== 10 || !valid) {
+          this.setState({ phoneError: "Invalid mobile number !! without +91" });
+        } else {
+          this.setState({
+            phoneError: "",
+          });
         }
         break;
       default:
@@ -633,11 +643,11 @@ class Signup extends Component {
                       variant="outlined"
                       required
                       fullWidth
+                      value={this.state.phone}
                       name="phone"
                       label="Mobile number (for OTP):"
                       type="phone"
                       id="phone"
-                      autoComplete="phone"
                       onChange={this.handleChange}
                     />
                     <div style={{ fontSize: 12, color: "red" }}>
