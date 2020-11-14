@@ -6,28 +6,14 @@ import TextField from "@material-ui/core/TextField";
 import Link from "next/link";
 import Grid from "@material-ui/core/Grid";
 import { withStyles } from "@material-ui/core/styles";
-import Container from "@material-ui/core/Container";
 import Firebase from "../src/utils/config/firebase";
 import Axios from "../src/utils/config/axiosConfig";
-import OtpInput from "react-otp-input";
-import Radio from "@material-ui/core/Radio";
-import RadioGroup from "@material-ui/core/RadioGroup";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
-import FormControl from "@material-ui/core/FormControl";
-import FormLabel from "@material-ui/core/FormLabel";
-import Loader from "@material-ui/core/CircularProgress";
 import Paper from "@material-ui/core/Paper";
-import Styles from "../src/utils/globalStyles";
-import { CenterFocusStrong } from "@material-ui/icons";
 import Switch from "@material-ui/core/Switch";
 import Typography from "../src/UI/Typography";
-import AccountCircleIcon from "@material-ui/icons/AccountCircle";
 import Snackbar from "@material-ui/core/Snackbar";
-import IconButton from "@material-ui/core/IconButton";
-import CloseIcon from "@material-ui/icons/Close";
 import Alert from "@material-ui/lab/Alert";
 import CircularProgress from "@material-ui/core/CircularProgress";
-import CardMedia from "@material-ui/core/CardMedia";
 import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 
 const useStyles = (theme) => ({
@@ -48,7 +34,7 @@ const useStyles = (theme) => ({
   },
   form: {
     alignItems: "center",
-    width: "100%",
+    width: "70%",
     marginTop: theme.spacing(5),
     marginBottom: theme.spacing(5),
     padding: 15,
@@ -110,6 +96,7 @@ const initialState = {
   savetoDB: false,
   numInputs: 6,
   uid: "",
+  buttonState: false
 };
 
 class Signup extends Component {
@@ -125,8 +112,7 @@ class Signup extends Component {
     let emailError = "";
     let passwordError = "";
     let phoneError = "";
-    let imageError = "";
-
+  
     if (!this.state.firstName) {
       firstNameError = "First name cannot be empty";
     }
@@ -206,6 +192,7 @@ class Signup extends Component {
         } else {
           this.setState({
             passwordError: "",
+            buttonState: true
           });
         }
         break;
@@ -224,12 +211,8 @@ class Signup extends Component {
           }
           return a;
         }
-
-        // console.log(uniqueDigit(event.target.value))
         valid = /^[3-9]\d\d*$/.test(event.target.value);
         validOne = /^(\d)(?=(?:\d*\1){3})/.test(event.target.value);
-        // valid = /^[7-9]\d{9}$/',$test) && !preg_match('/(\d)(?=(?:\d*\1){5})
-        // valid = /^\d*$/.test(event.target.value);
         console.log(validOne);
         if (!event.target.value) {
           this.setState({ phoneError: "Phone cannot be empty" });
@@ -249,10 +232,7 @@ class Signup extends Component {
       default:
         break;
     }
-    // if (firstNameError || lastNameError || emailError || passwordError || phoneError || imageError) {
-    //   this.setState({ firstNameError, lastNameError, emailError, passwordError, phoneError, imageError });
-    //   return false;
-    // }
+  
   };
 
   /* Handle OTP input */
@@ -261,6 +241,9 @@ class Signup extends Component {
   /* Handle Sign Up form submit */
   handleSubmit = (event) => {
     event.preventDefault();
+    this.setState({
+      buttonState: false
+    });
     const isValid = this.validateForm();
     if (isValid) {
       this.setState({
@@ -297,93 +280,7 @@ class Signup extends Component {
         userType
       );
     }
-    //   this.setState({ infoMessage: "Please wait..." });
-    //   window.recaptchaVerifier = new Firebase.auth.RecaptchaVerifier(
-    //     "sign-in-button",
-    //     {
-    //       size: "invisible",
-    //       callback: function (response) {
-    //         // Invisible recaptcha solved
-    //       },
-    //     }
-    //   );
-
-    //   var appVerifier = window.recaptchaVerifier;
-    //   let number = "+91" + this.state.phone;
-
-    //   Firebase.auth()
-    //     .signInWithPhoneNumber(number, appVerifier)
-    //     .then((res) => {
-    //       console.log(`tenantId ${res.user}`);
-    //       this.setState({ isOtpVisible: true, otpConfirmation: res });
-    //       this.setState({ infoMessage: "Enter the OTP..." });
-    //       let code = this.state.otpValue;
-    //       if (code == null) {
-    //         this.setState({ alertMessage: "Please try again later" });
-    //         this.setState({ setAlert: { open: true } });
-    //         // window.location.href = "/Signup";
-    //       }
-    //     })
-    //     .catch((error) => {
-    //       this.setState({ setAlert: { open: true, color: "#FFFFFF" } });
-    //       if (error.code === "auth/too-many-requests") {
-    //         this.setState({ alertMessage: "Too many requests!!" });
-    //         this.setState({ infoMessage: "Too many requests!!" });
-    //       } else {
-    //         this.setState({ alertMessage: error.code });
-    //         console.log(error)
-    //       }
-    //       this.setState({ setAlert: { open: true } });
-    //       // window.location.href = "/Signup";
-    //     });
-    // }
   };
-
-  /* Verify OTP. If verification successful, do the following: 
-  1. Create user in firebase authentication system
-  2. Save user details to firebase realtime DB
-  3. Save Avatar to firebase storage
-  4. Provide confirmation message and redirect to result page */
-  // verifyOTP = () => {
-  //   var e = this.state.otpConfirmation;
-  //   var code = this.state.otpValue;
-  //   var firstName = this.state.firstName;
-  //   var lastName = this.state.lastName;
-  //   var email = this.state.email;
-  //   var password = this.state.password;
-  //   var phone = this.state.phone;
-  //   var image = this.state.image;
-  //   var userType = this.state.userType;
-
-  //   this.setState({ loader: true });
-
-  //   e.confirm(code)
-  //   .then(async (result) => {
-  //     await this.saveDetailsToDB(
-  //       firstName,
-  //       lastName,
-  //       email,
-  //       phone,
-  //       image,
-  //       userType
-  //     );
-  //   })
-  //     /* OTP verification successful. Can be redirected to next page */
-
-  //  .catch((error) => {
-  //         if (error.code === "auth/code-expired") {
-  //           this.setState({ alertMessage: "Code Expired!" });
-  //           console.log("auth/code-expired");
-  //         }
-  //         if (error.code === "auth/invalid-verification-code") {
-  //           // console.log("That email address is invalid!");
-  //           this.setState({ alertMessage: "Invalid verification code!" });
-  //         } else this.setState({ alertMessage: "Something went wrong" });
-  //         // console.log(error);
-  //         // this.setState({alertMessage : error})
-  //         this.setState({ setAlert: { open: true } });
-  //         // window.location.href = "/signup";
-  //       });
 
   /* Create user in firebase authentication system using email and password */
   createUserInFirebase = async (email, password) => {
@@ -405,14 +302,6 @@ class Signup extends Component {
         }
         this.setState({ loader: false });
         this.setState({ setAlert: { open: true, color: "#FF3232" } });
-        // window.location.href = "/Signup"
-        // this.setState({ createUserWithEmail: false})
-        // }
-        //   // if(error.code === "auth/email-already-in-use"){
-        //   //   return error.code
-        //   }
-        // window.location.href = "/signup";
-        // return false;
       });
   };
 
@@ -439,8 +328,6 @@ class Signup extends Component {
           window.location.href = "/Login";
         })
         .catch((error) => {
-          //console.log(error.code)
-          // this.setState({ setAlert: { open: true, color: "#FF3232" } });
           this.setState({
             alertMessage: "Something went wrong, please try again!",
           });
@@ -457,41 +344,8 @@ class Signup extends Component {
             alertMessage: "Something went wrong, please try again!",
           });
           this.setState({ setAlert: { open: true } });
-          // console.log(error.code)
-          // this.setState({ setAlert: { open: true, color: "#FF3232" } });
-          // this.setState({ alertMessage: error.code });
-          // window.location.href = "/Login";
         });
     }
-
-    //Upload image
-    // var imageName = email.replace("@", "_");
-    // var imageName = this.state.uid;
-    // console.log(`imageName ${this.state.uid}`);
-    // const uploadTask = Firebase.storage()
-    //   .ref("avatars/" + imageName)
-    //   .put(image);
-    // await sleep(4000);
-    // uploadTask.on(
-    //   "state_changed",
-    //   (snapshot) => {
-
-    //     // window.location.href = "/Login"
-    //     //progrss function ....
-    //     console.log(snapshot);
-    //   },
-    //   (error) => {
-    //     // this.setState({savetoDB: })
-    //     // error function ....
-    //     console.log(error);
-    //     this.setState({ alertMessage: "Something went wrong!!" });
-    //   },
-    //   () => {
-    //     // this.setState({ savetoDB: true });
-    //     // complete function ....
-    //   }
-    // );
-    // window.location.href = "/Login"
   };
 
   /* Handle image selection for Avatar */
@@ -543,10 +397,6 @@ class Signup extends Component {
         <Grid container component="main" className={classes.root}>
           <CssBaseline />
           <Grid item xs={false} sm={4} md={7} className={classes.signupImage} />
-          {/* <Grid container direction="column" alignItems="center"></Grid>
-          <CssBaseline /> */}
-          {/* <Paper className={Styles.paper}>
-            <Grid container direction="column" alignItems="center"> */}
           <Grid
             item
             xs={12}
@@ -697,27 +547,6 @@ class Signup extends Component {
                       </Grid>
                     </Grid>
                   </Grid>
-                  {/* <FormControl component="fieldset">
-                  <FormLabel component="legend">User Type</FormLabel>
-                  <RadioGroup
-                    aria-label="User Type"
-                    name="userType"
-                    value={this.state.radioValue}
-                    onChange={this.handleRadioButtonChange}
-                  > */}
-
-                  {/* <FormControlLabel
-                      value="teacher"
-                      control={<Radio />}
-                      label="Teacher"
-                    />
-                    <FormControlLabel
-                      value="student"
-                      control={<Radio />}
-                      label="Student"
-                    />
-                  </RadioGroup> */}
-                  {/* </FormControl> */}
                 </Grid>
                 {/* </Grid> */}
                 {!this.state.isOtpVisible ? (
@@ -726,46 +555,16 @@ class Signup extends Component {
                     fullWidth
                     variant="contained"
                     color="primary"
+                    disabled={!this.state.buttonState}
                     className={classes.submit}
                     onClick={this.handleSubmit}
+
                   >
                     {buttonContents}
                     {this.state.loader ? <CircularProgress size={30} /> : ""}
                   </Button>
                 ) : null}
                 <h3>{this.state.infoMessage} </h3>
-                {this.state.isOtpVisible ? (
-                  <Grid container justify="center">
-                    <OtpInput
-                      value={this.state.otpValue}
-                      onChange={this.handleOtpChange}
-                      numInputs={this.state.numInputs}
-                      otpType="number"
-                      disabled={!this.state.isOtpVisible}
-                      hasErrored={this.state.IsOtpError}
-                      separator={<span>-</span>}
-                      inputStyle={{
-                        width: "2rem",
-                        height: "2rem",
-                        margin: "20px 1rem",
-                        fontSize: "1.5rem",
-                        borderRadius: 3,
-                        border: "2px solid rgba(0,0,0,0.2)",
-                      }}
-                    />
-                    <Button
-                      onClick={this.verifyOTP}
-                      variant="contained"
-                      color="primary"
-                      disabled={
-                        this.state.otpValue.length < this.state.numInputs
-                      }
-                    >
-                      {buttonContents}
-                      {this.state.loader ? <CircularProgress size={30} /> : ""}
-                    </Button>
-                  </Grid>
-                ) : null}
                 <div id="sign-in-button"></div>
                 <Grid container justify="flex-end">
                   <Grid item>
