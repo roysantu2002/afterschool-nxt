@@ -89,83 +89,77 @@ const initialState = {
   infoMessage: "",
   loader: false,
   userType: "Student",
-  teacherStudent: true,
+  teacherStudent: false,
   setAlert: { open: false, color: "" },
   alertMessage: "",
   createUserWithEmail: false,
   savetoDB: false,
   numInputs: 6,
   uid: "",
-  buttonState: false
+  buttonState: false,
 };
 
 class Signup extends Component {
   state = initialState;
 
   componentDidMount() {
-    this.state.teacherStudent ? console.log("Teacher") : console.log("Student");
+    this.state.teacherStudent ? console.log("Student") : console.log("Teacher");
   }
   /* Basic validation on form */
   validateForm = () => {
-    let firstNameError = "";
-    let lastNameError = "";
-    let emailError = "";
-    let passwordError = "";
-    let phoneError = "";
-  
-    if (!this.state.firstName) {
-      firstNameError = "First name cannot be empty";
-    }
-    if (!this.state.lastName) {
-      lastNameError = "Last name cannot be empty";
-    }
-    if (!this.state.email) {
-      emailError = "Email cannot be empty";
-    }
-    if (!this.state.email.includes("@")) {
-      emailError = "Please enter valid email address";
-    }
-    if (!this.state.password) {
-      passwordError = "Password cannot be empty";
-    }
-    if (this.state.password.length < 6) {
-      passwordError = "Password not strong";
-    }
-    if (!this.state.phone) {
-      phoneError = "Phone cannot be empty";
-    }
-    if (this.state.phone.length !== 10) {
-      phoneError = "10-digit phone number without +91";
-    }
-    if (
-      firstNameError ||
-      lastNameError ||
-      emailError ||
-      passwordError ||
-      phoneError
-    ) {
-      this.setState({
-        firstNameError,
-        lastNameError,
-        emailError,
-        passwordError,
-        phoneError
-    
-      });
+    const firstNameError = this.state.firstNameError;
+    const lastNameError = this.state.lastNameError;
+    const emailError = this.state.emailError;
+    const passwordError = this.state.passwordError;
+
+    console.log(
+      `error ${firstNameError} ${lastNameError} ${emailError} ${passwordError}`
+    );
+    if (emailError === "" && passwordError === "") {
+      return true;
+    } else {
       return false;
     }
-
-    return true;
   };
 
   /* Enable typing in text boxes */
   handleChange = (event) => {
     let valid;
-    let validOne;
+    let validOne, validfName, validlName;
+
+    console.log(this.validateForm());
+
     this.setState({
       [event.target.name]: event.target.value,
     });
+
     switch (event.target.name) {
+      case "firstName":
+        validfName = /^[a-zA-Z]*$/.test(event.target.value);
+        if (!validfName || event.target.value.length < 2) {
+          this.setState({
+            firstNameError: "First Name!!",
+          });
+        } else {
+          this.setState({
+            firstNameError: "",
+          });
+        }
+        break;
+
+      case "lastName":
+        validlName = /^[a-zA-Z]*$/.test(event.target.value);
+        if (!validlName || event.target.value.length < 2) {
+          this.setState({
+            lastNameError: "Last Name!!",
+          });
+        } else {
+          this.setState({
+            lastNameError: "",
+          });
+        }
+        break;
+
       case "email":
         valid = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(
           event.target.value
@@ -192,15 +186,16 @@ class Signup extends Component {
         } else {
           this.setState({
             passwordError: "",
-            buttonState: true
           });
         }
         break;
       case "teacherStudent":
+        console.log(this.state.teacherStudent);
         this.setState({ teacherStudent: event.target.checked });
-        this.state.teacherStudent
-          ? this.setState({ userType: "Student" })
-          : this.setState({ userType: "Teacher" });
+        if (this.state.teacherStudent) {
+          this.setState({ userType: "Student" });
+        } else this.setState({ userType: "Teacher" });
+        console.log(this.state.userType);
         break;
 
       case "phone":
@@ -227,12 +222,15 @@ class Signup extends Component {
           this.setState({
             phoneError: "",
           });
+          this.validateForm()
+            ? this.setState({ buttonState: true })
+            : this.setState({ buttonState: false });
         }
+
         break;
       default:
         break;
     }
-  
   };
 
   /* Handle OTP input */
@@ -241,9 +239,13 @@ class Signup extends Component {
   /* Handle Sign Up form submit */
   handleSubmit = (event) => {
     event.preventDefault();
-    this.setState({
-      buttonState: false
-    });
+    const phoneError = this.state.phoneError;
+
+    if (phoneError !== "") {
+      this.setState({
+        buttonState: false,
+      });
+    }
     const isValid = this.validateForm();
     if (isValid) {
       this.setState({
@@ -251,8 +253,7 @@ class Signup extends Component {
         lastNameError: "",
         emailError: "",
         passwordError: "",
-        phoneError: ""
-  
+        phoneError: "",
       });
       this.handleSignUp(this);
     }
@@ -272,13 +273,7 @@ class Signup extends Component {
 
     if (this.state.createUserWithEmail) {
       this.setState({ loader: false });
-      await this.saveDetailsToDB(
-        firstName,
-        lastName,
-        email,
-        phone,
-        userType
-      );
+      await this.saveDetailsToDB(firstName, lastName, email, phone, userType);
     }
   };
 
@@ -307,13 +302,7 @@ class Signup extends Component {
 
   /* Save user details to firebase realtime DB using Axios POST
   and Avatar image to firebase storage */
-  saveDetailsToDB = async (
-    firstName,
-    lastName,
-    email,
-    phone,
-    userType
-  ) => {
+  saveDetailsToDB = async (firstName, lastName, email, phone, userType) => {
     const Data = {
       uid: this.state.uid,
       firstName: firstName,
@@ -323,7 +312,7 @@ class Signup extends Component {
       userType: userType,
     };
     if (userType === "Student") {
-      await Axios.post("/students.json", Data)
+      await Axios.post(`/students/${this.state.uid}.json`, Data)
         .then((response) => {
           window.location.href = "/Login";
         })
@@ -335,7 +324,7 @@ class Signup extends Component {
           // window.location.href = "/Login";
         });
     } else if (userType === "Teacher") {
-      await Axios.post("/teachers.json", Data)
+      await Axios.post(`/teachers/${this.state.uid}`, Data)
         .then((response) => {
           window.location.href = "/Login";
         })
@@ -558,7 +547,6 @@ class Signup extends Component {
                     disabled={!this.state.buttonState}
                     className={classes.submit}
                     onClick={this.handleSubmit}
-
                   >
                     {buttonContents}
                     {this.state.loader ? <CircularProgress size={30} /> : ""}
