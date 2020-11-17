@@ -18,7 +18,6 @@ import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 
 import * as getDataApi from "../src/utils/getDataApi";
 
-
 const useStyles = (theme) => ({
   root: {
     height: "90%",
@@ -91,7 +90,7 @@ const initialState = {
   imageError: "",
   infoMessage: "",
   loader: false,
-  userType: "Teacher",
+  userType: "Student",
   teacherStudent: false,
   setAlert: { open: false, color: "" },
   alertMessage: "",
@@ -106,31 +105,28 @@ class Signup extends Component {
   state = initialState;
 
   componentDidMount() {
-    this.state.teacherStudent ? console.log("Student") : console.log("Teacher");
+    // this.state.teacherStudent ? this.setState({ userType: "Teacher" }) : this.setState({ userType: "Student" }) 
+    // console.log(`at mount : ${this.state.userType}`) 
   }
   /* Basic validation on form */
   validateForm = () => {
-    const firstNameError = this.state.firstNameError;
-    const lastNameError = this.state.lastNameError;
+   
     const emailError = this.state.emailError;
     const passwordError = this.state.passwordError;
 
-    console.log(
-      `error ${firstNameError} ${lastNameError} ${emailError} ${passwordError}`
-    );
     if (emailError === "" && passwordError === "") {
       return true;
     } else {
       return false;
     }
-  };
+  }
 
   /* Enable typing in text boxes */
   handleChange = (event) => {
     let valid;
     let validOne, validfName, validlName;
 
-    console.log(this.validateForm());
+    // console.log(this.validateForm());
 
     this.setState({
       [event.target.name]: event.target.value,
@@ -192,13 +188,29 @@ class Signup extends Component {
           });
         }
         break;
-      case "teacherStudent":
-        console.log(this.state.teacherStudent);
-        this.setState({ teacherStudent: event.target.checked });
-        if (this.state.teacherStudent) {
-          this.setState({ userType: "Student" });
-        } else this.setState({ userType: "Teacher" });
-        console.log(this.state.userType);
+      case "teacherStudent": 
+
+      // this.setState(prevState => ({
+      //  if()
+      // }));
+
+      // const tF = event.target.checked
+      console.log(`on change Switch: ${event.target.checked}`)
+      this.setState({ teacherStudent: event.target.checked }) 
+      console.log(this.state.teacherStudent)
+      // // this.setState({ teacherStudent: event.target.checked })
+      // // console.log(this.state.teacherStudent )
+
+      // // this.setState({ teacherStudent: tF }) 
+      // console.log(`teacherStudent: ${this.state.teacherStudent}`)
+      this.state.teacherStudent ? this.setState({ userType: "Teacher" }) : this.setState({ userType: "Student" }) 
+      //   // setState({ this.state.teacherStudent: event.target.checked })
+      //   // this.setState({ teacherStudent :  event.target.checked })
+
+      //   // if (this.state.teacherStudent) {
+      //   //   this.setState({ userType: "Student" });
+      //   // } else this.setState({ userType: "Teacher" });
+      //   console.log(`UserType ${this.state.userType}`);
         break;
 
       case "phone":
@@ -211,7 +223,7 @@ class Signup extends Component {
         }
         valid = /^[3-9]\d\d*$/.test(event.target.value);
         validOne = /^(\d)(?=(?:\d*\1){3})/.test(event.target.value);
-        console.log(validOne);
+        // console.log(validOne);
         if (!event.target.value) {
           this.setState({ phoneError: "Phone cannot be empty" });
         }
@@ -242,11 +254,10 @@ class Signup extends Component {
   /* Handle Sign Up form submit */
   handleSubmit = (event) => {
     event.preventDefault();
-    const phoneError = this.state.phoneError;
+    const phoneError = this.state.phoneError
     if (phoneError !== "") {
-     return false
+      return false;
     }
-    
     const isValid = this.validateForm();
     if (isValid) {
       this.setState({
@@ -267,14 +278,16 @@ class Signup extends Component {
     var firstName = this.state.firstName;
     var lastName = this.state.lastName;
     var phone = this.state.phone;
-    var userType = this.state.userType;
 
+    // this.state.teacherStudent ? this.setState({ userType: "Student" }) : this.setState({ userType: "Teacher" }) 
+
+    console.log(`handleSignup : ${this.state.userType}`)
     this.setState({ loader: true });
     await this.createUserInFirebase(email, password);
 
     if (this.state.createUserWithEmail) {
       this.setState({ loader: false });
-      await this.saveDetailsToDB(firstName, lastName, email, phone, userType);
+      await this.saveDetailsToDB(firstName, lastName, email, phone);
     }
   };
 
@@ -284,13 +297,13 @@ class Signup extends Component {
       .createUserWithEmailAndPassword(email, password)
       .then((cred) => {
         this.setState({ uid: cred.user.uid });
-        console.log(`user id created ${cred.user.uid}`);
+        // console.log(`user id created ${cred.user.uid}`);
         this.setState({ createUserWithEmail: true });
       })
       .catch((error) => {
         if (error.code === "auth/email-already-in-use") {
           this.setState({ alertMessage: "Email address is already in use!" });
-          console.log("That email address is already in use!");
+          // console.log("That email address is already in use!");
         }
         if (error.code === "auth/invalid-email") {
           // console.log("That email address is invalid!");
@@ -303,32 +316,55 @@ class Signup extends Component {
 
   /* Save user details to firebase realtime DB using Axios POST
   and Avatar image to firebase storage */
-  saveDetailsToDB = async (firstName, lastName, email, phone, userType) => {
+  saveDetailsToDB = async (firstName, lastName, email, phone) => {
     const Data = {
       uid: this.state.uid,
       firstName: firstName,
       lastName: lastName,
       email: email,
       phone: phone,
-      userType: userType,
+     
     };
-    console.log(`saveDetailsToDB ${userType}`)
-    if (userType === "Student") {
-      await Axios.post(`/students/${this.state.uid}.json`, Data)
-        .then((response) => {
-          // window.location.href = "/Login";
-        })
-        .catch((error) => {
-          this.setState({
-            alertMessage: "Something went wrong, please try again!",
-          });
-          this.setState({ setAlert: { open: true } });
-          // window.location.href = "/Login";
+    console.log(`saveDetailsToDB ${this.state.userType}`);
+    if (this.state.userType === "Student") {
+      getDataApi
+        .saveStudent(this.state.uid, firstName, lastName, email, phone)
+        .then((querySnapshot) => {
+          if (querySnapshot === "Done") {
+          } else {
+            this.setState({
+              alertMessage: querySnapshot,
+            });
+            this.setState({ setAlert: { open: true } })
+            this.setState({ buttonState: false })
+          }
+          console.log(querySnapshot);
         });
-    } else if (userType === "Teacher") {
-      getDataApi.saveTeacher(this.state.uid, firstName, lastName, email, phone).then((querySnapshot) => {
-        console.log(querySnapshot)
-      })
+      // await Axios.post(`/students/${this.state.uid}.json`, Data)
+      //   .then((response) => {
+      //     // window.location.href = "/Login";
+      //   })
+      //   .catch((error) => {
+      //     this.setState({
+      //       alertMessage: "Something went wrong, please try again!",
+      //     });
+      //     this.setState({ setAlert: { open: true } });
+      //     // window.location.href = "/Login";
+      //   });
+    } if(this.state.userType === "Teacher") {
+      getDataApi
+        .saveTeacher(this.state.uid, firstName, lastName, email, phone)
+        .then((querySnapshot) => {
+          if (querySnapshot === "Done") {
+          } else {
+            this.setState({
+              alertMessage: querySnapshot,
+            });
+            this.setState({ setAlert: { open: true } })
+            this.setState({ buttonState: false })
+          }
+          console.log(querySnapshot);
+        });
       // await Axios.post(`/teachers/${this.state.uid}`, Data)
       //   .then((response) => {
       //     window.location.href = "/Login";
@@ -519,7 +555,6 @@ class Signup extends Component {
                             checked={this.state.teacherStudent}
                             onChange={this.handleChange}
                             name="teacherStudent"
-                            defaultChecked
                             color="default"
                             inputProps={{
                               "aria-label": "checkbox with default color",

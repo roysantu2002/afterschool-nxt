@@ -8,9 +8,27 @@ import randomstring from "randomstring";
 // // const firestore = firebase.firestore();
 const Firestore = Firebase.firestore();
 
+// Save Student
+export const saveStudent = async (uid, firstName, lastName, email, phone) => {
+  console.log(`saveStudent ${uid}`)
+  const db = Firestore.collection("students")
+  const refPhone = await db.where("phone", "==", phone).get()
+  let phoneList = []
+  refPhone.forEach(doc => {
+    if(doc)
+    phoneList.push(doc.data())
+  })
+  if(phoneList.length < 1){
+    return db
+            .doc(uid)
+            .set({ firstName: firstName, lastName: lastName, email : email, phone: phone, date: Date.now() })
+            .then((querySnapshot) => "Done")
+      .catch((querySnapshot) => "Mobile/Email")
+    }else{return "Mobile/Email Exists"}
+}
 
+//Save Teacher
 export const saveTeacher = async (uid, firstName, lastName, email, phone) => {
-
   console.log(`saveTeacher ${uid}`)
   const db = Firestore.collection("teachers")
   const refPhone = await db.where("phone", "==", phone).get()
@@ -24,10 +42,11 @@ export const saveTeacher = async (uid, firstName, lastName, email, phone) => {
             .doc(uid)
             .set({ firstName: firstName, lastName: lastName, email : email, phone: phone, date: Date.now() })
             .then((querySnapshot) => "Done")
-      .catch((querySnapshot) => "Email Exists")
-    }else{return "Mobile Exists"}
-  
+      .catch((querySnapshot) => "Mobile/Email")
+    }else{return "Mobile/Email Exists"}
 }
+
+
 export const getInquiry = async (email) => {
  const db = Firestore.collection("inquiry")
   const refInquiry = await db.where("email", "==", email).get()
