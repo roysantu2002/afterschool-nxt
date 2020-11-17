@@ -16,6 +16,9 @@ import Alert from "@material-ui/lab/Alert";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 
+import * as getDataApi from "../src/utils/getDataApi";
+
+
 const useStyles = (theme) => ({
   root: {
     height: "90%",
@@ -88,7 +91,7 @@ const initialState = {
   imageError: "",
   infoMessage: "",
   loader: false,
-  userType: "Student",
+  userType: "Teacher",
   teacherStudent: false,
   setAlert: { open: false, color: "" },
   alertMessage: "",
@@ -240,12 +243,10 @@ class Signup extends Component {
   handleSubmit = (event) => {
     event.preventDefault();
     const phoneError = this.state.phoneError;
-
     if (phoneError !== "") {
-      this.setState({
-        buttonState: false,
-      });
+     return false
     }
+    
     const isValid = this.validateForm();
     if (isValid) {
       this.setState({
@@ -311,10 +312,11 @@ class Signup extends Component {
       phone: phone,
       userType: userType,
     };
+    console.log(`saveDetailsToDB ${userType}`)
     if (userType === "Student") {
       await Axios.post(`/students/${this.state.uid}.json`, Data)
         .then((response) => {
-          window.location.href = "/Login";
+          // window.location.href = "/Login";
         })
         .catch((error) => {
           this.setState({
@@ -324,16 +326,19 @@ class Signup extends Component {
           // window.location.href = "/Login";
         });
     } else if (userType === "Teacher") {
-      await Axios.post(`/teachers/${this.state.uid}`, Data)
-        .then((response) => {
-          window.location.href = "/Login";
-        })
-        .catch((error) => {
-          this.setState({
-            alertMessage: "Something went wrong, please try again!",
-          });
-          this.setState({ setAlert: { open: true } });
-        });
+      getDataApi.saveTeacher(this.state.uid, firstName, lastName, email, phone).then((querySnapshot) => {
+        console.log(querySnapshot)
+      })
+      // await Axios.post(`/teachers/${this.state.uid}`, Data)
+      //   .then((response) => {
+      //     window.location.href = "/Login";
+      //   })
+      //   .catch((error) => {
+      //     this.setState({
+      //       alertMessage: "Something went wrong, please try again!",
+      //     });
+      //     this.setState({ setAlert: { open: true } });
+      //   });
     }
   };
 

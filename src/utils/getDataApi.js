@@ -8,11 +8,32 @@ import randomstring from "randomstring";
 // // const firestore = firebase.firestore();
 const Firestore = Firebase.firestore();
 
+
+export const saveTeacher = async (uid, firstName, lastName, email, phone) => {
+
+  console.log(`saveTeacher ${uid}`)
+  const db = Firestore.collection("teachers")
+  const refPhone = await db.where("phone", "==", phone).get()
+  let phoneList = []
+  refPhone.forEach(doc => {
+    if(doc)
+    phoneList.push(doc.data())
+  })
+  if(phoneList.length < 1){
+    return db
+            .doc(uid)
+            .set({ firstName: firstName, lastName: lastName, email : email, phone: phone, date: Date.now() })
+            .then((querySnapshot) => "Done")
+      .catch((querySnapshot) => "Email Exists")
+    }else{return "Mobile Exists"}
+  
+}
 export const getInquiry = async (email) => {
  const db = Firestore.collection("inquiry")
   const refInquiry = await db.where("email", "==", email).get()
   const refToken = await db.where("token", "!=", "").get()
 
+  
   let doList = []
   let tokenValue = ""
 
@@ -30,7 +51,7 @@ export const getInquiry = async (email) => {
 
   // const doc = refInquiry.data
   // console.log(tokenList.token)
-  let querySnapshot = "Email Exists,"+""
+  let querySnapshot = "Email Exists,+"
   
   if(doList.length < 1){
   return db
