@@ -16,6 +16,8 @@ import { createStore} from "redux";
 import middleware from "../src/middleware";
 import reducer from "../src/reducers";
 import { Provider } from "react-redux";
+import "./styles.scss";
+
 // import FirebaseProvider from './firebase/firebase'
 
 // require('dotenv').config()

@@ -15,8 +15,8 @@ import Snackbar from "@material-ui/core/Snackbar";
 import Alert from "@material-ui/lab/Alert";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
-
 import * as getDataApi from "../src/utils/getDataApi";
+
 
 const useStyles = (theme) => ({
   root: {
@@ -40,7 +40,7 @@ const useStyles = (theme) => ({
     marginTop: theme.spacing(5),
     marginBottom: theme.spacing(5),
     padding: 15,
-  },
+    boxShadow: 2 },
   submit: {
     margin: theme.spacing(3, 0, 2),
   },
@@ -68,6 +68,8 @@ const useStyles = (theme) => ({
     backgroundSize: "cover",
     backgroundPosition: "center",
   },
+
+  linkText : {textdecoration: "none"}
 });
 
 const initialState = {
@@ -99,6 +101,7 @@ const initialState = {
   numInputs: 6,
   uid: "",
   buttonState: false,
+  isLogginActive: true
 };
 
 class Signup extends Component {
@@ -408,7 +411,7 @@ class Signup extends Component {
 
     const buttonContents = (
       <React.Fragment>
-        Sign Up with OTP
+        Sign Up
         <img
           src="/assets/send.svg"
           alt="paper airplane"
@@ -437,10 +440,11 @@ class Signup extends Component {
             square
           >
             <div className={classes.paper}>
-              <Avatar className={classes.avatar}>
-                <LockOutlinedIcon />
-              </Avatar>
-              <Typography component="h1" variant="h5">
+              <div className="image">
+                  <img src="/assets/loginSignup.svg"  alt=""/>
+                </div>
+               
+              <Typography component="h1" variant="h4">
                 Sign up
               </Typography>
 
@@ -596,7 +600,7 @@ class Signup extends Component {
                 <div id="sign-in-button"></div>
                 <Grid container justify="flex-end">
                   <Grid item>
-                    <Link href="/SignIn" variant="body2">
+                    <Link href="/SignIn" variant="body2" className={classes.linkText}>
                       Already have an account? Sign in
                     </Link>
                   </Grid>

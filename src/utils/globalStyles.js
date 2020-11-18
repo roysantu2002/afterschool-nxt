@@ -65,7 +65,10 @@ const globalStyles = (theme) => ({
   },
   heading: {
     fontWeight: "bold"
-  }
+  },
+  linkText : {textTransform: "none", textdecoration: "none"}
+  
+
 
 });
 
