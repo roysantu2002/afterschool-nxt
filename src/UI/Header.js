@@ -309,7 +309,7 @@ export default function Header(props) {
       <Button
         component={Link}
         color="white"
-        href='/Login'
+        href='/LoginRegister'
         variant='outlined'
         className={classes.btn_login}
       >
@@ -473,7 +473,7 @@ export default function Header(props) {
               root: classes.drawerItemLogin,
               selected: classes.drawerItemSelected,
             }}
-            href='/SignIn'
+            href='/LoginRegister'
             selected={props.value === 4}
           >
             <ListItemText

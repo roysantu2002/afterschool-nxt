@@ -10,7 +10,7 @@ import Firebase from "../src/utils/config/firebase";
 import Axios from "../src/utils/config/axiosConfig";
 import Paper from "@material-ui/core/Paper";
 import Switch from "@material-ui/core/Switch";
-import Typography from "../src/UI/Typography";
+import Typography from '@material-ui/core/Typography';
 import Snackbar from "@material-ui/core/Snackbar";
 import Alert from "@material-ui/lab/Alert";
 import CircularProgress from "@material-ui/core/CircularProgress";
@@ -104,8 +104,11 @@ const initialState = {
   isLogginActive: true
 };
 
-class Signup extends Component {
-  state = initialState;
+class Login extends Component {
+  constructor(props) {
+    super()
+    this.state = initialState;
+  }
 
   componentDidMount() {
     // this.state.teacherStudent ? this.setState({ userType: "Teacher" }) : this.setState({ userType: "Student" }) 
@@ -411,7 +414,7 @@ class Signup extends Component {
 
     const buttonContents = (
       <React.Fragment>
-        Sign Up
+       Login
         <img
           src="/assets/send.svg"
           alt="paper airplane"
@@ -427,18 +430,9 @@ class Signup extends Component {
       //   </div>
       // ) : (
       <>
-        <Grid container component="main" className={classes.root}>
-          <CssBaseline />
-          <Grid item xs={false} sm={4} md={7} className={classes.signupImage} />
-          <Grid
-            item
-            xs={12}
-            sm={8}
-            md={5}
-            component={Paper}
-            elevation={6}
-            square
-          >
+       {/* <div className="base-container" ref={this.props.containerRef}> */}
+      
+         
             <div className={classes.paper}>
             
               <div className="image">
@@ -446,7 +440,7 @@ class Signup extends Component {
                 </div>
                
               <Typography component="h1" variant="h4">
-              <div className="header">Sign Up</div>
+              <div className="header">Login</div>
               </Typography>
 
               <div style={{ fontSize: 12, color: "red", marginTop: 20 }}>
@@ -458,39 +452,7 @@ class Signup extends Component {
                 noValidate
               >
                 <Grid container spacing={2}>
-                  <Grid item xs={12} sm={6}>
-                    <TextField
-                      autoComplete="fname"
-                      name="firstName"
-                      variant="outlined"
-                      required
-                      fullWidth
-                      id="firstName"
-                      label="First Name"
-                      value={this.state.firstName}
-                      autoFocus
-                      onChange={this.handleChange.bind(this)}
-                    />
-                    <div style={{ fontSize: 12, color: "red" }}>
-                      {this.state.firstNameError}
-                    </div>
-                  </Grid>
-                  <Grid item xs={12} sm={6}>
-                    <TextField
-                      variant="outlined"
-                      required
-                      fullWidth
-                      id="lastName"
-                      label="Last Name"
-                      value={this.state.lastName}
-                      name="lastName"
-                      autoComplete="lname"
-                      onChange={this.handleChange}
-                    />
-                    <div style={{ fontSize: 12, color: "red" }}>
-                      {this.state.lastNameError}
-                    </div>
-                  </Grid>
+               
                   <Grid item xs={12}>
                     <TextField
                       variant="outlined"
@@ -522,69 +484,7 @@ class Signup extends Component {
                     />
                     <div style={{ fontSize: 12, color: "red" }}>
                       {this.state.passwordError}
-                    </div>
-                  </Grid>
-                  <Grid item xs={12}>
-                    <TextField
-                      variant="outlined"
-                      required
-                      fullWidth
-                      value={this.state.phone}
-                      name="phone"
-                      label="Mobile number (for OTP):"
-                      type="phone"
-                      id="phone"
-                      onChange={this.handleChange}
-                    />
-                    <div style={{ fontSize: 12, color: "red" }}>
-                      {this.state.phoneError}
-                    </div>
-                  </Grid>
-                  <Grid container className={classes.root} spacing={2}>
-                    <Grid item xs={12}>
-                      <Grid container justify="center" spacing={2}>
-                        {/* <Paper className={classes.paper}> */}
-                        <div className={classes.teacher}>
-                          <Grid key="teacher" item>
-                            <Typography
-                              component="h3"
-                              variant="h6"
-                              color="inherit"
-                            >
-                              Teacher
-                            </Typography>
-                          </Grid>
-                        </div>
-                        <Grid key="switch" item>
-                          <Switch
-                            checked={this.state.teacherStudent}
-                            onChange={this.handleChange}
-                            name="teacherStudent"
-                            color="default"
-                            inputProps={{
-                              "aria-label": "checkbox with default color",
-                            }}
-                          />
-                        </Grid>
-                        <div className={classes.teacher}>
-                          <Grid key="student" item>
-                            <Typography
-                              component="h3"
-                              variant="h6"
-                              color="inherit"
-                            >
-                              Student
-                            </Typography>
-                          </Grid>
-                        </div>
-                        {/* </Paper> */}
-                      </Grid>
-                    </Grid>
-                  </Grid>
-                </Grid>
-                {/* </Grid> */}
-                {!this.state.isOtpVisible ? (
-                  <Button
+                      <Button
                     id="sign-up-button"
                     fullWidth
                     variant="contained"
@@ -596,7 +496,9 @@ class Signup extends Component {
                     {buttonContents}
                     {this.state.loader ? <CircularProgress size={30} /> : ""}
                   </Button>
-                ) : null}
+                    </div>
+                  </Grid>
+                </Grid>
                 <h3>{this.state.infoMessage} </h3>
                 <div id="sign-in-button"></div>
                 <Grid container justify="flex-end">
@@ -605,11 +507,7 @@ class Signup extends Component {
                       Already have an account? Sign in
                     </Link>
                   </Grid>
-                </Grid>
-              </form>
-            </div>
-          </Grid>
-          <Snackbar
+                  <Snackbar
             autoHideDuration={8000}
             open={this.state.setAlert.open}
             anchorOrigin={{ vertical: "top", horizontal: "center" }}
@@ -617,16 +515,14 @@ class Signup extends Component {
           >
             <Alert severity="error">{this.state.alertMessage}</Alert>
           </Snackbar>
-        </Grid>
+                </Grid>
+              </form>
+            </div>
+
       </>
     );
   }
 }
 
-/* Sleep function to wait for Avatar image upload */
-function sleep(ms) {
-  console.log("Waiting for image upload");
-  return new Promise((resolve) => setTimeout(resolve, ms));
-}
 
-export default withStyles(useStyles, { withTheme: true })(Signup);
+export default withStyles(useStyles, { withTheme: true })(Login);

@@ -6,16 +6,16 @@ import TextField from "@material-ui/core/TextField";
 import Link from "next/link";
 import Grid from "@material-ui/core/Grid";
 import { withStyles } from "@material-ui/core/styles";
-import Firebase from "../src/utils/config/firebase";
-import Axios from "../src/utils/config/axiosConfig";
+import Firebase from "../../../../src/utils/config/firebase";
+import Axios from "../../../../src/utils/config/axiosConfig";
 import Paper from "@material-ui/core/Paper";
 import Switch from "@material-ui/core/Switch";
-import Typography from "../src/UI/Typography";
+import Typography from "../../../../src/UI/Typography";
 import Snackbar from "@material-ui/core/Snackbar";
 import Alert from "@material-ui/lab/Alert";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
-import * as getDataApi from "../src/utils/getDataApi";
+import * as getDataApi from "../../../../src/utils/getDataApi";
 
 
 const useStyles = (theme) => ({
@@ -104,8 +104,12 @@ const initialState = {
   isLogginActive: true
 };
 
-class Signup extends Component {
-  state = initialState;
+class Register extends Component {
+  constructor(props) {
+    super()
+    this.state = initialState;
+  }
+
 
   componentDidMount() {
     // this.state.teacherStudent ? this.setState({ userType: "Teacher" }) : this.setState({ userType: "Student" }) 
@@ -427,7 +431,8 @@ class Signup extends Component {
       //   </div>
       // ) : (
       <>
-        <Grid container component="main" className={classes.root}>
+    
+        <Grid container component="main" className={classes.root} ref={this.props.containerRef}>
           <CssBaseline />
           <Grid item xs={false} sm={4} md={7} className={classes.signupImage} />
           <Grid
@@ -439,8 +444,9 @@ class Signup extends Component {
             elevation={6}
             square
           >
-            <div className={classes.paper}>
-            
+            {/* <div className={classes.paper}> */}
+            <div className='form'>
+
               <div className="image">
                   <img src="/assets/loginSignup.svg"  alt=""/>
                 </div>
@@ -618,6 +624,7 @@ class Signup extends Component {
             <Alert severity="error">{this.state.alertMessage}</Alert>
           </Snackbar>
         </Grid>
+
       </>
     );
   }
@@ -629,4 +636,4 @@ function sleep(ms) {
   return new Promise((resolve) => setTimeout(resolve, ms));
 }
 
-export default withStyles(useStyles, { withTheme: true })(Signup);
+export default withStyles(useStyles, { withTheme: true })(Register);

@@ -6,16 +6,16 @@ import TextField from "@material-ui/core/TextField";
 import Link from "next/link";
 import Grid from "@material-ui/core/Grid";
 import { withStyles } from "@material-ui/core/styles";
-import Firebase from "../src/utils/config/firebase";
-import Axios from "../src/utils/config/axiosConfig";
+import Firebase from "../../../../src/utils/config/firebase";
+import Axios from "../../../../src/utils/config/axiosConfig";
 import Paper from "@material-ui/core/Paper";
 import Switch from "@material-ui/core/Switch";
-import Typography from "../src/UI/Typography";
+import Typography from '@material-ui/core/Typography';
 import Snackbar from "@material-ui/core/Snackbar";
 import Alert from "@material-ui/lab/Alert";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
-import * as getDataApi from "../src/utils/getDataApi";
+import * as getDataApi from "../../../../src/utils/getDataApi";
 
 
 const useStyles = (theme) => ({
@@ -104,7 +104,8 @@ const initialState = {
   isLogginActive: true
 };
 
-class Signup extends Component {
+class Login extends Component {
+
   state = initialState;
 
   componentDidMount() {
@@ -446,7 +447,7 @@ class Signup extends Component {
                 </div>
                
               <Typography component="h1" variant="h4">
-              <div className="header">Sign Up</div>
+              <div className="header">Login</div>
               </Typography>
 
               <div style={{ fontSize: 12, color: "red", marginTop: 20 }}>
@@ -623,10 +624,5 @@ class Signup extends Component {
   }
 }
 
-/* Sleep function to wait for Avatar image upload */
-function sleep(ms) {
-  console.log("Waiting for image upload");
-  return new Promise((resolve) => setTimeout(resolve, ms));
-}
 
-export default withStyles(useStyles, { withTheme: true })(Signup);
+export default withStyles(useStyles, { withTheme: true })(Login);
