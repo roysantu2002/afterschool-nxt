@@ -1,11 +1,11 @@
-import React from "react"
-import  Login  from "../src/UI/Components/login/Login"
-import Register from "../src/UI/Components/login/Register"
+import React from "react";
+import Login from "../src/UI/Components/login/Login";
+import Register from "../src/UI/Components/login/Register";
 import Grid from "@material-ui/core/Grid";
 import Paper from "@material-ui/core/Paper";
 import { withStyles } from "@material-ui/core/styles";
 import CssBaseline from "@material-ui/core/CssBaseline";
-import Typography from '@material-ui/core/Typography';
+import Typography from "@material-ui/core/Typography";
 import TextField from "@material-ui/core/TextField";
 import Link from "next/link";
 import Button from "@material-ui/core/Button";
@@ -33,7 +33,8 @@ const useStyles = (theme) => ({
     marginTop: theme.spacing(5),
     marginBottom: theme.spacing(5),
     padding: 15,
-    boxShadow: 2 },
+    boxShadow: 2,
+  },
   submit: {
     margin: theme.spacing(3, 0, 2),
   },
@@ -62,94 +63,97 @@ const useStyles = (theme) => ({
     backgroundPosition: "center",
   },
 
-  linkText : {textdecoration: "none"}
+  linkText: { textdecoration: "none" },
 });
 
-
 class LoginRegister extends React.Component {
-    constructor(props) {
-      super()
-      this.state = {
-        isLogginActive: false
-      };
-    }
-  
-    componentDidMount() {
-      //Add .right by default
+  constructor(props) {
+    super();
+    this.state = {
+      isLogginActive: true,
+    };
+  }
+
+  componentDidMount() {
+    //Add .right by default
+    // this.rightSide.classList.add("right");
+  }
+
+  changeState() {
+    const { isLogginActive } = this.state;
+
+    if (isLogginActive) {
+      this.rightSide.classList.remove("right");
+      this.rightSide.classList.add("left");
+    } else {
+      this.rightSide.classList.remove("left");
       this.rightSide.classList.add("right");
     }
-  
-    changeState() {
-      const { isLogginActive } = this.state;
-  
-      if (isLogginActive) {
-        this.rightSide.classList.remove("right");
-        this.rightSide.classList.add("left");
-      } else {
-        this.rightSide.classList.remove("left");
-        this.rightSide.classList.add("right");
-      }
-      this.setState(prevState => ({ isLogginActive: !prevState.isLogginActive }));
-    }
-  
-    render() {
-      const { classes } = this.props;
-      const { isLogginActive } = this.state;
-      const current = isLogginActive ? "Register" : "Login";
-      const currentActive = isLogginActive ? "login" : "register";
-      return (
-       
-        <Grid container component="main" className={classes.root} ref={this.props.containerRef}>
-          <CssBaseline />
-         
-          <Grid item xs={false} sm={4} md={7} className={classes.signupImage} />
-          <Grid
+    this.setState((prevState) => ({
+      isLogginActive: !prevState.isLogginActive,
+    }));
+  }
+
+  render() {
+    const { classes } = this.props;
+    const { isLogginActive } = this.state;
+    const current = isLogginActive ? "Register" : "Login";
+    const currentActive = isLogginActive ? "login" : "register";
+    return (
+      <Grid
+        container
+        component="main"
+        className={classes.root}
+        ref={this.props.containerRef}
+      >
+        <CssBaseline />
+
+        <Grid item xs={false} sm={4} md={7} className={classes.signupImage} />
+        <Grid
             item
             xs={12}
             sm={8}
             md={5}
             component={Paper}
             elevation={6}
-            square
-          >
-            <div className="App">
-        <div className="login">
-          <div className="container" ref={ref => (this.container = ref)}>
-            {isLogginActive && (
-              <Login containerRef={ref => (this.current = ref)} />
-            )}
-            {!isLogginActive && (
-              <Register containerRef={ref => (this.current = ref)} />
-            )}
-          </div>
-          <RightSide
-            current={current}
-            currentActive={currentActive}
-            containerRef={ref => (this.rightSide = ref)}
-            onClick={this.changeState.bind(this)}
-          />
-        </div>
-      </div>
-         </Grid>
-        </Grid>
+            square>
+            <div className={classes.paper}>
 
-      );
-    }
-  }
-  
-  const RightSide = props => {
-    return (
-      <div
-        className="right-side"
-        ref={props.containerRef}
-        onClick={props.onClick}
-      >
-        <div className="inner-container">
-          <div className="text">{props.current}</div>
-        </div>
-      </div>
+      
+            <div className="container" ref={(ref) => (this.container = ref)}>
+              {isLogginActive && (
+                <Login containerRef={(ref) => (this.current = ref)} />
+              )}
+              {!isLogginActive && (
+                <Register containerRef={(ref) => (this.current = ref)} />
+              )}
+            </div>
+            {/* <RightSide
+              current={current}
+              currentActive={currentActive}
+              containerRef={(ref) => (this.rightSide = ref)}
+              onClick={this.changeState.bind(this)}
+            /> */}
+          </div>
+     
+        </Grid>
+      </Grid>
     );
-  };
-  
+  }
+}
+
+const RightSide = (props) => {
+  return (
+    <div
+      className="right-side"
+      ref={props.containerRef}
+      onClick={props.onClick}
+    >
+      <div className="inner-container">
+        <div className="text">{props.current}</div>
+      </div>
+    </div>
+  );
+};
 
 export default withStyles(useStyles, { withTheme: true })(LoginRegister);

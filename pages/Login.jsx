@@ -346,17 +346,7 @@ class Login extends Component {
           }
           console.log(querySnapshot);
         });
-      // await Axios.post(`/students/${this.state.uid}.json`, Data)
-      //   .then((response) => {
-      //     // window.location.href = "/Login";
-      //   })
-      //   .catch((error) => {
-      //     this.setState({
-      //       alertMessage: "Something went wrong, please try again!",
-      //     });
-      //     this.setState({ setAlert: { open: true } });
-      //     // window.location.href = "/Login";
-      //   });
+
     } if(this.state.userType === "Teacher") {
       getDataApi
         .saveTeacher(this.state.uid, firstName, lastName, email, phone)
@@ -371,16 +361,7 @@ class Login extends Component {
           }
           console.log(querySnapshot);
         });
-      // await Axios.post(`/teachers/${this.state.uid}`, Data)
-      //   .then((response) => {
-      //     window.location.href = "/Login";
-      //   })
-      //   .catch((error) => {
-      //     this.setState({
-      //       alertMessage: "Something went wrong, please try again!",
-      //     });
-      //     this.setState({ setAlert: { open: true } });
-      //   });
+     
     }
   };
 
@@ -424,16 +405,9 @@ class Login extends Component {
     );
 
     return (
-      // return this.state.loader === true ? (
-      //   <div align="center">
-      //     <Loader type="ThreeDots" color="red" height={100} width={100} />
-      //   </div>
-      // ) : (
+   
       <>
-       {/* <div className="base-container" ref={this.props.containerRef}> */}
-      
-         
-            <div className={classes.paper}>
+              <div className='form'>
             
               <div className="image">
                   <img src="/assets/loginSignup.svg"  alt=""/>
@@ -507,6 +481,9 @@ class Login extends Component {
                       Already have an account? Sign in
                     </Link>
                   </Grid>
+                  </Grid>
+                  </form>
+            </div>
                   <Snackbar
             autoHideDuration={8000}
             open={this.state.setAlert.open}
@@ -515,9 +492,9 @@ class Login extends Component {
           >
             <Alert severity="error">{this.state.alertMessage}</Alert>
           </Snackbar>
-                </Grid>
-              </form>
-            </div>
+               
+               
+            
 
       </>
     );

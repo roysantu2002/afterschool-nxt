@@ -428,27 +428,10 @@ class Login extends Component {
       //   </div>
       // ) : (
       <>
-        <Grid container component="main" className={classes.root}>
-          <CssBaseline />
-          <Grid item xs={false} sm={4} md={7} className={classes.signupImage} />
-          <Grid
-            item
-            xs={12}
-            sm={8}
-            md={5}
-            component={Paper}
-            elevation={6}
-            square
-          >
-            <div className={classes.paper}>
-            
-              <div className="image">
-                  <img src="/assets/loginSignup.svg"  alt=""/>
-                </div>
-               
-              <Typography component="h1" variant="h4">
-              <div className="header">Login</div>
-              </Typography>
+
+<div className="base-container" ref={this.props.containerRef}>
+        <div className="header">Login</div>
+        <div className="content">
 
               <div style={{ fontSize: 12, color: "red", marginTop: 20 }}>
                 {this.state.imageError}
@@ -459,39 +442,8 @@ class Login extends Component {
                 noValidate
               >
                 <Grid container spacing={2}>
-                  <Grid item xs={12} sm={6}>
-                    <TextField
-                      autoComplete="fname"
-                      name="firstName"
-                      variant="outlined"
-                      required
-                      fullWidth
-                      id="firstName"
-                      label="First Name"
-                      value={this.state.firstName}
-                      autoFocus
-                      onChange={this.handleChange.bind(this)}
-                    />
-                    <div style={{ fontSize: 12, color: "red" }}>
-                      {this.state.firstNameError}
-                    </div>
-                  </Grid>
-                  <Grid item xs={12} sm={6}>
-                    <TextField
-                      variant="outlined"
-                      required
-                      fullWidth
-                      id="lastName"
-                      label="Last Name"
-                      value={this.state.lastName}
-                      name="lastName"
-                      autoComplete="lname"
-                      onChange={this.handleChange}
-                    />
-                    <div style={{ fontSize: 12, color: "red" }}>
-                      {this.state.lastNameError}
-                    </div>
-                  </Grid>
+               
+            
                   <Grid item xs={12}>
                     <TextField
                       variant="outlined"
@@ -525,63 +477,7 @@ class Login extends Component {
                       {this.state.passwordError}
                     </div>
                   </Grid>
-                  <Grid item xs={12}>
-                    <TextField
-                      variant="outlined"
-                      required
-                      fullWidth
-                      value={this.state.phone}
-                      name="phone"
-                      label="Mobile number (for OTP):"
-                      type="phone"
-                      id="phone"
-                      onChange={this.handleChange}
-                    />
-                    <div style={{ fontSize: 12, color: "red" }}>
-                      {this.state.phoneError}
-                    </div>
-                  </Grid>
-                  <Grid container className={classes.root} spacing={2}>
-                    <Grid item xs={12}>
-                      <Grid container justify="center" spacing={2}>
-                        {/* <Paper className={classes.paper}> */}
-                        <div className={classes.teacher}>
-                          <Grid key="teacher" item>
-                            <Typography
-                              component="h3"
-                              variant="h6"
-                              color="inherit"
-                            >
-                              Teacher
-                            </Typography>
-                          </Grid>
-                        </div>
-                        <Grid key="switch" item>
-                          <Switch
-                            checked={this.state.teacherStudent}
-                            onChange={this.handleChange}
-                            name="teacherStudent"
-                            color="default"
-                            inputProps={{
-                              "aria-label": "checkbox with default color",
-                            }}
-                          />
-                        </Grid>
-                        <div className={classes.teacher}>
-                          <Grid key="student" item>
-                            <Typography
-                              component="h3"
-                              variant="h6"
-                              color="inherit"
-                            >
-                              Student
-                            </Typography>
-                          </Grid>
-                        </div>
-                        {/* </Paper> */}
-                      </Grid>
-                    </Grid>
-                  </Grid>
+            
                 </Grid>
                 {/* </Grid> */}
                 {!this.state.isOtpVisible ? (
@@ -609,7 +505,9 @@ class Login extends Component {
                 </Grid>
               </form>
             </div>
-          </Grid>
+          </div>
+        
+
           <Snackbar
             autoHideDuration={8000}
             open={this.state.setAlert.open}
@@ -618,7 +516,7 @@ class Login extends Component {
           >
             <Alert severity="error">{this.state.alertMessage}</Alert>
           </Snackbar>
-        </Grid>
+      
       </>
     );
   }

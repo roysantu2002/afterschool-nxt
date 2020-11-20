@@ -17,7 +17,6 @@ import CircularProgress from "@material-ui/core/CircularProgress";
 import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import * as getDataApi from "../../../../src/utils/getDataApi";
 
-
 const useStyles = (theme) => ({
   root: {
     height: "90%",
@@ -36,11 +35,12 @@ const useStyles = (theme) => ({
   },
   form: {
     alignItems: "center",
-    width: "70%",
+    width: "90%",
     marginTop: theme.spacing(5),
     marginBottom: theme.spacing(5),
     padding: 15,
-    boxShadow: 2 },
+    boxShadow: 2,
+  },
   submit: {
     margin: theme.spacing(3, 0, 2),
   },
@@ -69,7 +69,7 @@ const useStyles = (theme) => ({
     backgroundPosition: "center",
   },
 
-  linkText : {textdecoration: "none"}
+  linkText: { textdecoration: "none" },
 });
 
 const initialState = {
@@ -101,23 +101,21 @@ const initialState = {
   numInputs: 6,
   uid: "",
   buttonState: false,
-  isLogginActive: true
+  isLogginActive: true,
 };
 
 class Register extends Component {
   constructor(props) {
-    super()
+    super();
     this.state = initialState;
   }
 
-
   componentDidMount() {
-    // this.state.teacherStudent ? this.setState({ userType: "Teacher" }) : this.setState({ userType: "Student" }) 
-    // console.log(`at mount : ${this.state.userType}`) 
+    // this.state.teacherStudent ? this.setState({ userType: "Teacher" }) : this.setState({ userType: "Student" })
+    // console.log(`at mount : ${this.state.userType}`)
   }
   /* Basic validation on form */
   validateForm = () => {
-   
     const emailError = this.state.emailError;
     const passwordError = this.state.passwordError;
 
@@ -126,7 +124,7 @@ class Register extends Component {
     } else {
       return false;
     }
-  }
+  };
 
   /* Enable typing in text boxes */
   handleChange = (event) => {
@@ -195,29 +193,30 @@ class Register extends Component {
           });
         }
         break;
-      case "teacherStudent": 
+      case "teacherStudent":
+        // this.setState(prevState => ({
+        //  if()
+        // }));
 
-      // this.setState(prevState => ({
-      //  if()
-      // }));
+        // const tF = event.target.checked
+        console.log(`on change Switch: ${event.target.checked}`);
+        this.setState({ teacherStudent: event.target.checked });
+        console.log(this.state.teacherStudent);
+        // // this.setState({ teacherStudent: event.target.checked })
+        // // console.log(this.state.teacherStudent )
 
-      // const tF = event.target.checked
-      console.log(`on change Switch: ${event.target.checked}`)
-      this.setState({ teacherStudent: event.target.checked }) 
-      console.log(this.state.teacherStudent)
-      // // this.setState({ teacherStudent: event.target.checked })
-      // // console.log(this.state.teacherStudent )
+        // // this.setState({ teacherStudent: tF })
+        // console.log(`teacherStudent: ${this.state.teacherStudent}`)
+        this.state.teacherStudent
+          ? this.setState({ userType: "Teacher" })
+          : this.setState({ userType: "Student" });
+        //   // setState({ this.state.teacherStudent: event.target.checked })
+        //   // this.setState({ teacherStudent :  event.target.checked })
 
-      // // this.setState({ teacherStudent: tF }) 
-      // console.log(`teacherStudent: ${this.state.teacherStudent}`)
-      this.state.teacherStudent ? this.setState({ userType: "Teacher" }) : this.setState({ userType: "Student" }) 
-      //   // setState({ this.state.teacherStudent: event.target.checked })
-      //   // this.setState({ teacherStudent :  event.target.checked })
-
-      //   // if (this.state.teacherStudent) {
-      //   //   this.setState({ userType: "Student" });
-      //   // } else this.setState({ userType: "Teacher" });
-      //   console.log(`UserType ${this.state.userType}`);
+        //   // if (this.state.teacherStudent) {
+        //   //   this.setState({ userType: "Student" });
+        //   // } else this.setState({ userType: "Teacher" });
+        //   console.log(`UserType ${this.state.userType}`);
         break;
 
       case "phone":
@@ -261,7 +260,7 @@ class Register extends Component {
   /* Handle Sign Up form submit */
   handleSubmit = (event) => {
     event.preventDefault();
-    const phoneError = this.state.phoneError
+    const phoneError = this.state.phoneError;
     if (phoneError !== "") {
       return false;
     }
@@ -286,9 +285,9 @@ class Register extends Component {
     var lastName = this.state.lastName;
     var phone = this.state.phone;
 
-    // this.state.teacherStudent ? this.setState({ userType: "Student" }) : this.setState({ userType: "Teacher" }) 
+    // this.state.teacherStudent ? this.setState({ userType: "Student" }) : this.setState({ userType: "Teacher" })
 
-    console.log(`handleSignup : ${this.state.userType}`)
+    console.log(`handleSignup : ${this.state.userType}`);
     this.setState({ loader: true });
     await this.createUserInFirebase(email, password);
 
@@ -330,7 +329,6 @@ class Register extends Component {
       lastName: lastName,
       email: email,
       phone: phone,
-     
     };
     console.log(`saveDetailsToDB ${this.state.userType}`);
     if (this.state.userType === "Student") {
@@ -342,8 +340,8 @@ class Register extends Component {
             this.setState({
               alertMessage: querySnapshot,
             });
-            this.setState({ setAlert: { open: true } })
-            this.setState({ buttonState: false })
+            this.setState({ setAlert: { open: true } });
+            this.setState({ buttonState: false });
           }
           console.log(querySnapshot);
         });
@@ -358,7 +356,8 @@ class Register extends Component {
       //     this.setState({ setAlert: { open: true } });
       //     // window.location.href = "/Login";
       //   });
-    } if(this.state.userType === "Teacher") {
+    }
+    if (this.state.userType === "Teacher") {
       getDataApi
         .saveTeacher(this.state.uid, firstName, lastName, email, phone)
         .then((querySnapshot) => {
@@ -367,8 +366,8 @@ class Register extends Component {
             this.setState({
               alertMessage: querySnapshot,
             });
-            this.setState({ setAlert: { open: true } })
-            this.setState({ buttonState: false })
+            this.setState({ setAlert: { open: true } });
+            this.setState({ buttonState: false });
           }
           console.log(querySnapshot);
         });
@@ -425,39 +424,13 @@ class Register extends Component {
     );
 
     return (
-      // return this.state.loader === true ? (
-      //   <div align="center">
-      //     <Loader type="ThreeDots" color="red" height={100} width={100} />
-      //   </div>
-      // ) : (
       <>
-    
-        <Grid container component="main" className={classes.root} ref={this.props.containerRef}>
-          <CssBaseline />
-          <Grid item xs={false} sm={4} md={7} className={classes.signupImage} />
-          <Grid
-            item
-            xs={12}
-            sm={8}
-            md={5}
-            component={Paper}
-            elevation={6}
-            square
-          >
-            {/* <div className={classes.paper}> */}
-            <div className='form'>
-
-              <div className="image">
-                  <img src="/assets/loginSignup.svg"  alt=""/>
-                </div>
-               
-              <Typography component="h1" variant="h4">
-              <div className="header">Sign Up</div>
-              </Typography>
-
-              <div style={{ fontSize: 12, color: "red", marginTop: 20 }}>
-                {this.state.imageError}
-              </div>
+       <div className="base-container" ref={this.props.containerRef}>
+        <div className="header">Login</div>
+        <div className="content">
+ 
+              <div className="header">Register</div>
+         
               <form
                 className={classes.form}
                 onSubmit={this.handleSubmit}
@@ -589,42 +562,44 @@ class Register extends Component {
                   </Grid>
                 </Grid>
                 {/* </Grid> */}
-                {!this.state.isOtpVisible ? (
-                  <Button
-                    id="sign-up-button"
-                    fullWidth
-                    variant="contained"
-                    color="primary"
-                    disabled={!this.state.buttonState}
-                    className={classes.submit}
-                    onClick={this.handleSubmit}
-                  >
-                    {buttonContents}
-                    {this.state.loader ? <CircularProgress size={30} /> : ""}
-                  </Button>
-                ) : null}
+
+                <Button
+                  id="sign-up-button"
+                  fullWidth
+                  variant="contained"
+                  color="primary"
+                  disabled={!this.state.buttonState}
+                  className={classes.submit}
+                  onClick={this.handleSubmit}
+                >
+                  {buttonContents}
+                  {this.state.loader ? <CircularProgress size={30} /> : ""}
+                </Button>
+
                 <h3>{this.state.infoMessage} </h3>
                 <div id="sign-in-button"></div>
                 <Grid container justify="flex-end">
                   <Grid item>
-                    <Link href="/SignIn" variant="body2" className={classes.linkText}>
+                    <Link
+                      href="/SignIn"
+                      variant="body2"
+                      className={classes.linkText}
+                    >
                       Already have an account? Sign in
                     </Link>
                   </Grid>
                 </Grid>
               </form>
             </div>
-          </Grid>
-          <Snackbar
-            autoHideDuration={8000}
-            open={this.state.setAlert.open}
-            anchorOrigin={{ vertical: "top", horizontal: "center" }}
-            onClose={() => this.setState({ setAlert: false })}
-          >
-            <Alert severity="error">{this.state.alertMessage}</Alert>
-          </Snackbar>
-        </Grid>
-
+            </div>
+        <Snackbar
+          autoHideDuration={8000}
+          open={this.state.setAlert.open}
+          anchorOrigin={{ vertical: "top", horizontal: "center" }}
+          onClose={() => this.setState({ setAlert: false })}
+        >
+          <Alert severity="error">{this.state.alertMessage}</Alert>
+        </Snackbar>
       </>
     );
   }

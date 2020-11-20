@@ -475,8 +475,7 @@ class Signup extends Component {
             md={5}
             component={Paper}
             elevation={6}
-            square
-          >
+            square>
             <div className={classes.paper}>
               {/* <Grid container justify="center" alignItems="center" spacing={5}> */}
               <Grid container justify="center" alignItems="center" spacing={5}>
